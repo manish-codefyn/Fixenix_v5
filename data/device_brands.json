@@ -1,0 +1,32 @@
+{
+    "Laptop": [
+      "Apple", "Dell", "HP", "Lenovo", "Asus", "Acer", "MSI", "Samsung", "Microsoft",
+      "Razer", "Alienware", "Toshiba", "LG", "Sony", "Fujitsu", "Panasonic",
+      "Chromebook", "Google", "Gigabyte", "Xiaomi", "VAIO", "Clevo", "Sager", "Eurocom",
+      "System76", "Origin PC", "Notebook", "Chuwi", "Infinix", "Avita", "Dynabook", "Others"
+    ],
+    "Mobile": [
+      "Apple", "Samsung", "OnePlus", "Xiaomi","Realme", "Oppo", "Vivo", "Huawei",
+      "Google", "Motorola", "Nokia", "Sony", "Asus", "LG", "Micromax", "Infinix", "Tecno",
+      "Lava", "iQOO", "ZTE", "Honor", "Meizu", "BlackBerry", "HTC", "Lenovo", "Poco", "Nothing",
+      "Fairphone", "TCL", "Alcatel", "Gionee", "Coolpad", "BLU", "Sharp", "Panasonic", "Others"
+    ],
+    "Desktop": [
+      "Apple", "Dell", "HP", "Lenovo", "Asus", "Acer", "MSI", "Samsung", "Alienware", "Microsoft",
+      "Razer", "IBM", "Fujitsu", "Toshiba", "Sony", "Panasonic", "Intel NUC", "Origin PC",
+      "CyberPowerPC", "iBUYPOWER", "Corsair", "Gigabyte", "Thermaltake", "NZXT", "Maingear",
+      "System76", "Zotac", "Falcon Northwest", "ViewSonic", "Eizo", "Others"
+    ],
+    "Tablet": [
+      "Apple", "Samsung", "Microsoft", "Lenovo", "Huawei", "Amazon", "Google", "Asus", "Acer",
+      "Dell", "Sony", "HP", "Xiaomi", "Realme", "Oppo", "Vivo", "Nokia", "TCL", "LG", "Honor",
+      "Chuwi", "Alldocube", "Teclast", "Panasonic", "Blackview", "Microsoft Surface", "Archos",
+      "ZTE", "Infinix", "Motorola", "Nothing", "Others"
+    ],
+   "Others": [
+  "Others"
+
+]
+
+  }
+  

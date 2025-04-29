@@ -1,0 +1,15 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+
+<h1>Our Services</h1>
+{% for service in services %}
+<div>
+    <h2>{{ service.name }}</h2>
+    <p>{{ service.description }}</p>
+    <p>Base Price: ₹{{ service.base_price }}</p>
+    <p>Offer Price: ₹{{ service.offer_price|default:"No Offer" }}</p>
+    <p>Rating: {{ service.average_rating|default:"No Ratings Yet" }}</p>
+    <a href="{% url 'service_detail' service.id %}">View Details</a>
+</div>
+{% endfor %}
+{% endblock %}

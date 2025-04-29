@@ -1,0 +1,121 @@
+{% extends 'layouts/base_dash.html' %}
+{% block content %}
+<main class="main-content">
+  <div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center border-bottom bg-light py-2">
+      <h1 class="h4 ms-2">{{ pagename }}</h1>
+      <div class="btn-toolbar mb-2 me-2">
+        <div class="btn-group">
+          <a href="{% url 'invoice_list' %}" class="btn btn-warning">
+            <i class="bi bi-arrow-left"></i> Back
+          </a>
+          <a href="{% url 'invoice_pdf' inv.id %}" class="btn btn-success">
+            <i class="bi bi-download"></i> Download PDF
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card box-lg mt-3">
+      <div class="invoice-box p-4">
+        <table class="w-100" cellpadding="0" cellspacing="0">
+          <tr>
+            <td>
+              <h2 class="text-center">{{ doc_name }}</h2>
+              {% for app in app_data %}
+                <img src="{{ app.app_logo.url }}" alt="Logo" style="height:50px;">
+                <p><b>Mobile:</b> {{ mobile }} | <b>Email:</b> {{ email }} | <b>Web:</b> {{ app.domain_name }}</p>
+                <p><b>Address:</b> {{ app.app_address }}</p>
+              {% endfor %}
+            </td>
+            <td class="text-end">
+              {% if qr_code_img_obj %}
+                <img src="data:image/png;base64,{{ qr_code_img_obj|safe }}" alt="QR Code">
+              {% endif %}
+            </td>
+          </tr>
+        </table>
+
+        <hr>
+
+        <table class="w-100">
+          <tr>
+            <td>
+              <p><b>Invoice No:</b> {{ inv.invoice_no }}</p>
+              <p><b>Customer Name:</b> {{ inv.customer_name }}</p>
+              <p><b>Mobile:</b> {{ inv.mobile }}</p>
+              <p><b>Email:</b> {{ inv.email }}</p>
+              <p><b>Address:</b> {{ inv.address }}</p>
+            </td>
+            <td class="text-end">
+              <p><b>Invoice Date:</b> {{ inv.invoice_date }}</p>
+              <p><b>Due Date:</b> {{ inv.due_date }}</p>
+              <p><b>Payment Status:</b> {{ inv.payment_status }}</p>
+            </td>
+          </tr>
+        </table>
+
+        <hr>
+
+        <h5>Product Details</h5>
+        <table class="table table-bordered">
+          <thead class="table-light">
+            <tr>
+              <th>#</th>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Qty</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in inv.product_details %}
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td>{{ item.name }}</td>
+              <td>₹{{ item.price }}</td>
+              <td>{{ item.quantity }}</td>
+              <td>₹{{ item.price|floatformat:2|add:""|floatformat:2|floatformat:2|floatformat }} × {{ item.quantity }} = ₹{{ item.total_price|floatformat:2 }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <table class="table table-borderless w-50 ms-auto">
+          <tr><td><strong>Subtotal:</strong></td><td>₹{{ inv.subtotal }}</td></tr>
+          <tr><td><strong>Tax:</strong></td><td>₹{{ inv.tax_amount }}</td></tr>
+          <tr><td><strong>Discount:</strong></td><td>₹{{ inv.discount_amount }}</td></tr>
+          <tr><td><strong>Total:</strong></td><td><strong>₹{{ inv.total_amount }}</strong></td></tr>
+        </table>
+
+        <hr>
+
+        <h6>Notes:</h6>
+        <p>{{ inv.notes }}</p>
+
+        <h6>Terms:</h6>
+        <p>{{ inv.terms }}</p>
+
+        <div class="d-flex justify-content-end align-items-end mt-4">
+          <div class="text-center">
+            {% for app in app_data %}
+              <img src="{{ app.app_stamp.url }}" alt="Stamp" class="stamp">
+            {% endfor %}
+            <p><strong>Authorized Signature</strong></p>
+          </div>
+        </div>
+
+        <hr>
+        <p><small><i>This is a computer-generated invoice and does not require a signature.</i></small></p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<style>
+.stamp {
+  width: 80px;
+  height: 80px;
+}
+</style>
+{% endblock %}

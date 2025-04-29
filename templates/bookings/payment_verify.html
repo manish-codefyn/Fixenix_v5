@@ -1,0 +1,4 @@
+<form action="{% url 'verify_payment' pk=booking.id %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Verify Payment</button>
+</form>

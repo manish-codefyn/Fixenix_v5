@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .id-card{
+            border: 1px solid #ddd;
+            width: 2.5in; /* Set width to 2.5 inches */
+            height: 3.5in; /* Set height to 3.5 inches */
+            padding: 0.2in; /* Optional padding for better content spacing */
+            box-sizing: border-box; /* Ensures padding does not affect the size */
+        }
+
+        .id-header{
+            display: flex;
+            justify-content: center;
+            position: relative;
+            background-color: #02283D;
+            border-bottom-left-radius: 50%;
+            border-bottom-right-radius: 50%;
+            height: 1.5in; /* Set height of the header */
+        }
+
+        .id-header .id-logo{
+            position: absolute;
+            top: 0.5rem;
+            width: 80px; /* Adjust logo size */
+        }
+
+        .id-photo{
+            border-radius: 50%;
+            margin-top: 1rem;
+            margin-bottom: -2rem;
+            border: 5px solid #ddd;
+            width: 1.5in; /* Set photo size */
+            height: 1.5in; /* Make photo square */
+        }
+
+        .id-details{
+            padding: 0.5in;
+            margin-top: 2in; /* Adjust margin top to place details properly */
+        }
+
+        .id-details h1{
+            text-align: center;
+            font-size: 1.1rem; /* Adjust the font size */
+            text-transform: uppercase;
+            margin-bottom: 0.2rem;
+        }
+
+        .id-details h3{
+            text-align: center;
+            color: #ff0000;
+            margin-top: 0;
+            font-size: 0.9rem; /* Adjust font size for designation */
+            text-transform: uppercase;
+        }
+
+        .id-details .m-info{
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.3rem; /* Adjust gap between columns */
+        }
+
+        .id-details .m-info-group{
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .id-details .m-info-group .info-value{
+            color: #8F6144;
+            font-weight: 500;
+        }
+
+        .id-details .m-info-group .info-value.email{
+            text-transform: lowercase;
+        }
+
+        .id-details .m-qrcode{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+
+        .id-details .m-qrcode img{
+            width: 1in; /* Set size of QR code */
+            height: 1in; /* Make QR code square */
+        }
+
+        .id-footer{
+            background-color: #02283D;
+            color: #FFFFFF;
+            text-align: center;
+            padding: 0.3rem;
+            font-size: 0.8rem; /* Adjust footer text size */
+        }
+    </style>
+</head>
+<body>
+    <div class="id-card">
+        <div class="id-header">
+            <img src="{{ logo }}" class="id-logo" alt="logo">
+            <img class="id-photo" src="{{ photo_local }}" alt="photo" />
+        </div>
+        <div class="id-details">
+            <h1 class="m-name">{{ name }}</h1>
+            <h3 class="m-designation">{{ company }}</h3>
+            <div class="m-info">
+                <div>
+                    <div class="m-info-group">
+                        <h4 class="info-label">ID Number: </h4>
+                        <h4 class="info-value">{{ employee_id }}</h4>
+                    </div>
+                    <div class="m-info-group">
+                        <h4 class="info-label">Phone: </h4>
+                        <h4 class="info-value">{{ mobile }}</h4>
+                    </div>
+                    <div class="m-info-group">
+                        <h4 class="info-label">Email: </h4>
+                        <h4 class="info-value email">{{ email }}</h4>
+                    </div>
+                    <div class="m-info-group">
+                        <h4 class="info-label">Address: </h4>
+                        <h4 class="info-value">{{ address }}</h4>
+                    </div>
+                </div>
+                <div class="m-qrcode">
+                    <img src="{{ qr_code }}" alt="qr-code">
+                </div>
+            </div>
+        </div>
+        <div class="id-footer">
+            {{ website }}
+        </div>
+    </div>
+</body>
+</html>

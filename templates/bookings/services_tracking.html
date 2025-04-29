@@ -1,0 +1,17 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="row text-center">
+        <div class="col-md-6 mb-3">
+            <a href=" {% url 'track-booking' %} " class="btn btn-primary btn-lg px-5 py-3 shadow-lg rounded">
+                <i class="bi bi-tools me-2"></i>Services
+            </a>
+        </div>
+        <div class="col-md-6 mb-3">
+            <a  href="{% url 'check_repair_status' %}" class="btn btn-success btn-lg px-5 py-3 shadow-lg rounded">
+                <i class="bi bi-gear-fill me-2"></i>Repairing
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

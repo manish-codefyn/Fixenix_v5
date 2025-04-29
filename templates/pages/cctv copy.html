@@ -1,0 +1,131 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+
+<!-- SERVICES START -->
+<div class="bg-light pt-2 mt-3">
+  <div class="container px-4 text-center">
+    <div class="row">
+      <h2 class="fw-bold text-muted">
+        CCTV Services <span class="text-warning"> & </span><span class="text-danger">Installation</span>
+      </h2>
+      <h5>
+        We <em class="text-primary">Provide</em> The Best Service With
+        <span class="text-danger">Experience</span> &
+        <span class="text-warning">Well Trained <span class="text-muted">Staff</span></span>
+      </h5>
+    </div>
+    <div class="row mb-3">
+      <div class="col-6 col-md-3 mb-3">
+        <div class="service-card shadow pt-4">
+          <img src="/static/codefyn-5.0/images/services/cctv/fullcctv.png" class="service-image" alt="CCTV Installation">
+          <div class="service-info">
+            <p class="service-title">CCTV</p>
+            <p class="service-subtitle text-danger">Installation</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3 mb-3">
+        <div class="service-card shadow pt-4">
+          <img src="/static/codefyn-5.0/images/services/cctv/dvr.png" class="service-image" alt="DVR Solutions">
+          <div class="service-info">
+            <p class="service-title">DVR</p>
+            <p class="service-subtitle text-danger">Solutions</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3 mb-3">
+        <div class="service-card shadow pt-4">
+          <img src="/static/codefyn-5.0/images/services/cctv/monitor.png" class="service-image" alt="CCTV Monitor Solutions">
+          <div class="service-info">
+            <p class="service-title">CCTV Monitor</p>
+            <p class="service-subtitle text-danger">Solutions</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3 mb-3">
+        <div class="service-card shadow pt-4">
+          <img src="/static/codefyn-5.0/images/services/cctv/power.png" class="service-image" alt="CCTV Power Supply Solutions">
+          <div class="service-info">
+            <p class="service-title">CCTV Power Supply</p>
+            <p class="service-subtitle text-danger">Solutions</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-6 col-md-3 mb-3">
+        <div class="service-card shadow pt-4">
+          <img src="/static/codefyn-5.0/images/services/cctv/power.png" class="service-image" alt="Software Solutions">
+          <div class="service-info">
+            <p class="service-title">Software</p>
+            <p class="service-subtitle text-danger">Solutions</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3 mb-3">
+        <div class="service-card shadow pt-4">
+          <img src="/static/codefyn-5.0/images/services/cctv/hardisk.png" class="service-image" alt="Hardisk Solutions">
+          <div class="service-info">
+            <p class="service-title">Hardisk</p>
+            <p class="service-subtitle text-danger">Solutions</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3 mb-3">
+        <div class="service-card shadow pt-4">
+          <img src="/static/codefyn-5.0/images/services/cctv/wifi.png" class="service-image" alt="Wifi Solutions">
+          <div class="service-info">
+            <p class="service-title">Wifi</p>
+            <p class="service-subtitle text-danger">Solutions</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3 mb-3">
+        <div class="service-card shadow pt-4">
+          <img src="/static/codefyn-5.0/images/services/cctv/others.png" class="service-image" alt="CCTV Other Solutions">
+          <div class="service-info">
+            <p class="service-title">CCTV Other</p>
+            <p class="service-subtitle text-danger">Solutions</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- SERVICES END -->
+<style>
+  .service-card {
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.service-image {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.service-info {
+  padding: 1rem;
+  text-align: center;
+}
+
+.service-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.service-subtitle {
+  font-size: 1rem;
+  color: #dc3545; /* Bootstrap text-danger */
+}
+
+</style>
+{% endblock %}

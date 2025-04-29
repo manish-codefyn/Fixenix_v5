@@ -1,0 +1,32 @@
+{% extends "layouts/base_dash.html" %}
+{% block content %}
+<main class="main-content">
+    <div class="container-fluid">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom bg-light">
+            <h1 class="h2">{{ page_title }}</h1>
+        </div>
+
+        <section class="pt-4 pb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Employee Details</h3>
+                </div>
+                <div class="card-body">
+                    <p><strong>ID:</strong> {{ employee.id }}</p>
+                    <p><strong>Name:</strong> {{ employee.name }}</p>
+                    <p><strong>Email:</strong> {{ employee.email }}</p>
+                    <p><strong>Phone:</strong> {{ employee.phone }}</p>
+                    <p><strong>Hire Date:</strong> {{ employee.hire_date }}</p>
+                    <p><strong>Department:</strong> {{ employee.department }}</p>
+                    <p><strong>Position:</strong> {{ employee.position }}</p>
+                    <p><strong>Address:</strong> {{ employee.address }}</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="mt-3">
+            <a href="{% url 'dashboard:employee_list' %}" class="btn btn-primary">Back to Employee List</a>
+        </div>
+    </div>
+</main>
+{% endblock %}

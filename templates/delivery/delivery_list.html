@@ -1,0 +1,14 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+    <h1>Delivery List</h1>
+    <ul>
+        {% for delivery in deliveries %}
+        <li>
+            Delivery ID: {{ delivery.id }} | Status: {{ delivery.status }}
+            <a href="{% url 'update_delivery_location' delivery.id %}">Update Location</a>
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+  

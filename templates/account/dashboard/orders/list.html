@@ -1,0 +1,105 @@
+{% extends 'layouts/base_dash.html' %}
+{% block content %}
+<main class="main-content">
+  <div class="bg-light">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-1">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'user_dashboard' %}">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            {% if pagename %}{{ pagename }}{% endif %}
+          </li>
+        </ol>
+      </nav>
+          <!-- Display Messages -->
+       {% if messages %}
+       <ul class="messages">
+          {% for message in messages %}
+            <li class="alert {{ message.tags }}">{{ message }}</li>
+           {% endfor %}
+        </ul>
+      {% endif %}
+      <div class="btn-toolbar mb-2 me-1 mb-md-1">
+        <form method="POST" action="{% url 'user_order_list' %}">
+          {% load crispy_forms_tags %}
+          {% csrf_token %}
+          <div class="row g-2">
+            <div class="col-md">{{ form.startdate }}</div>
+            <div class="col-md">{{ form.enddate }}</div>
+            <div class="col-md">
+              <button type="submit" value="filter" class="btn btn-primary">
+                <i class="bi bi-search"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+     
+    </div>
+    <!-- Dashboard Counts Section-->
+    <div class="card box-lg">
+      <div class="row">
+        <div class="w-100">
+          <table
+            id="table"
+            class="table table-bordered border-secondary table-hover"
+          >
+          <thead class="alert-success">
+            <tr>
+              <th width="1%" scope="col">S.No:</th>
+              <th width="15%" scope="col">Customer </th>
+              <th width="25%" scope="col">Email</th>
+              <th width="20%" scope="col">Mobile</th>
+              <th width="20%" scope="col">Device</th>
+              <th width="2%" scope="col">Actions</th>
+              <th width="2%" scope="col"></th> <!-- This is the 5th column -->
+            </tr>
+          </thead>
+          <tbody>
+            {% if order %}
+              {% for data in order %}
+                <tr>
+                  <td scope="row">{{ forloop.counter }}</td> <!-- Column 1 -->
+                  <td>
+                    {% if data.image %}
+                    <img
+                      src="{{ data.image.url }}"
+                      style="
+                        width: 40px;
+                        height: 40px;
+                        text-align: center;
+                        border-radius: 100%;
+                      "
+                    />
+                    {% endif %}
+                  </td> <!-- Column 2 -->
+                  <td>{{ data.customer_name }}</td> <!-- Column 3 -->
+                  <td>{{ data.email }}</td> <!-- Column 3 -->
+                  <td>{{ data.mobile }}</td> <!-- Column 3 -->
+                  <td>{{ data.device }}</td> <!-- Column 3 -->
+                  <td>
+                    <a
+                      data-bs-toggle="tooltip"
+                      data-bs-placement="bottom"
+                      title="view"
+                      class="btn btn-info btn-sm rounded-circle"
+                      href="{{ data.get_absolute_url }}"
+                    ><i class="bi bi-eye text-white"></i></a>
+                 
+                  </td> <!-- Column 4 -->
+                  <td>
+                  </td> <!-- Column 5 -->
+                </tr>
+              {% endfor %}
+            {% endif %}
+          </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+{% endblock %}

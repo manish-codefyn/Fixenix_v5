@@ -1,0 +1,24 @@
+
+{% extends 'layouts/base.html' %}
+{% block content %}
+<h1>{{ service.name }}</h1>
+<p>{{ service.description }}</p>
+<p>Base Price: ₹{{ service.base_price }}</p>
+<p>Offer Price: ₹{{ service.offer_price|default:"No Offer" }}</p>
+<p>Rating: {{ service.average_rating|default:"No Ratings Yet" }}</p>
+
+<h2>Reviews</h2>
+{% for review in reviews %}
+    <p>{{ review.rating }} Stars by {{ review.user.username }}</p>
+    <p>{{ review.comment }}</p>
+{% endfor %}
+
+{% if user.is_authenticated %}
+    <h3>Submit a Review</h3>
+    <form method="post" action="{% url 'submit_review' service.id %}">
+        {% csrf_token %}
+        {{ review_form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+{% endif %}
+{% endblock %}

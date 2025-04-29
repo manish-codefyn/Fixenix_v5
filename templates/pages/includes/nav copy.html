@@ -1,0 +1,296 @@
+<!-- nav start -->
+
+<nav class="navbar navbar-expand-lg navbar-light navbar-top" id="navbar_top">
+  <div class="container">
+    <a class="logo" href="#">
+      <img src="/static/codefyn-5.0/images/logo.svg" />
+      <!-- <img src="{{ app.app_logo.url }}" alt="{{ app.app_name }}" -->
+    </a>
+
+    <ul class="navbar-nav ml-auto d-block d-md-none">
+      <div type="button" id="sidebarCollapse" class="mobile-menu">
+        <i class="bi bi-list mobile-menu"></i>
+      </div>
+    </ul>
+    <!-- Links -->
+    <div class="collapse navbar-collapse" id="navbarSupportedConten">
+      <ul class="navbar-nav a me-auto mb-2 ms-5 mb-lg-0 justify-content-end">
+        <ul class="nav">
+          <li class="nav-item">
+            <a
+              data-bs-toggle="tooltip"
+              data-bs-placement="bottom"
+              title="Home"
+              href="{% url 'index' %}"
+              class="nav-link active"
+              >HOME</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              data-bs-toggle="tooltip"
+              data-bs-placement="bottom"
+              title="About Us"
+              href="{% url 'partner_with_us' %}"
+              class="nav-link"
+              >PARTNER WITH US</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              data-bs-toggle="tooltip"
+              data-bs-placement="bottom"
+              title="About Us"
+              href="{% url 'aboutus' %}"
+              class="nav-link"
+              >ABOUT US</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              data-bs-toggle="tooltip"
+              data-bs-placement="bottom"
+              title="Book a Services"
+              href="{% url 'service-list' %}"
+              class="nav-link"
+              >BOOK A SERVICES</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              data-bs-toggle="tooltip"
+              data-bs-placement="bottom"
+              title="Book a Repair"
+              href="{% url 'book_repair' %}"
+              class="nav-link"
+              >BOOK A REPAIR</a
+            >
+          </li>
+ 
+        </ul>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link fw dropdown-toggle"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+          TRACK
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li>
+              <a class="dropdown-item a" href="{% url 'track-booking' %}">
+               SERVICES TRACK
+              </a>
+            </li>
+            <li>
+              <a
+                class="dropdown-item a"
+                href="{% url 'check_repair_status' %}"
+              >
+              REPAIRING TRACK
+              </a>
+            </li>
+
+        
+        
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link fw dropdown-toggle"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            SERVICES
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li>
+              <a class="dropdown-item a" href="{% url 'mobile_tab_services' %}">
+                Mobile & Tab
+              </a>
+            </li>
+            <li>
+              <a
+                class="dropdown-item a"
+                href="{% url 'computer_laptop_services' %}"
+              >
+                Laptop & PC
+              </a>
+            </li>
+
+            <li>
+              <a class="dropdown-item a" href="{% url 'cctv_services' %}">
+               CCTV Sevices
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item a" href="{% url 'electronics_services' %}">
+               Electronics Goods
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item a" href="{% url 'hardware_update' %}">
+               Hardware Upgrade
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item a" href="{% url 'data_recovery' %}">
+               Data Recovery
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link fw dropdown-toggle"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            SUPPORT
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li>
+              <a class="dropdown-item a" href="{% url 'faqs' %}">Faqs</a>
+            </li>
+            <li>
+              <a class="dropdown-item a" href="{% url 'contactus' %}"
+                >Contact Us</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item a" href="{% url 'feedback' %}"
+                >FeedBack</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item a" href="{% url 'terms_and_conditions' %}"
+                >Terms And Conditions</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item a" href="{% url 'privacy_policy' %}"
+                >Privacy Policy</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item a" href="{% url 'disclaimer' %}"
+                >Disclamer</a
+              >
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <!-- Link End -->
+      <div class="text-end">
+        {% if user.is_authenticated and user.is_staff %}
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 profile-menu">
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i
+                class="bi bi-people mr5 user-account p-1 text-white font-bold"
+              ></i>
+              {{ user.username }}
+            </a>
+
+            <ul
+              class="dropdown-menu dropdown-menu-lg-end"
+              aria-labelledby="navbarDropdown"
+            >
+              <li>
+                <a class="dropdown-item" href="{% url 'dashboard:index' %}">
+                  <i class="bi bi-speedometer me-2"></i>
+                  Dashboard</a
+                >
+              </li>
+              <hr class="dropdown-divider" />
+              <!-- Logout  -->
+              <li>
+                <a
+                  class="dropdown-item"
+                  type="button"
+                  name="logout"
+                  onclick="logoutFunction()"
+                >
+                  <i class="bi bi-box-arrow-right text-danger me-3"></i>
+                  Logout</a
+                >
+              </li>
+            </ul>
+            {% elif user.is_authenticated %}
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <i
+                    class="bi bi-people mr5 user-account p-1 text-white font-bold"
+                  ></i>
+                  {{ user.username }}
+                </a>
+
+                <ul
+                  class="dropdown-menu dropdown-menu-lg-end"
+                  aria-labelledby="navbarDropdown"
+                >
+                  <li>
+                    <a class="dropdown-item" href="{% url 'user_dashboard' %}">
+                      <i class="bi bi-person-bounding-box fa-fw"></i>
+                      Account</a
+                    >
+                  </li>
+
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                  <!-- Logout  -->
+                  <li>
+                    <a
+                      class="dropdown-item text-danger"
+                      type="button"
+                      onclick="logoutFunction()"
+                    >
+                      <i class="bi bi-box-arrow-in-right me-3"></i>
+                      Logout</a
+                    >
+                  </li>
+                  {% elif not user.is_authenticated %}
+                  <a
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="bottom"
+                    type="button"
+                    class="btn-gradient"
+                    title="Login"
+                    href="{% url 'account_login' %}"
+                  >
+                    <i class="bi bi-person-lock me-1"></i>
+                    Login
+                  </a>
+                  {% endif %}
+                  <!-- Nav End -->
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>

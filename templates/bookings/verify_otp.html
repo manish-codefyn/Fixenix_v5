@@ -1,0 +1,74 @@
+{% extends 'layouts/base.html' %}
+{% load custom_filters %}
+{% block content %}
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+      <div class="card shadow-lg border-0">
+        <!-- Card Header -->
+        <div class="card-header text-white text-center" style="background: linear-gradient(90deg, #6a11cb, #2575fc);">
+          <h2 class="fw-bold">🔐 Verify OTP</h2>
+          <p class="mb-0 text-white">Enter the OTP sent to your email to proceed.</p>
+        </div>
+
+        <!-- Card Body -->
+        <div class="card-body p-4">
+          <form method="post" class="needs-validation" novalidate>
+            {% csrf_token %}
+            
+            <!-- OTP Field -->
+            <div class="mb-4">
+              <label for="id_otp" class="form-label fw-semibold">OTP</label>
+              {{ form.otp|add_class:"form-control" }}
+              {% if form.otp.errors %}
+                <div class="text-danger small mt-1">
+                  {{ form.otp.errors|join:", " }}
+                </div>
+              {% endif %}
+            </div>
+
+            <!-- Submit Button -->
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary btn-lg w-100">
+                Verify OTP 🔑
+              </button>
+            </div>
+          </form>
+        </div>
+    
+        <!-- Card Footer -->
+        <div class="card-footer text-muted text-center">
+          <p id="expiry-timer" class="mb-2"></p>
+          Didn't receive the OTP? <a href="{% url 'resend_otp' %}" class="text-primary">Resend OTP</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Countdown Timer Logic
+  document.addEventListener("DOMContentLoaded", function () {
+    const expiryTime = new Date('{{ request.session.otp_expiry }}'); // Get expiry time from the backend
+    const timerElement = document.getElementById("expiry-timer");
+
+    function updateTimer() {
+      const now = new Date();
+      const timeLeft = Math.max(0, expiryTime - now);
+
+      const minutes = Math.floor(timeLeft / 60000);
+      const seconds = Math.floor((timeLeft % 60000) / 1000);
+
+      if (timeLeft > 0) {
+        timerElement.textContent = `OTP expires in ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+      } else {
+        timerElement.textContent = "OTP has expired. Please resend.";
+        timerElement.classList.add("text-danger");
+      }
+    }
+
+    updateTimer();
+    setInterval(updateTimer, 1000); // Update every second
+  });
+</script>
+{% endblock %}

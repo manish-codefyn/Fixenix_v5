@@ -1,0 +1,156 @@
+{% extends 'layouts/base.html' %}
+{% load custom_filters %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-9 col-lg-9">
+            <div class="card shadow-lg p-4">
+                <h1 class="mb-4 text-center text-danger">Book Service: {{ service.service_name }}</h1>
+
+                <form method="post" action="{% url 'book_service' service.id %}">
+                    {% csrf_token %}
+                    <!-- Service (Read-Only) -->
+                    <div class="form-group row mb-4">
+                        <!-- Service Name Field -->
+                        <div class="col-md-6">
+                            <label for="id_service_name" class="form-label">Service Name:</label>
+                            {{ form.service_name|add_class:"form-control shadow-sm" }}
+                        </div>
+                    
+                        <!-- Customer Name Field -->
+                        <div class="col-md-6">
+                            <label for="id_customer_name" class="form-label">Customer Name:</label>
+                            {{ form.customer_name|add_class:"form-control shadow-sm" }}
+                        </div>
+                    </div>
+                    
+
+                    <div class="form-group row mb-3">
+                        <!-- Customer Email Field -->
+                        <div class="col-md-6">
+                            <label for="id_customer_email" class="form-label">Customer Email:</label>
+                            {{ form.customer_email|add_class:"form-control shadow-sm" }}
+                        </div>
+                    
+                        <!-- Customer Phone Field -->
+                        <div class="col-md-6">
+                            <label for="id_customer_phone" class="form-label">Customer Phone:</label>
+                            {{ form.customer_phone|add_class:"form-control shadow-sm" }}
+                        </div>
+                    </div>
+                    
+
+                    <!-- Address Field -->
+                    <div class="form-group mb-3">
+                        <label for="id_address" class="form-label">Address:</label>
+                        {{ form.address|add_class:"form-control shadow-sm" }}
+                    </div>
+                    <div id="loader" style="display:none;">Calculating distance...</div>
+
+                    <!-- Distance Calculation -->
+                    <div class="form-group mb-4">
+                    <label for="id_customer_distance" class="form-label">Distance:</label>
+                        {{ form.calculated_distance }}
+                        <small class="text-muted">{{ form.calculated_distance.help_text }}</small>
+                        {{ form.distance_value }}
+                    </div>
+                  <!-- Submit Button -->
+                  <button type="submit" class="btn btn-gradient text-white btn-lg w-100 shadow-sm d-flex align-items-center justify-content-center">
+                    <i class="bi bi-check-circle me-2"></i> Confirm Booking
+                  </button>
+                  
+                </form>
+                
+                <!-- Terms and Conditions -->
+                <p class="text-muted text-center mt-4">
+                    By proceeding, you agree to our <a href="{% url 'terms_and_conditions' %}">Terms & Conditions</a> and <a href="{% url 'privacy_policy'%}">Privacy Policy</a>.
+                </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+
+
+function calculateDistance() {
+    const loader = document.getElementById("loader");
+
+    if (navigator.geolocation) {
+        loader.style.display = "block"; // Show loader
+
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const userLat = position.coords.latitude;
+                const userLng = position.coords.longitude;
+
+                // Validate coordinates
+                if (isNaN(userLat) || isNaN(userLng)) {
+                    loader.style.display = "none"; // Hide loader
+                    alert("Invalid coordinates received. Please try again.");
+                    return;
+                }
+
+                // Send user's location to the server
+                fetch("{% url 'calculate_distance' %}", {
+                    method: "POST",
+                    headers: {
+                        "X-CSRFToken": "{{ csrf_token }}",
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ user_lat: userLat, user_lng: userLng })
+                })
+                    .then((response) => {
+                        loader.style.display = "none"; // Hide loader
+
+                        if (!response.ok) {
+                            throw new Error(`Server error: ${response.statusText}`);
+                        }
+                        return response.json();
+                    })
+                    .then((data) => {
+                        if (data.distance) {
+                            // Update the distance input field
+                            document.getElementById("calculated_distance").value = data.distance;
+                        } else {
+                            alert(data.error || "Unable to calculate distance.");
+                        }
+                    })
+                    .catch((error) => {
+                        loader.style.display = "none"; // Hide loader
+                        alert(`Error communicating with the server: ${error.message}`);
+                    });
+            },
+            (error) => {
+                loader.style.display = "none"; // Hide loader
+
+                // Handle geolocation errors
+                switch (error.code) {
+                    case error.PERMISSION_DENIED:
+                        alert("Location access denied by user.");
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        alert("Location information is unavailable.");
+                        break;
+                    case error.TIMEOUT:
+                        alert("Request to get user location timed out.");
+                        break;
+                    default:
+                        alert("An unknown error occurred while fetching location.");
+                }
+            }
+        );
+    } else {
+        alert("Geolocation is not supported by your browser.");
+    }
+}
+
+// Call function on page load
+window.onload = calculateDistance;
+
+</script>
+
+{% endblock %}

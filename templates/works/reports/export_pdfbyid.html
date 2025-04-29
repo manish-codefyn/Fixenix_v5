@@ -1,0 +1,146 @@
+<div class="invoice-box">
+  <table cellpadding="0" cellspacing="0">
+    <tr class="top_rw">
+      <td colspan="2">
+        <h2 style="margin-bottom: 0px">
+          <img src="{{ logo }}" style="width: 190px; height: 50px" />
+        </h2>
+        <table style="border: none">
+          <tr>
+            <td>
+              <b> Mobile: {{ app.app_mobile }} </b> |
+              <b>Email: {{ app.app_email }} </b> |
+              <b> Web : {{ app.domain_name }} </b><br />
+              <b> Address: {{ app.app_address }}</b>
+            </td>
+          </tr>
+        </table>
+      </td>
+      <td style="width: 20%">
+        <div class="qr-img">
+          <img src="{{ qr_code }}" alt="qr code" />
+        </div>
+      </td>
+    </tr>
+
+    <tr class="information">
+      <td colspan="3">
+        <table style="border: none">
+          <h2 style="text-align: center; font-weight: 600; border-bottom: 1px solid #111;">
+            {{ doc_name }}
+          </h2>
+          <tr>
+            <td style="width: 50%">
+              <table class="info">
+                <tr><td>Work ID: {{ work.work_id }}</td></tr>
+                <tr><td>Customer Name: {{ work.name }}</td></tr>
+                <tr><td>Mobile: {{ work.mobile }}</td></tr>
+                <tr><td>Email: {{ work.email }}</td></tr>
+              </table>
+            </td>
+            <td>
+              <table class="info">
+                <tr><td>Device Name: {{ work.device_name }}</td></tr>
+                <tr><td>Status: {{ work.status }}</td></tr>
+                <tr><td>Updated Date: {{ work.updated_at }}</td></tr>
+                <tr><td>Submitted Date: {{ work.created_at }}</td></tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <b>Device Problem:</b> {{ work.device_problem }}<br />
+              {% if work.problem_details %}
+                <b>Details:</b> {{ work.problem_details }}
+              {% endif %}
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="3">
+        <h3>Device Checklist</h3>
+        <table cellspacing="0" cellpadding="2">
+          <tr class="heading">
+            <td>Component</td>
+            <td>Working?</td>
+          </tr>
+          {% for item in checklist %}
+          <tr class="item">
+            <td>{{ item.component_name }}</td>
+            <td>{{ item.is_working|yesno:"Yes,No" }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="3">
+        <table cellspacing="0px" cellpadding="2px">
+          <tr>
+            <td width="50%">
+              <b> Declaration: </b> <br />
+              All the information provided was filled by the customer. We do not verify these details.
+            </td>
+            <td>
+              * This is a computer-generated document and does not require a physical signature.
+            </td>
+          </tr>
+          <tr>
+            <td width="50%"></td>
+            <td class="sign">
+              <div>
+                <img src="{{ stamp }}" class="stamp" />
+              </div>
+              <b> Authorized Signature </b><br /><br /><br /><br />
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<style>
+  .sign { text-align: center; }
+  .stamp { height: 80px; width: 80px; margin-right: 5px; }
+  .top_rw { background-color: #f4f4f4; }
+  .invoice-box {
+    max-width: 890px;
+    margin: auto;
+    padding: 5px;
+    border: 1px solid #111;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    font-size: 12px;
+    color: #555;
+  }
+  .invoice-box table {
+    width: 100%;
+    line-height: inherit;
+    text-align: left;
+    border: 1px solid #ccc;
+  }
+  .invoice-box table td {
+    padding: 5px;
+    vertical-align: top;
+  }
+  .invoice-box table .heading td {
+    background: #eee;
+    border-bottom: 1px solid #ddd;
+    font-weight: bold;
+  }
+  .invoice-box table .item td {
+    border-bottom: 1px solid #eee;
+  }
+  @media only screen and (max-width: 600px) {
+    .invoice-box table tr.top table td,
+    .invoice-box table tr.information table td {
+      display: block;
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

@@ -1,0 +1,81 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+
+<!-- Contact Section -->
+<section class="bg-light py-5">
+  <div class="container ">
+    
+    <div class="contact-container p-5">
+      
+      <div class="row">
+        <!-- Photo Section -->
+        <div class="col-md-8 d-flex align-items-center justify-content-center">
+          <div class="photo-container mb-4">
+            <img src="/static/codefyn-5.0/images/bg/contact_us.svg" alt="Our Location" class="custom-img">
+          </div>
+        </div>
+        <!-- Contact Form -->
+        <div class="col-md-4 custom-form-wrapper">
+          <form method="post" id="ContactForm" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h2 class="text-center custom-form-heading">
+              <strong>Get <span class="highlight-warning">In </span></strong><span class="highlight-danger">Touch !</span>
+            </h2>
+            <div class="form-group">
+             
+              {{ form_contact.name }}
+              <li class="errors">{{ form_contact.name.errors }}</li>
+            </div>
+            <div class="form-group">
+            
+              {{ form_contact.email }}
+              <li class="errors">{{ form_contact.email.errors }}</li>
+            </div>
+            <div class="form-group">
+          
+              {{ form_contact.message }}
+              <li class="errors">{{ form_contact.message.errors }}</li>
+            </div>
+            <div class="row">
+        
+              <div class="row justify-content-center">
+                <div class="col-12">
+                  <div class="d-flex align-items-center mb-3">
+                    <div class="me-3">
+                    
+                    </div>
+                    <div class="flex-grow-1">
+                      {{ form_contact.captcha }}
+                      {% if form_contact.captcha.errors %}
+                        <small class="text-danger d-block">{{ form_contact.captcha.errors.0 }}</small>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <div class="form-submit mt-3">
+              <button type="submit" class="custom-btn custom-btn-danger w-100">
+                <i class="bi bi-send-check me-2"></i>Send
+              </button>
+        
+            </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Contact Section -->
+
+<script>
+  // Form Submit
+  $(document).ready(function () {
+    $(".preloader").hide();
+    $("#ContactForm").on("submit", function () {
+      $(".preloader").fadeIn();
+    }); // submit
+  });
+  // end form submit
+</script>
+{% endblock %}

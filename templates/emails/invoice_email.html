@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            padding-bottom: 20px;
+        }
+        .header h1 {
+            color: #e74c3c;
+            font-size: 24px;
+        }
+        .details {
+            margin: 20px 0;
+        }
+        .details p {
+            margin: 5px 0;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>Booking Confirmation</h1>
+        </div>
+        <p>Hello {{ customer_name }},</p>
+        <p>Thank you for choosing Fixenix Services! Your booking has been confirmed. Below are the details:</p>
+        <div class="details">
+            <p><strong>Booking ID:</strong> {{ booking_id }}</p>
+            <p><strong>Service:</strong> {{ service_name }}</p>
+            <p><strong>Address:</strong> {{ address }}</p>
+            <p><strong>Distance:</strong>{{ distance }} km</p>
+            <p><strong>Price:</strong> ₹{{ price }}</p>
+        </div>
+        <p>Please find your booking invoice attached to this email.</p>
+        <p>We will keep you updated regarding your booking status.</p>
+        <div class="footer">
+            <p>Best regards,</p>
+            <p>Fixenix Service Team</p>
+        </div>
+    </div>
+</body>
+</html>

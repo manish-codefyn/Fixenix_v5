@@ -1,0 +1,88 @@
+{% extends 'layouts/base_.html' %}
+
+{% block title %}Make a Payment - Fixenix{% endblock %}
+{% block meta_description %}Securely make a payment for your Fixenix reservation. Quick and easy checkout process.{% endblock %}
+{% block meta_keywords %}payment, secure payment, Fixenix checkout{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-success text-white text-center">
+            <h2>Complete Your Payment</h2>
+        </div>
+        <div class="card-body">
+            <p class="text-center fs-5">
+                <strong>Amount to Pay:</strong> 
+                <span class="text-success">₹{{ amount }}</span>
+            </p>
+
+            <!-- Price Breakdown Section -->
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Service Price</td>
+                            <td>₹{{ service_price }}</td>
+                        </tr>
+                        <tr>
+                            <td>Distance Price</td>
+                            <td>₹{{ distance_price }}</td>
+                        </tr>
+                        <tr class="font-weight-bold">
+                            <td>Total Price</td>
+                            <td>₹{{ amount }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="text-center text-muted">
+                You are about to confirm your booking. Please proceed with the payment to complete your transaction.
+            </p>
+            <div class="d-flex justify-content-center">
+                <!-- Razorpay Payment Form -->
+                <form action="{% url 'payment_success' %}" method="POST">
+                    {% csrf_token %}
+                    <script src="https://checkout.razorpay.com/v1/checkout.js"
+                            data-key="{{ razorpay_key }}" 
+                            data-amount="{{ amount }}"     
+                            data-currency="INR"
+                            data-order_id="{{ order_id }}"
+                            data-buttontext="Pay Now"
+                            data-name="Fixenix"
+                            data-description="Booking Payment"
+                            data-theme.color="#0d6efd"> 
+                    </script>
+                </form>
+            </div>
+        </div>
+        <div class="card-footer text-center text-muted">
+            <small>Secure Payment Powered by Razorpay</small>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Custom CSS to style Razorpay Button after it is rendered */
+    .razorpay-payment-button {
+        border-radius: 50px !important; /* Make the button rounded */
+        padding: 15px 30px !important;  /* Increase padding to make the button larger */
+        font-size: 18px !important;     /* Larger text */
+        font-weight: bold !important;   /* Bold font */
+        text-transform: uppercase !important; /* Uppercase text */
+        background-color: #6eda50 !important; 
+    }
+
+    /* Optional: Apply a custom hover effect */
+    .razorpay-payment-button:hover {
+        background-color: #0056b3 !important; /* Darken button color on hover */
+        border-color: #004085 !important;
+    }
+</style>
+{% endblock %}

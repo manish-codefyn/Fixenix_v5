@@ -1,0 +1,107 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+  <h2 class="text-center mb-4 text-primary fw-bold">Our Premium Services</h2>
+  
+  {% if services %}
+    <div class="row g-4">
+      {% for service in services %}
+        <div class="col-md-4">
+          <div class="card shadow-lg h-100 border-0">
+            <!-- Service Image -->
+            {% if service.image %}
+              <div class="position-relative">
+                <img src="{{ service.image.url }}" class="card-img-top" alt="{{ service.service_name }}" style="height: 250px; object-fit: cover; border-radius: 10px 10px 0 0;">
+                {% if service.offer_price %}
+                  <span class="position-absolute top-0 start-0 bg-danger text-white px-2 py-1 rounded-end">Sale</span>
+                {% endif %}
+              </div>
+            {% else %}
+              <div class="d-flex align-items-center justify-content-center bg-light" style="height: 250px; border-radius: 10px 10px 0 0;">
+                <i class="bi bi-tools text-secondary" style="font-size: 4rem;"></i>
+              </div>
+            {% endif %}
+
+            <!-- Service Details -->
+            <div class="card-body">
+              <h5 class="card-title text-dark fw-bold">{{ service.service_name }}</h5>
+              <p class="mb-2">
+                <strong>Status:</strong> 
+                <span class="badge {% if service.status == 'completed' %}bg-secondary{% elif service.status == 'in_progress' %}bg-warning text-dark{% elif service.status == 'cancelled' %}bg-danger{% else %}bg-success{% endif %}">
+                  {{ service.status|title }}
+                </span>
+              </p>
+              <p class="mb-2 text-muted">
+                <strong>Price:</strong> <span class="text-success">₹{{ service.get_final_price }}</span> 
+                {% if service.offer_price %}
+                  <del class="text-danger">₹{{ service.price }}</del>
+                {% endif %}
+              </p>
+          
+               
+                <p class="mb-3">
+                  <strong>Rating:</strong>
+                  <!-- Display the numeric rating as a badge -->
+                  <span class="badge bg-success">{{ service.rating|floatformat:1 }}  <i class="bi bi-star-fill text-warning"></i> <!-- Full Star --></span>
+              
+                  <!-- Display the stars -->
+                  <!-- <span class="text-warning ms-2">
+                      {% for i in "12345"|slice:":" %}
+                          {% if service.rating|floatformat:1 >= i %}
+                              <i class="bi bi-star-fill"></i> <!-- Full Star -->
+                          {% elif service.rating|floatformat:1 > i|add:"-1" %}
+                              <i class="bi bi-star-half"></i> <!-- Half Star -->
+                          {% else %}
+                              <i class="bi bi-star"></i> <!-- Empty Star -->
+                          {% endif %}
+                      {% endfor %}
+                  </span> -->
+              
+                  <small class="text-muted">({{ service.review_count }} reviews)</small>
+              </p>
+              
+            
+<style>
+ .text-warning i {
+    font-size: 1.2rem; /* Adjust the star size */
+    margin-right: 2px; /* Space between stars */
+}
+
+.badge.bg-success {
+    font-size: 1.2rem; /* Adjust the badge font size */
+    padding: 0.5em; /* Add some padding around the badge */
+    color: #fff; /* Ensure text inside the badge is white */
+}
+
+.text-warning .bi-star-fill {
+    color: #ff9900; /* Gold color for filled stars */
+}
+
+.text-warning .bi-star-half {
+    color: #ffcc00; /* Slightly lighter yellow for half-filled stars */
+}
+
+.text-warning .bi-star {
+    color: #d3d3d3; /* Light gray color for empty stars */
+}
+
+
+</style>            
+            
+              <a href="{% url 'service-detail' service.id %}" class="btn btn-gradient text-white w-100 d-flex align-items-center justify-content-center">
+                <i class="bi bi-eye me-2"></i> View Details
+              </a>
+              
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-info text-center">
+      <i class="bi bi-info-circle"></i> No services available at the moment.
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

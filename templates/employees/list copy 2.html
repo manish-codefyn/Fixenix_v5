@@ -1,0 +1,154 @@
+{% extends 'layouts/base_dash.html' %} 
+{% block content %}
+<main class="main-content">
+  <div class="bg-light">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-1">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'staff' %}">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            {% if pagename %}{{ pagename }}{% endif %}
+          </li>
+        </ol>
+      </nav>
+      <div class="btn-toolbar mb-2 me-1 mb-md-1">
+        <form method="POST" action="{% url 'users_list' %}">
+          {% csrf_token %}
+          {% load crispy_forms_tags %}
+          <div class="row g-2">
+            <div class="col-md">{{ form.startdate }}</div>
+            <div class="col-md">{{ form.enddate }}</div>
+            <div class="col-md">
+              <button 
+                data-bs-toggle="tooltip" 
+                data-bs-placement="bottom" 
+                title="Search" 
+                type="submit" 
+                class="btn btn-primary">
+                <i class="bi bi-search"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="btn-group">
+        <a href="{% url 'employee-add' %}" class="btn btn-primary mb-3">Add Employee</a>
+        <button 
+          type="button" 
+          class="btn btn-success dropdown-toggle" 
+          data-bs-toggle="dropdown" 
+          aria-expanded="false">
+          <i class="bi bi-card-text me-2"></i> Export
+        </button>
+        <ul class="dropdown-menu dropdown-menu-lg-end">
+          <li>
+            <a 
+              href="{% url 'users_exportpdf_all' %}" 
+              class="dropdown-item" 
+              title="Export PDF All">
+              Export PDF All
+            </a>
+          </li>
+          <li>
+            <button 
+              data-bs-toggle="modal" 
+              data-bs-target="#exampleModal" 
+              class="dropdown-item">
+              Export PDF Selected
+            </button>
+          </li>
+          <li>
+            <a 
+              href="{% url 'users_exportcsv' %}" 
+              class="dropdown-item" 
+              title="Export CSV">
+              Export CSV
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Dashboard Counts Section -->
+    <div class="card box-lg">
+      <div class="row">
+        <div class="w-100">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Address</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for employee in employees %}
+                    <tr>
+                      
+                        <td>{{ employee.name }}</td>
+                        <td>{{ employee.email }}</td>
+                        <td>{{ employee.phone }}</td>
+                        <td>{{ employee.address }}</td>
+                        <td>
+                            <a href="{% url 'employee-edit' employee.id %}" class="btn btn-sm btn-warning">Edit</a>
+                            <a href="{% url 'employee-delete' employee.id %}" class="btn btn-sm btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div 
+    class="modal fade" 
+    id="exampleModal" 
+    tabindex="-1" 
+    aria-labelledby="exampleModalLabel" 
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Select The Date Range</h5>
+          <button 
+            type="button" 
+            class="btn-close" 
+            data-bs-dismiss="modal" 
+            aria-label="Close">
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" action="{% url 'users_export_bydate' %}">
+            {% csrf_token %}
+            <div class="row g-2">
+              <div class="col-md">{{ form.startdate }}</div>
+              <div class="col-md">{{ form.enddate }}</div>
+            </div>
+            <div class="modal-footer">
+              <button 
+                type="button" 
+                class="btn btn-secondary" 
+                data-bs-dismiss="modal">
+                Close
+              </button>
+              <button 
+                type="submit" 
+                class="btn btn-primary">
+                <i class="bi bi-files"></i> Export PDF
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

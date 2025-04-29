@@ -1,0 +1,20 @@
+<html>
+<body>
+    <p>Dear {{ customer_name }},</p>
+
+    <p>We are writing to inform you that your repair request (ID: {{ request_id }}) {% if status %} status has been updated to <strong>{{ status }}  {% endif %}</strong>.</p>
+
+    <p>Thank you for your patience. We will notify you of any further updates regarding your request.</p>
+
+    <h3>Company Details</h3>
+    <p><strong>Company Name:</strong> {{ company_name }}</p>
+    <p><strong>Contact Us:</strong> {{ company_contact }}</p>
+    <p><strong>Website:</strong> <a href="{{ company_website }}">{{ company_website }}</a></p>
+    <p><strong>Terms and Conditions:</strong> <a href="{{ terms_conditions_link }}">{{ terms_conditions_link }}</a></p>
+
+    <p>If you have any questions, feel free to contact us.</p>
+
+    <p>Best regards,<br>
+    The {{ company_name }} Team</p>
+</body>
+</html>

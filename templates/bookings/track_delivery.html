@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Live Delivery Tracking</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqWK4wUDODyPrHq1A89oFToiGHu1Uvbvo&callback=initMap" async defer></script>
+    <style>
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script>
+        function initMap() {
+            const origin = { lat: {{ current_location_lat }}, lng: {{ current_location_lon }} };
+            const destination = { lat: {{ delivery_location_lat }}, lng: {{ delivery_location_lon }} };
+
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 14,
+                center: origin,
+            });
+
+            const directionsService = new google.maps.DirectionsService();
+            const directionsRenderer = new google.maps.DirectionsRenderer();
+            directionsRenderer.setMap(map);
+
+            directionsService.route(
+                {
+                    origin: origin,
+                    destination: destination,
+                    travelMode: google.maps.TravelMode.DRIVING,
+                },
+                (response, status) => {
+                    if (status === "OK") {
+                        directionsRenderer.setDirections(response);
+                    } else {
+                        console.error("Directions request failed due to " + status);
+                    }
+                }
+            );
+        }
+
+
+  setInterval(() => {
+    fetch('/api/get-current-location/') // Backend API to get current location
+        .then(response => response.json())
+        .then(data => {
+            const newOrigin = { lat: data.lat, lng: data.lon };
+            initMap(newOrigin, destination); // Redraw map with updated origin
+        });
+}, 5000); // Update every 5 seconds
+    </script>
+</body>
+</html>

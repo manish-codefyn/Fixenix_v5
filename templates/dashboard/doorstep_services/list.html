@@ -1,0 +1,192 @@
+{% extends 'layouts/base_dash.html' %}
+{% block content %}
+<main class="main-content">
+  <div class="bg-light">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-1">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'dashboard:index' %}">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            {% if pagename %}{{ pagename }}{% endif %}
+          </li>
+        </ol>
+      </nav>
+          <!-- Display Messages -->
+       {% if messages %}
+       <ul class="messages">
+          {% for message in messages %}
+            <li class="alert {{ message.tags }}">{{ message }}</li>
+           {% endfor %}
+        </ul>
+      {% endif %}
+      <div class="btn-toolbar mb-2 me-1 mb-md-1">
+        <form method="POST" action="{% url 'dashboard:doorstep_service_list' %}">
+          {% load crispy_forms_tags %}
+          {% csrf_token %}
+          <div class="row g-2">
+            <div class="col-md">{{ form.startdate }}</div>
+            <div class="col-md">{{ form.enddate }}</div>
+            <div class="col-md">
+              <button type="submit" value="filter" class="btn btn-primary">
+                <i class="bi bi-search"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="btn-group">
+        <a
+          href="{% url 'dashboard:doorstep_service_create' %}"
+          data-bs-toggle="tooltip"
+          data-bs-placement="bottom"
+          title="Create"
+          type="button"
+          class="btn btn-pink"
+        >
+          <i class="bi bi-plus-circle"></i> Add
+        </a>
+        <button
+          type="button"
+          class="btn btn-orange dropdown-toggle"
+          data-bs-toggle="dropdown"
+          data-bs-display="static"
+          aria-expanded="false"
+        >
+          <i class="bi bi-card-text mr10"></i> Export
+        </button>
+        <ul class="dropdown-menu dropdown-menu-lg-end">
+          <li>
+            <a
+              data-bs-toggle="tooltip"
+              data-bs-placement="bottom"
+              title="Export PDF All"
+              href="{% url 'dashboard:doorstep_service_export_pdf' %}"
+              class="dropdown-item"
+              type="button"
+            >Export PDF All</a>
+          </li>
+          <li>
+            <a
+              data-bs-toggle="tooltip"
+              data-bs-placement="bottom"
+              title="Export CSV"
+              href="{% url 'dashboard:doorstep_service_export_csv' %}"
+              class="dropdown-item"
+              type="button"
+            >Export CSV</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- Dashboard Counts Section-->
+    <div class="card box-lg">
+      <div class="row">
+        <div class="w-100">
+          <table
+            id="table"
+            class="table table-bordered border-secondary table-hover"
+          >
+          <thead class="alert-success">
+            <tr>
+              <th width="1%" scope="col">S.No:</th>
+              <th width="15%" scope="col">Service Icon</th>
+              <th width="25%" scope="col">Service Name</th>
+              <th width="20%" scope="col">Service Price</th>
+              <th width="2%" scope="col">Actions</th>
+              <th width="2%" scope="col"></th> <!-- This is the 5th column -->
+            </tr>
+          </thead>
+          <tbody>
+            {% if doorstep_services %}
+              {% for data in doorstep_services %}
+                <tr>
+                  <td scope="row">{{ forloop.counter }}</td> <!-- Column 1 -->
+                  <td>
+                    {% if data.image %}
+                    <img
+                      src="{{ data.image.url }}"
+                      style="
+                        width: 40px;
+                        height: 40px;
+                        text-align: center;
+                        border-radius: 100%;
+                      "
+                    />
+                    {% endif %}
+                  </td> <!-- Column 2 -->
+                  <td>{{ data.service_name }}</td> <!-- Column 3 -->
+                  <td>{{ data.price }}</td> <!-- Column 3 -->
+                  <td>
+                    <a
+                      data-bs-toggle="tooltip"
+                      data-bs-placement="bottom"
+                      title="view"
+                      class="btn btn-info btn-sm rounded-circle"
+                      href="{{ data.get_absolute_url }}"
+                    ><i class="bi bi-eye text-white"></i></a>
+                    <a
+                      data-bs-toggle="tooltip"
+                      data-bs-placement="bottom"
+                      title="update"
+                      class="btn btn-warning btn-sm rounded-circle"
+                      href="{% url 'dashboard:doorstep_service_update' data.id %}"
+                    ><i class="bi bi-pencil-square text-white"></i></a>
+                  </td> <!-- Column 4 -->
+                  <td>
+                   
+                    <form id="deleteForm" method="POST" action="{% url 'dashboard:doorstep_service_delete' data.id %}">
+                      {% csrf_token %}
+                      <input name="_method" type="hidden" value="DELETE" />
+                    
+                      <button
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="bottom"
+                        title="Delete"
+                        class="btn btn-danger btn-sm rounded-circle"
+                        type="button"
+                        onclick="deleteConfirmation(event)">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </form>
+                  </td> <!-- Column 5 -->
+                </tr>
+              {% endfor %}
+            {% endif %}
+          </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script>
+  function deleteConfirmation(event) {
+    // Prevent form submission initially
+    event.preventDefault();
+    
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel'
+       }).then((result) => {
+      if (result.isConfirmed) {
+        // If the user confirmed, submit the form
+        event.target.closest('form').submit();      
+        // Optionally, show a success message
+        Swal.fire(
+          'Deleted!',
+          'The service has been deleted.',
+          'success'
+        );
+      }
+    });
+  }
+</script>
+{% endblock %}

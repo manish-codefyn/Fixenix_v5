@@ -1,0 +1,198 @@
+{% extends 'layouts/base_dash.html' %}
+{% block content %}
+{% load static %}
+
+<!-- Include jQuery and SweetAlert -->
+
+<script src="{% static 'codefyn-5.0/vendor/sweetalert/sweetalert2.js' %}"></script>
+
+<!-- Display Success/Error Messages -->
+{% if messages %}
+  {% for message in messages %}
+    <script>
+      swal.fire({
+        title: "{{ message.tags|capfirst }}",
+        text: "{{ message|safe }}",
+        icon: "{{ message.tags }}",
+        buttons: true,
+        dangerMode: {% if message.tags == "error" %}true{% else %}false{% endif %},
+      });
+    </script>
+  {% endfor %}
+{% endif %}
+
+<!-- Main Content -->
+<main class="main-content">
+  <div class="container-fluid">
+
+    <!-- Section Header -->
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom bg-light">
+      <h1 class="h2">Dashboard</h1>
+      <!-- Add any additional header content here -->
+    </div>
+
+    <!-- Dashboard Counts Section -->
+    <section class="pt-3 pb-0">
+      <div class="row">
+
+        <!-- Total Employees -->
+        <div class="col-lg-3 col-xs-6 mb-3">
+          <div class="box text-success round10 p-3">
+            <i class="bi bi-person-check rounded-circle btn-success" style="font-size: 2rem;"></i>
+            <span class="heading d-block">Total Employees</span>
+            <span class="count h4">{{ total_employees|default:0 }}</span>
+            <div class="progress mt-2">
+              <div class="progress-bar bg-success" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Total Bookings -->
+        <div class="col-lg-3 col-xs-6 mb-3">
+          <div class="box text-primary round10 p-3">
+            <i class="bi bi-calendar-check rounded-circle btn-pink" style="font-size: 2rem;"></i>
+            <span class="heading d-block">Total Bookings</span>
+            <span class="count h4">{{ total_bookings|default:0 }}</span>
+            <div class="progress mt-2">
+              <div class="progress-bar btn-pink" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Total Payments -->
+        <div class="col-lg-3 col-xs-6 mb-3">
+          <div class="box text-info round10 p-3">
+            <i class="bi bi-currency-rupee rounded-circle btn-info" style="font-size: 2rem;"></i>
+            <span class="heading d-block">Total Payments</span>
+            <span class="count h4">{{ total_payments|default:0 }}</span>
+            <div class="progress mt-2">
+              <div class="progress-bar bg-info" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Total Revenue -->
+        <div class="col-lg-3 col-xs-6 mb-3">
+          <div class="box text-warning round10 p-3">
+            <i class="bi bi-cash-stack rounded-circle btn-warning" style="font-size: 2rem;"></i>
+            <span class="heading d-block">Total Revenue</span>
+            <span class="count h4">₹{{ total_revenue|default:0 }}</span>
+            <div class="progress mt-2">
+              <div class="progress-bar bg-warning" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row mt-4">
+
+        <!-- Pending Bookings -->
+        <div class="col-lg-3 col-xs-6 mb-3">
+          <div class="box text-secondary round10 p-3">
+            <i class="bi bi-hourglass-top rounded-circle btn-secondary" style="font-size: 2rem;"></i>
+            <span class="heading d-block">Pending Bookings</span>
+            <span class="count h4">{{ pending_bookings|default:0 }}</span>
+            <div class="progress mt-2">
+              <div class="progress-bar bg-secondary" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Completed Bookings -->
+        <div class="col-lg-3 col-xs-6 mb-3">
+          <div class="box text-success round10 p-3">
+            <i class="bi bi-check-circle rounded-circle btn-success" style="font-size: 2rem;"></i>
+            <span class="heading d-block">Completed Bookings</span>
+            <span class="count h4">{{ completed_bookings|default:0 }}</span>
+            <div class="progress mt-2">
+              <div class="progress-bar bg-success" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pending Payments -->
+        <div class="col-lg-3 col-xs-6 mb-3">
+          <div class="box text-warning round10 p-3">
+            <i class="bi bi-exclamation-circle rounded-circle btn-warning" style="font-size: 2rem;"></i>
+            <span class="heading d-block">Pending Payments</span>
+            <span class="count h4">{{ pending_payments|default:0 }}</span>
+            <div class="progress mt-2">
+              <div class="progress-bar bg-warning" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Failed Payments -->
+        <div class="col-lg-3 col-xs-6 mb-3">
+          <div class="box text-danger round10 p-3">
+            <i class="bi bi-x-circle rounded-circle btn-danger" style="font-size: 2rem;"></i>
+            <span class="heading d-block">Failed Payments</span>
+            <span class="count h4">{{ failed_payments|default:0 }}</span>
+            <div class="progress mt-2">
+              <div class="progress-bar bg-danger" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- New Statistics Section -->
+      <div class="row mt-4">
+
+        <!-- Total Users -->
+        <div class="col-lg-3 col-xs-6 mb-3">
+          <div class="box text-primary round10 p-3">
+            <i class="bi bi-person rounded-circle btn-primary" style="font-size: 2rem;"></i>
+            <span class="heading d-block">Total Users</span>
+            <span class="count h4">{{ total_users|default:0 }}</span>
+            <div class="progress mt-2">
+              <div class="progress-bar bg-primary" role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Total Works -->
+        <div class="col-lg-3 col-xs-6 mb-3">
+          <div class="box text-secondary round10 p-3">
+            <i class="bi bi-gear rounded-circle btn-secondary" style="font-size: 2rem;"></i>
+            <span class="heading d-block">Total Works</span>
+            <span class="count h4">{{ total_works|default:0 }}</span>
+            <div class="progress mt-2">
+              <div class="progress-bar bg-secondary" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Total Invoices -->
+        <div class="col-lg-3 col-xs-6 mb-3">
+          <div class="box text-warning round10 p-3">
+            <i class="bi bi-file-earmark-text rounded-circle btn-warning" style="font-size: 2rem;"></i>
+            <span class="heading d-block">Total Invoices</span>
+            <span class="count h4">{{ total_invoices|default:0 }}</span>
+            <div class="progress mt-2">
+              <div class="progress-bar bg-warning" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Total Brands -->
+        <div class="col-lg-3 col-xs-6 mb-3">
+          <div class="box text-info round10 p-3">
+            <i class="bi bi-brands fa-apple rounded-circle btn-info" style="font-size: 2rem;"></i>
+            <span class="heading d-block">Total Brands</span>
+            <span class="count h4">{{ total_brands|default:0 }}</span>
+            <div class="progress mt-2">
+              <div class="progress-bar bg-info" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+</main>
+
+{% endblock %}

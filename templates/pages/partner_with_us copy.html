@@ -1,0 +1,243 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load widget_tweaks %}
+
+<!-- Partner Form Section -->
+<section class="container my-5">
+  
+    <h1 class="text-center mb-4 text-gradient">
+        <i class="bi bi-handshake-fill"></i> Partner With Us
+    </h1>
+    <div class="container d-flex justify-content-center align-items-center min-vh-100 px-3">
+        <div class="card shadow-sm p-4 w-100" style="max-width: 500px;">
+    {% if messages %}
+  
+      {% for message in messages %}
+        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+
+  {% endif %}
+  
+    <!-- Form Section -->
+    <form method="post" class="shadow p-4 rounded-4 bg-light border-0" id="partnerForm">
+        {% csrf_token %}
+
+        <div class="row">
+            <!-- Full Name -->
+            <div class="col-md-6 mb-4">
+                <label for="{{ form.name.id_for_label }}" class="form-label text-dark">
+                    <i class="bi bi-person-fill"></i> Full Name
+                </label>
+                {{ form.name|add_class:"form-control border-primary shadow-sm" }}
+            </div>
+
+            <!-- Email Address -->
+            <div class="col-md-6 mb-4">
+                <label for="{{ form.email.id_for_label }}" class="form-label text-dark">
+                    <i class="bi bi-envelope-fill"></i> Email Address
+                </label>
+                {{ form.email|add_class:"form-control border-primary shadow-sm" }}
+                <div id="emailVerificationStatus" class="mt-2 small"></div>
+            </div>
+
+            <!-- Phone Number -->
+            <div class="col-md-6 mb-4">
+                <label for="{{ form.phone.id_for_label }}" class="form-label text-dark">
+                    <i class="bi bi-telephone-fill"></i> Phone Number
+                </label>
+                {{ form.phone|add_class:"form-control border-primary shadow-sm" }}
+            </div>
+
+            <!-- Company Name -->
+            <div class="col-md-6 mb-4">
+                <label for="{{ form.company_name.id_for_label }}" class="form-label text-dark">
+                    <i class="bi bi-building"></i> Company Name
+                </label>
+                {{ form.company_name|add_class:"form-control border-primary shadow-sm" }}
+            </div>
+
+            <!-- Message -->
+            <div class="col-12 mb-4">
+                <label for="{{ form.message.id_for_label }}" class="form-label text-dark">
+                    <i class="bi bi-chat-dots-fill"></i> Message
+                </label>
+                {{ form.message|add_class:"form-control border-primary shadow-sm" }}
+            </div>
+            
+            <!-- OTP Verification Field (hidden by default) -->
+            <div class="col-12 mb-4" id="otpVerificationSection" style="display: none;">
+                <label for="otp" class="form-label text-dark">
+                    <i class="bi bi-shield-lock"></i> Enter OTP
+                </label>
+                <div class="input-group">
+                    <input type="text" class="form-control border-primary shadow-sm" id="otp" name="otp" placeholder="Enter 6-digit OTP">
+                    <button class="btn btn-outline-primary" type="button" id="resendOtpBtn">
+                        <i class="bi bi-arrow-clockwise"></i> Resend OTP
+                    </button>
+                </div>
+                <small class="text-muted">Check your email for the OTP we just sent</small>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="text-center">
+            <button type="submit" class="btn btn-gradient text-white btn-lg px-5 py-2 rounded-pill shadow" id="submitBtn">
+                <i class="bi bi-send-fill"></i> Submit
+            </button>
+        </div>
+    </form>
+</div>
+</section>
+
+<!-- Include SweetAlert2 -->
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const emailField = document.getElementById('{{ form.email.id_for_label }}');
+    const emailVerificationStatus = document.getElementById('emailVerificationStatus');
+    const otpVerificationSection = document.getElementById('otpVerificationSection');
+    const resendOtpBtn = document.getElementById('resendOtpBtn');
+    const partnerForm = document.getElementById('partnerForm');
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    // Function to validate email format
+    function isValidEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+
+    // Function to send OTP
+    function sendOTP(email) {
+        emailVerificationStatus.innerHTML = '<span class="text-primary"><i class="bi bi-hourglass-split"></i> Sending OTP...</span>';
+        
+        fetch('{% url "send_otp" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': csrfToken
+            },
+            body: `email=${encodeURIComponent(email)}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                emailVerificationStatus.innerHTML = '<span class="text-success"><i class="bi bi-check-circle-fill"></i> OTP sent to your email</span>';
+                otpVerificationSection.style.display = 'block';
+                
+                Swal.fire({
+                    title: 'OTP Sent!',
+                    text: 'We have sent a 6-digit OTP to your email address. Please check your inbox.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+            } else {
+                emailVerificationStatus.innerHTML = `<span class="text-danger"><i class="bi bi-exclamation-triangle-fill"></i> ${data.error || 'Failed to send OTP'}</span>`;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            emailVerificationStatus.innerHTML = '<span class="text-danger"><i class="bi bi-exclamation-triangle-fill"></i> Error sending OTP</span>';
+        });
+    }
+
+    // Email field input event with debounce
+    let emailTimeout;
+    emailField.addEventListener('input', function() {
+        clearTimeout(emailTimeout);
+        const email = this.value.trim();
+        
+        if (email && isValidEmail(email)) {
+            emailTimeout = setTimeout(() => {
+                sendOTP(email);
+            }, 1000); // 1 second delay after typing stops
+        } else {
+            emailVerificationStatus.innerHTML = '';
+            otpVerificationSection.style.display = 'none';
+        }
+    });
+
+    // Resend OTP button click event
+    resendOtpBtn.addEventListener('click', function() {
+        const email = emailField.value.trim();
+        
+        if (email && isValidEmail(email)) {
+            Swal.fire({
+                title: 'Sending OTP',
+                html: 'Please wait while we send a new OTP to your email...',
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading();
+                    sendOTP(email);
+                }
+            });
+        }
+    });
+
+    // Form submission handler
+    partnerForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(this);
+        const otp = document.getElementById('otp').value;
+        
+        // If OTP section is visible but OTP is not entered
+        if (otpVerificationSection.style.display !== 'none' && !otp) {
+            Swal.fire({
+                title: 'OTP Required',
+                text: 'Please enter the OTP sent to your email.',
+                icon: 'warning',
+                confirmButtonText: 'OK'
+            });
+            return;
+        }
+        
+        // Show loading state
+        Swal.fire({
+            title: 'Processing',
+            html: 'Please wait while we verify your details...',
+            timerProgressBar: true,
+            didOpen: () => {
+                Swal.showLoading();
+                
+                fetch(this.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': csrfToken
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.redirect) {
+                        window.location.href = data.redirect;
+                    } else if (data.error) {
+                        Swal.fire({
+                            title: 'Error',
+                            text: typeof data.error === 'object' ? JSON.stringify(data.error) : data.error,
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'An error occurred while processing your request.',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                });
+            }
+        });
+    });
+});
+</script>
+
+{% endblock %}

@@ -1,0 +1,70 @@
+<html>
+  <head>
+    <style>
+      * {
+        font-size: 15px;
+      }
+
+      table {
+        table-layout: fixed;
+        width: 100%;
+        border: 1px solid black;
+      }
+
+      table th {
+        text-align: left;
+        padding: 3px;
+        padding-bottom: 0;
+      }
+
+      table td {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding: 3px;
+        padding-bottom: 0;
+      }
+      @page {
+        padding: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <table>
+      <tr>
+        <th>
+          <img src="{{ logo }}" style="width: 190px; height: 50px; text-align: center"/>
+          <p style="text-align: center">
+            {{ app.domain_name }}| {{ app.app_email }} | Mob:{{ app.app_mobile }}
+          </p>
+          <p style="text-align: center">{{ app.app_address }}</p>
+          <hr />
+          <h3 style="text-align: center">{{ doc_name }}</h3>
+          <p>Date: {{time}}</p>
+        </th>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <th sttyle="width: 40%; text-align: left;">User Name</th>
+        <th sttyle="width: 40%; text-align: left;">Email</th>
+        <th sttyle="width: 40%; text-align: left;">Mobile</th>
+      </tr>
+      <tr>
+        {% for obj in  %}
+        <td>{{ obj.username }}</td>
+        <td>{{ obj.email }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <pdf:barcode
+      value="{{ app.domain_name }}"
+      type="code128"
+      humanreadable="1"
+      align="bottom"
+    />
+   
+  </body>
+</html>

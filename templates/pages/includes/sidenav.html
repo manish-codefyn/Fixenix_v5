@@ -1,0 +1,217 @@
+<!-- sidebar start -->
+{% load static %}
+<nav class="sidebar text-start" id="sidebar">
+  <div class="sidebar-header d-flex justify-content-between align-items-center">
+    <a class="logo-sm" href="#">
+      <img src="{% static 'codefyn-5.0/images/logo.svg' %}" alt="Fixenix Logo" />
+    </a>
+    <button
+      type="button"
+      id="sidebarCollapseX"
+      class="btn btn-sm"
+      data-bs-toggle="tooltip"
+      data-bs-placement="right"
+      title="Close"
+    >
+      <i class="bi bi-x-circle fs-2 text-danger"></i>
+    </button>
+  </div>
+
+  <hr class="my-3" />
+
+  <div class="sidebar-content">
+    <ul class="nav flex-column">
+      {% if user.is_authenticated %}
+      <li class="nav-item">
+        <a
+          class="nav-link sidebar-btn collapsed d-flex justify-content-between align-items-center"
+          data-bs-toggle="collapse"
+          data-bs-target="#account-collapse"
+          aria-expanded="false"
+        >
+          <span><i class="bi bi-people me-2"></i>{{ user.username }}</span>
+          <i class="bi bi-chevron-down collapse-icon"></i>
+        </a>
+        <div class="collapse" id="account-collapse">
+          <ul class="nav flex-column fw-normal pb-1 small">
+            {% if user.is_staff %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'dashboard:index' %}">
+                <i class="bi bi-speedometer me-2"></i> Dashboard
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" onclick="logoutFunction()">
+                <i class="bi bi-box-arrow-right me-2"></i> Log Out
+              </a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'user_dashboard' %}">
+                <i class="bi bi-person-bounding-box me-2"></i> Account
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" id="logout">
+                <i class="bi bi-box-arrow-right me-2"></i> Log Out
+              </a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </li>
+      {% else %}
+      <li class="nav-item">
+        <a
+          class="btn btn-premium-sidebar w-100 text-center"
+          href="{% url 'account_login' %}"
+        >
+          <i class="bi bi-person-lock me-2"></i> Login
+        </a>
+      </li>
+      {% endif %}
+    </ul>
+
+    <hr class="my-3" />
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'aboutus' %}">
+          <i class="bi bi-info-circle me-2 fw-bold"></i> ABOUT
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'partner_with_us' %}">
+          <i class="bi bi-hand-thumbs-up me-2 fw-bold"></i>PARTNER WITH US
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'book_repair' %}">
+          <i class="bi bi-door-closed me-2 fw-bold"></i>BOOK A REPAIR
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link nav-link-premium" href="https://pro.fixenix.com/">
+          <i class="bi bi-stars me-2 fw-bold"></i>PRO SERVICE
+          <span class="badge-premium-sidebar">NEW</span>
+        </a>
+      </li>
+    </ul>
+    
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a
+          class="nav-link  collapsed d-flex justify-content-between align-items-center"
+          data-bs-toggle="collapse"
+          data-bs-target="#services-collapse"
+          aria-expanded="false"
+        >
+          <span><i class="bi bi-gear me-2 fw-bold"></i> SERVICES</span>
+          <i class="bi bi-chevron-down collapse-icon"></i>
+        </a>
+        <div class="collapse" id="services-collapse">
+          <ul class="nav flex-column fw-normal pb-1 small">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'smartphone-services' %}">
+                <i class="bi bi-phone-flip me-2"></i> Mobile Repairing
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'iphone-services' %}">
+                <i class="bi bi-apple me-2"></i> iPhone Services
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'laptop-services' %}">
+                <i class="bi bi-laptop me-2"></i> Laptop Repairing
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'desktop-services' %}">
+                <i class="bi bi-pc-display me-2"></i> Desktop Repairing
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'cctv_services' %}">
+                <i class="bi bi-camera-video me-2"></i> CCTV Services
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'electronics_services' %}">
+                <i class="bi bi-plug me-2"></i> Electronics Goods
+              </a>
+            </li>
+          
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'data_recovery' %}">
+                <i class="bi bi-database me-2"></i> Data Recovery
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-premium" href="{% url 'service-list' %}">
+                <i class="bi bi-stars me-2"></i>Book Services
+                <span class="badge-premium-sidebar">NEW</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a
+          class="nav-link  collapsed d-flex justify-content-between align-items-center"
+          data-bs-toggle="collapse"
+          data-bs-target="#support-collapse"
+          aria-expanded="false"
+        >
+          <span><i class="bi bi-person me-2 fw-bold"></i> SUPPORT</span>
+          <i class="bi bi-chevron-down collapse-icon"></i>
+        </a>
+        <div class="collapse" id="support-collapse">
+          <ul class="nav flex-column fw-normal pb-1 small">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'faqs' %}">
+                <i class="bi bi-exclamation-circle me-2"></i> FAQs
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'contactus' %}">
+                <i class="bi bi-envelope-at me-2"></i> Contact Us
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'feedback' %}">
+                <i class="bi bi-rss me-2"></i> Feedback
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'terms_and_conditions' %}">
+                <i class="bi bi-file-earmark-text me-2"></i> Terms and Conditions
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'privacy_policy' %}">
+                <i class="bi bi-shield-check me-2"></i> Privacy Policy
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'disclaimer' %}">
+                <i class="bi bi-file-earmark-medical me-2"></i> Disclaimer
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+
+    <hr class="my-3" />
+    <div class="text-center text-muted mt-2 mb-1 fw-bold">
+      +917992351609
+    </div>
+    <div class="text-center text-muted mt-1 mb-1 fw-bold">
+      info@fixenix.com
+    </div>
+    <div class="text-center text-muted mt-5 mb-1 fw-bold">
+      V4.0.1
+    </div>
+  </div>
+</nav>

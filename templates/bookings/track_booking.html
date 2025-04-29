@@ -1,0 +1,79 @@
+{% extends 'layouts/base.html' %}
+{% block title %}Track Your Booking{% endblock %}
+{% block content %}
+<div class="container my-5">
+    <!-- Page Header -->
+    <div class="text-center mb-5">
+        <h1 class="fw-bold display-5">🔍 Track Your Booking</h1>
+        <p class="text-muted">Easily check the status of your booking with your booking ID.</p>
+    </div>
+
+    <!-- Display Messages -->
+    {% if messages %}
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-8">
+            {% for message in messages %}
+            <div class="alert 
+                        {% if message.tags == 'error' %}alert-danger{% else %}alert-success{% endif %} 
+                        alert-dismissible fade show" 
+                 role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Tracking Form -->
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-0 shadow-lg p-4">
+                <div class="card-body">
+                    <h2 class="card-title text-center text-primary fw-bold">Enter Your Booking ID</h2>
+                    <form method="post" action="{% url 'track-booking' %}" class="mt-4">
+                        {% csrf_token %}
+                        <div class="form-floating mb-3">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-gradient text-white btn-lg">
+                                <i class="bi bi-search"></i> Track Booking
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Additional Help Section -->
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-8 text-center">
+            <p class="text-muted">
+                If you have any issues or need assistance, feel free to 
+                <a href="{% url 'contactus' %}" class="text-decoration-underline text-primary">contact us</a>.
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Animation for the Form -->
+<style>
+    form {
+        animation: fadeIn 1.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+{% endblock %}

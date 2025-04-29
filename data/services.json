@@ -1,0 +1,147 @@
+[
+    {
+      "model": "services.doorstepservice",
+      "fields": {
+        "service_name": "Data Recovery",
+        "price": 800.00,
+        "offer_price": 750.00,
+        "is_available": true,
+        "is_premium": true,
+        "is_discountable": false,
+        "is_featured": false,
+        "features": "- Recovery of lost data\n- Corrupted drive repair\n- Supports HDD, SSD, USB",
+        "status": "active",
+        "image": "service_images/data_recovery.jpeg",
+        "requested_at": "2025-01-16T12:00:00Z",
+        "updated_at": "2025-01-16T12:00:00Z",
+        "created_at": "2025-01-16T12:00:00Z"
+      }
+    },
+    {
+      "model": "services.doorstepservice",
+      "fields": {
+        "service_name": "Virus Removal",
+        "price": 400.00,
+        "offer_price": 350.00,
+        "is_available": true,
+        "is_premium": false,
+        "is_discountable": true,
+        "is_featured": false,
+        "features": "- Full system scan\n- Malware and spyware removal\n- Security patching",
+        "status": "active",
+        "image": "service_images/virus_removal.jpeg",
+        "requested_at": "2025-01-16T12:00:00Z",
+        "updated_at": "2025-01-16T12:00:00Z",
+        "created_at": "2025-01-16T12:00:00Z"
+      }
+    },
+    {
+      "model": "services.doorstepservice",
+      "fields": {
+        "service_name": "Printer Setup",
+        "price": 600.00,
+        "offer_price": 550.00,
+        "is_available": true,
+        "is_premium": false,
+        "is_discountable": true,
+        "is_featured": false,
+        "features": "- Printer installation\n- Driver configuration\n- Network printing setup",
+        "status": "active",
+        "image": "service_images/printer_setup.jpeg",
+        "requested_at": "2025-01-16T12:00:00Z",
+        "updated_at": "2025-01-16T12:00:00Z",
+        "created_at": "2025-01-16T12:00:00Z"
+      }
+    },
+    {
+      "model": "services.doorstepservice",
+      "fields": {
+        "service_name": "Network Configuration",
+        "price": 1200.00,
+        "offer_price": 1100.00,
+        "is_available": true,
+        "is_premium": true,
+        "is_discountable": false,
+        "is_featured": true,
+        "features": "- Wi-Fi router setup\n- LAN & WAN configuration\n- Network troubleshooting",
+        "status": "active",
+        "image": "service_images/network_config.jpeg",
+        "requested_at": "2025-01-16T12:00:00Z",
+        "updated_at": "2025-01-16T12:00:00Z",
+        "created_at": "2025-01-16T12:00:00Z"
+      }
+    },
+    {
+      "model": "services.doorstepservice",
+      "fields": {
+        "service_name": "Home Theater Setup",
+        "price": 2000.00,
+        "offer_price": 1900.00,
+        "is_available": true,
+        "is_premium": true,
+        "is_discountable": false,
+        "is_featured": true,
+        "features": "- Speaker & display setup\n- Cable management\n- Sound calibration",
+        "status": "active",
+        "image": "service_images/home_theater.jpeg",
+        "requested_at": "2025-01-16T12:00:00Z",
+        "updated_at": "2025-01-16T12:00:00Z",
+        "created_at": "2025-01-16T12:00:00Z"
+      }
+    },
+    {
+      "model": "services.doorstepservice",
+      "fields": {
+        "service_name": "Battery Replacement",
+        "price": 1000.00,
+        "offer_price": 950.00,
+        "is_available": true,
+        "is_premium": false,
+        "is_discountable": true,
+        "is_featured": false,
+        "features": "- Battery diagnostics\n- Mobile & laptop battery support\n- Original replacement parts",
+        "status": "active",
+        "image": "service_images/battery_replacement.jpeg",
+        "requested_at": "2025-01-16T12:00:00Z",
+        "updated_at": "2025-01-16T12:00:00Z",
+        "created_at": "2025-01-16T12:00:00Z"
+      }
+    },
+    {
+      "model": "services.doorstepservice",
+      "fields": {
+        "service_name": "Hardware Upgrade",
+        "price": 1500.00,
+        "offer_price": 1400.00,
+        "is_available": true,
+        "is_premium": true,
+        "is_discountable": false,
+        "is_featured": false,
+        "features": "- RAM & SSD installation\n- BIOS updates\n- Component compatibility check",
+        "status": "active",
+        "image": "service_images/hardware_upgrade.jpeg",
+        "requested_at": "2025-01-16T12:00:00Z",
+        "updated_at": "2025-01-16T12:00:00Z",
+        "created_at": "2025-01-16T12:00:00Z"
+      }
+    },
+    {
+      "model": "services.doorstepservice",
+      "fields": {
+        "service_name": "Software Installation",
+        "price": 500.00,
+        "offer_price": 450.00,
+        "is_available": true,
+        "is_premium": false,
+        "is_discountable": true,
+        "is_featured": false,
+        "features": "- OS & software installation\n- Office & antivirus setup\n- License activation help",
+        "status": "active",
+        "image": "service_images/software_installation.jpeg",
+        "requested_at": "2025-01-16T12:00:00Z",
+        "updated_at": "2025-01-16T12:00:00Z",
+        "created_at": "2025-01-16T12:00:00Z"
+      }
+    }
+  ]
+  

@@ -1,0 +1,43 @@
+{% extends 'layouts/base_.html' %}
+{% block title %}Payment Successful - Fixenix Services{% endblock %}
+{% block meta_description %}Thank you for your payment! Your booking with Fixenix Services for mobile and computer repair in Siliguri is confirmed. We look forward to serving you.{% endblock %}
+{% block meta_keywords %}payment successful, booking confirmation, Fixenix Services, mobile repair Siliguri, computer repair Siliguri{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5 d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card shadow-lg text-center" style="max-width: 600px; width: 100%;">
+        <div class="card-body p-5">
+            <!-- Animated Success Icon -->
+            <div class="success-icon mb-4">
+                <div class="checkmark-circle">
+                    <div class="background"></div>
+                    <div class="checkmark draw"></div>
+                </div>
+            </div>
+
+            <h2 class="text-success">🎉 Payment Successful!</h2>
+            <p class="text-muted mt-3 mb-4">
+                Thank you for booking with Fixenix Services. Your payment of 
+                <strong>₹{{ amount }}</strong> has been processed successfully. Our team will be in touch soon to assist you.
+            </p>
+            <a href="{% url 'service-list' %}" class="btn btn-primary btn-lg px-4">Back to Services</a>
+        </div>
+        <p class="text-muted">
+            If you are not redirected automatically, <a href="{{ redirect_url }}" class="text-primary">click here</a>.
+        </p>
+
+        <div class="card-footer text-muted">
+            Need help? <a href="{% url 'contactus' %}" class="text-primary">Contact Support</a>
+        </div>
+    </div>
+</div>
+
+<!-- Auto Redirect Logic -->
+<script>
+    setTimeout(function() {
+        window.location.href = "{{ redirect_url }}";
+    }, 5000); // Redirect after 5 seconds
+</script>
+
+{% endblock %}

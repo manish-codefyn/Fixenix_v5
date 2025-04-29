@@ -1,0 +1,146 @@
+{% extends 'layouts/base.html'%} {% load crispy_forms_tags %}
+{% block content %}
+<!-- Feedback section -->
+
+{% if messages %}
+  <div class="container mt-3">
+    {% for message in messages %}
+      <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+<section class="bg-light">
+  <div class="container">
+    <div class="p-4">
+      <div class="p-4">
+        <div class="row">
+          <div class="col-md-8 text-center">
+            <img src="/static/codefyn-5.0/images/bg/contactus.svg" />
+          </div>
+          <div class="col-md-4 p-4 bg-white rounded-5">
+            <form id="FeedbackForm" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <h2 class="text-center">
+                <strong>Feedback</strong><span class="text-danger"> Form</span>
+              </h2>
+              <div class="g-2 mb-3">
+                <div class="col-md form-floating">
+                  {{ form.email }}
+                  <li class="errors">{{ form.email.errors }}</li>
+                  <label for="floatingInput text-bold">
+                    <i class="bi bi-envelope-at-fill mr5 form-i"></i>
+                    <span class="text-color-black fw-bold"> Email </span></label
+                  >
+                </div>
+                <div class="col-md mt-2 mb-5 text-center pb-5">
+                  <div class="rate form-control">
+                    <div class="rate">
+                      <input type="radio" id="star5" name="rating" value="5" />
+                      <label for="star5" title="text">5 stars</label>
+                      <input type="radio" id="star4" name="rating" value="4" />
+                      <label for="star4" title="text">4 stars</label>
+                      <input type="radio" id="star3" name="rating" value="3" />
+                      <label for="star3" title="text">3 stars</label>
+                      <input type="radio" id="star2" name="rating" value="2" />
+                      <label for="star2" title="text">2 stars</label>
+                      <input type="radio" id="star1" name="rating" value="1" />
+                      <label for="star1" title="text">1 star</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row justify-content-center">
+                <div class="col-12">
+                  <div class="d-flex align-items-center mb-3">
+                    <div class="me-3">
+                    
+                    </div>
+                    <div class="flex-grow-1">
+                      {{ form.captcha }}
+                      {% if form.captcha.errors %}
+                        <small class="text-danger d-block">{{ form.captcha.errors.0 }}</small>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+   
+                <div class="form-submit mt-3">
+                  <button type="submit" class="custom-submit-button">
+                    <i class="bi bi-send-check me-2"></i>Send
+                  </button>
+                </div>
+                </div>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  $(document).ready(function () {
+    $(".preloader").hide();
+  
+    $("#FeedbackForm").submit(function (e) {
+      e.preventDefault(); // Stop default form submission
+  
+      let formData = $(this).serialize(); // Serialize form data
+      let csrfToken = $("input[name='csrfmiddlewaretoken']").val(); // Get CSRF token
+  
+      $(".preloader").show(); // Show preloader
+  
+      $.ajax({
+        url: "{% url 'feedback' %}", // Django feedback view URL
+        type: "POST",
+        data: formData,
+        dataType: "json",
+        headers: { "X-CSRFToken": csrfToken }, // Include CSRF token in AJAX header
+  
+        success: function (response) {
+          $(".preloader").hide(); // Hide preloader
+  
+          if (response.success) {
+            Swal.fire({
+              title: "Thank You!",
+              text: response.message,
+              icon: "success",
+              confirmButtonText: "OK",
+            });
+  
+            $("#FeedbackForm").trigger("reset"); // Reset form after success
+          } else {
+            Swal.fire({
+              icon: "warning",
+              title: "Submission Error!",
+              text: response.message || "Please check the form and try again.",
+            });
+          }
+        },
+  
+        error: function (xhr) {
+          $(".preloader").hide(); // Hide preloader on error
+  
+          let errorMsg = "An error occurred. Please try again!";
+          if (xhr.responseJSON && xhr.responseJSON.errors) {
+            errorMsg = Object.values(xhr.responseJSON.errors).join("\n");
+          }
+  
+          Swal.fire({
+            icon: "error",
+            title: "Submission Failed!",
+            text: errorMsg,
+          });
+        },
+      });
+    });
+  });
+  </script>
+  
+
+{% endblock %}

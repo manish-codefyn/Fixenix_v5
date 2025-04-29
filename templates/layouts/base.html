@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    {% load static compress %}
+    <meta charset="UTF-8">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="{{ og_title|default:'Fixenix - Best Mobile Repair in Siliguri | Get all types of mobile repair in Siliguri with Fixenix! We offer expert mobile screen replacement, battery replacement, motherboard repair, and more. Enroll in our professional mobile repairing courses and start your career today. Fast, reliable, and affordable service. Call Fixenix now!' }}">
+    <meta property="og:type" content="{{ og_type|default:'website' }}">
+    <meta property="og:image" content="{{ og_image|default:request.build_absolute_uri|add:'/static/images/partner-og-image.jpg' }}">
+    <meta property="og:url" content="{{ og_url|default:request.build_absolute_uri }}">
+    <meta property="og:description" content="{{ og_description|default:'Best Mobile Repair in siliguri all types of mobile repair in Siliguri with Fixenix! We offer expert mobile screen replacement, battery replacement, motherboard repair, and more. Enroll in our professional mobile repairing courses and start your career today. Fast, reliable, and affordable service. Call Fixenix now!' }}">
+    <meta property="og:site_name" content="{{ site_name|default:'Fixenix' }}">
+
+    <!-- SEO Meta Tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="{{ keywords|default:'Mobile Repair in Siliguri, Best Mobile Repair Service Siliguri, Mobile Screen Replacement Siliguri, Battery Replacement Siliguri, Motherboard Repair Siliguri, Fast Mobile Repair Near Me, Affordable Phone Repair Siliguri, Mobile Repairing Shop in Siliguri, Fix Mobile Phone Siliguri, Mobile Repair Course in Siliguri, Mobile Repair Training in Siliguri, Learn Mobile Repairing Siliguri, Professional Mobile Repair Classes, Mobile Repairing Institute Siliguri, Best Mobile Repair Training Center, Fixenix Mobile Repair, Fixenix Repair Services, Fixenix Mobile Repairing Course, Fixenix Siliguri' }}">
+    <meta name="description" content="{{ description|default:'Best Mobile Repair in siliguri all types of mobile repair in Siliguri with Fixenix! We offer expert mobile screen replacement, battery replacement, motherboard repair, and more. Enroll in our professional mobile repairing courses and start your career today. Fast, reliable, and affordable service. Call Fixenix now!' }}">
+    
+    <!-- Favicon & Theme Colors -->
+    <meta name="theme-color" content="#ffffff">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="{% static 'codefyn-5.0/images/ms-icon-144x144.png' %}">
+
+    <!-- Twitter Card (For better Twitter previews) -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Fixenix - Mobile Repair & Training in Siliguri">
+    <meta name="twitter:description" content="Get expert mobile repair services and mobile repairing courses in Siliguri. Fixenix provides screen replacement, battery repair, and more.">
+    <meta name="twitter:image" content="request.build_absolute_uri|add:'/static/codefyn-5.0/images/og-image.jpg">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" type="image/png" href="{% static 'codefyn-5.0/images/favicon.ico' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'codefyn-5.0/images/favicon-32x32.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'codefyn-5.0/images/apple-icon-180x180.png' %}">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- CSS Files (Minified & Compressed) -->
+    {% compress css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'codefyn-5.0/css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'codefyn-5.0/css/carousel.css' %}">
+    {% endcompress %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'codefyn-5.0/vendor/bootstrap-5.0.2/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'codefyn-5.0/vendor/font/bootstrap-icons.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'codefyn-5.0/vendor/aos/aos.css' %}">
+
+    <!-- Page Title -->
+    <title>{% block title %}{{ title|default:'Fixenix - Best Mobile - laptop - computer - cctv Repairing in Siliguri' }}{% endblock %}</title>
+    <script type="text/javascript" src="{% static 'codefyn-5.0/vendor/sweetalert/sweetalert2.all.js' %}"></script>
+    {% if GOOGLE_ANALYTICS_ID %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ GOOGLE_ANALYTICS_ID }}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '{{ GOOGLE_ANALYTICS_ID }}');
+    </script>
+    {% endif %}
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Fixenix",
+        "url": "https://fixenix.com",
+        "image": "https://fixenix.com/static/codefyn-5.0/images/logo.png",
+        "description": "Best Mobile laptop computer cctv repairing in Siliguri - all types of mobile , laptop , computer, cctv repair in Siliguri with Fixenix! We offer expert mobile screen replacement, battery replacement, motherboard repair, and more. Enroll in our professional mobile repairing courses and start your career today. Fast, reliable, and affordable service. Call Fixenix now! Get expert solutions for mobiles, laptops, desktops, and more!.",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Check Post",
+          "addressLocality": "Siliguri",
+          "addressRegion": "WB",
+          "postalCode": "734001",
+          "addressCountry": "IN"
+        },
+        "telephone": "+91 7992351609",
+        "openingHours": "Mo-Fr 09:00-18:00",
+        "sameAs": [
+        "https://www.facebook.com/Fixenix.mobile/",
+        "https://www.youtube.com/@FixenixMobileservices",
+        "https://www.instagram.com/fixenix.official/",
+        ]
+      }
+      </script>
+      
+    {% endblock %}
+</head>
+<body>
+    {% block nav %}
+    {% include 'pages/includes/nav.html' %}
+    {% endblock %}
+    {% block sidenav %}
+    {% include 'pages/includes/sidenav.html' %}
+    {% endblock %}
+    {% block messages %}
+    {% include 'alerts/messages.html' with messages=messages %}
+    {% endblock %}
+    {% block breadcrumbs %}
+    {% endblock %}
+
+    {% block loader %}
+    <!-- PRE LOADER -->
+    <section class="preloader">
+      <div class="spinner">
+        <span class="spinner-rotate"></span>
+      </div>
+    </section>
+    <!-- Loader End -->
+    {% endblock %}
+    {% block content %}
+    {% endblock %}
+
+    {% block footer %}
+    {% include 'pages/includes/footer.html' %}
+    {% endblock %}
+
+    {% block mobilenav %}
+       {% include 'pages/includes/mobilenav.html' %}
+    {% endblock %}
+    {% block logout %}
+    <form
+      method="post"
+      id="logoutform"
+      action="{% url 'account_logout' %}"
+     >
+    {% csrf_token %}
+    </form>
+    {% endblock %}
+    <!-- JavaScript Files (Minified) -->
+    <script type="text/javascript" src="{% static 'codefyn-5.0/vendor/jquery-3.5/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'codefyn-5.0/vendor/bootstrap-5.0.2/js/bootstrap.bundle.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'codefyn-5.0/vendor/aos/aos.js' %}"></script>
+  
+    {% block script_bottom %}
+ 
+    {% compress js %}
+    <script type="text/javascript">
+
+      $(window).scroll(function () {
+          if ($(this).scrollTop() > 250) {
+              $('.sticky-top').addClass('sticky-nav').css('top', '0px');
+          } else {
+              $('.sticky-top').removeClass('sticky-nav').css('top', '-100px');
+          }
+        });
+
+
+       AOS.init(); // Initialize AOS
+      // Form Submit
+      $(document).ready(function () {
+        $(".preloader").hide();
+        $("#MainForm").on("submit", function () {
+          $(".preloader").fadeIn();
+        });
+      });
+      // end form submit
+      // Logout
+  function logoutFunction() {
+  swal.fire({
+  title: "Sure Want to Logout ?",
+  type: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "OK",
+  closeOnConfirm: true,
+  closeOnCancel: false,
+})
+.then((result) => {
+  if (result.value === true) {
+    $("#logoutform").submit(); // this submits the form
+  }
+});
+   }
+      //  Logout End
+      function confirmFunction() {
+        event.preventDefault(); // prevent form submit
+        var form = event.target.form; // storing the form
+        Swal.fire({
+          title: "Are you sure?",
+          text: "Want to logout!",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#f00000",
+          cancelButtonColor: "#333",
+          confirmButtonText: "Yes,Logout!",
+        }).then((result) => {
+          if (result.value) {
+            form.submit();
+          }
+        });
+      }
+
+      //MObile Footer
+      var navItems = document.querySelectorAll(".bloc-icon");
+
+      navItems.forEach(function (e, i) {
+        e.addEventListener("click", function (e) {
+          navItems.forEach(function (e2, i2) {
+            e2.classList.remove("block-icon-active");
+          });
+          this.classList.add("block-icon-active");
+        });
+      });
+
+      // Mobile Menu Footer End
+      // Nav
+      (function () {
+        "use strict";
+        var tooltipTriggerList = [].slice.call(
+          document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        );
+        tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+          new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+      })();
+
+      $(document).ready(function () {
+        $("#sidebarCollapse").on("click", function () {
+          $("#sidebar").addClass("active");
+        });
+
+        $("#sidebarCollapseX").on("click", function () {
+          $("#sidebar").removeClass("active");
+        });
+
+        $("#sidebarCollapse").on("click", function () {
+          if ($("#sidebar").hasClass("active")) {
+            $(".overlay").addClass("visible");
+            console.log("it's working!");
+          }
+        });
+
+        $("#sidebarCollapseX").on("click", function () {
+          $(".overlay").removeClass("visible");
+        });
+      });
+
+      // Nav End
+      // Nav Scrolling
+      var tooltipTriggerList = [].slice.call(
+        document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      );
+      var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+      });
+
+      // for top fix
+      document.addEventListener("DOMContentLoaded", function () {
+        window.addEventListener("scroll", function () {
+          if (window.scrollY > 50) {
+            document.getElementById("navbar_top").classList.add("is-scrolling");
+            // add padding top to show content behind navbar
+            navbar_height = document.querySelector(".navbar").offsetHeight;
+            document.body.style.paddingTop = navbar_height + "px";
+          } else {
+            document
+              .getElementById("navbar_top")
+              .classList.remove("is-scrolling");
+            // remove padding top from body
+            document.body.style.paddingTop = "0";
+          }
+        });
+      });
+      // Nav scroll  end
+
+      (function (window, $, undefined) {
+        "use strict";
+
+        // Nav Scrolling
+
+        $(document).ready(function () {
+          function is_scrolling() {
+            var $element = $(".site-header"),
+              $nav_height = $element.outerHeight(true);
+
+            if ($(this).scrollTop() >= $nav_height) {
+              //if scrolling is equal to or greater than the nav height add a class
+
+              $element.addClass("is-scrolling");
+            } else {
+              //is back at the top again, remove the class
+
+              $element.removeClass("is-scrolling");
+            }
+          } //end is_scrolling();
+
+          $(window).scroll(_.throttle(is_scrolling, 200));
+        }); //* end ready
+      })(this, jQuery);
+
+      // contactform
+
+      // Example starter JavaScript for disabling form submissions if there are invalid fields
+      (function () {
+        "use strict";
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll(".needs-validation");
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms).forEach(function (form) {
+          form.addEventListener(
+            "submit",
+            function (event) {
+              if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+              }
+
+              form.classList.add("was-validated");
+            },
+            false
+          );
+        });
+      })();
+    </script>
+    <!-- Initialize AOS (Now optimized inside DOMContentLoaded) -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            AOS.init();
+        });
+    </script>
+    <script>
+      window.addEventListener("load", function () {
+        document.querySelector(".preloader").style.display = "none";
+      });
+    </script>
+    
+    {% endcompress %}
+    {% endblock %}
+</body>
+</html>

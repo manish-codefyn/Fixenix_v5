@@ -1,0 +1,99 @@
+<html>
+    <head>
+        <style>
+            * {
+                font-size: 15px;
+            }
+
+            table {
+                table-layout: fixed;
+                width: 100%;
+                border: 1px solid black;
+            }
+
+            table th {
+                text-align: left;
+                padding: 3px;
+                padding-bottom: 0;
+            }
+
+            table td {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                padding: 3px;
+                padding-bottom: 0;
+            }
+         .sign{
+
+            margin-top: 1px;
+            text-align: right;
+            align-content: right;
+            align-items: right;
+         }
+         .date{
+            margin-top: 20px;
+            align-items: left;
+            align-content: left;
+         }
+         .row{
+            width: 100%;
+         }
+         .col-md-6{
+            width: 50%;
+         }
+        .stamp{
+            height: 100px;
+            width: 100px;
+        }
+        </style>
+    </head>
+    <body>
+        <table>
+        <tr>
+        <th>
+        <h2 style="margin-bottom: 0px;"> 
+                    <img src="{{ logo }}" style="width: 190px; height: 50px;"> </h2>
+                  
+                    <table>  
+                      <tr>
+                          <td>
+                          <b> Mobile: {{ app.app_mobile }} </b> |  <b>Email: {{ app.app_email }} </b> | <b> Web : {{ app.domain_name }} </b><br>
+                          <b> Address: {{ app.app_address }}</b> 
+                          </td>
+                      </tr>
+                  </table>
+              <hr>  
+            <h3 style="text-align: center;">{{ doc_name }} </h3>
+                </th>
+            </tr> 
+           </table>
+            <table>
+               <tr>
+                <th> S No </th>
+                <th> Service Name</th>
+                <th> Service Price</th>
+                <th> Offer Price</th>
+                <th> Service Status</th>
+            </tr>
+            {% for data in doorstep_services %}
+            <tr>
+                <td style="width: 5%;"> {{forloop.counter}} </td>
+                <td sttyle="width: 20%; text-align: left;"> {{ data.service_name }} </td>
+                <td sttyle="width: 20%; text-align: left;"> {{ data.price }} </td>
+                <td sttyle="width: 40%; text-align: left;"> {{ data.offer_price }} </td>
+                <td sttyle="width: 15%; text-align: left;"> {{ data.status }} </td>
+                
+            </tr>
+            {%endfor%}
+            </table>
+            <div class="row">
+            <div  class=" col-md-6">
+            <div class="date" >Date:{{ time }} </div>
+            </div>
+            <div class="col-md-6 ">
+            <div class="sign"><img src="{{ stamp }}" class="stamp" ></div>
+            </div>
+            </div>
+    </body>
+</html>

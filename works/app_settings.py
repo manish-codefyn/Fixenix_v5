@@ -1,0 +1,6 @@
+TEMPLATE_EXTENSION = "html"
+PAGE_TITLE = "Work List"
+PAGE_NAME = "work sheet"
+FORM_NAME = "Work sheet Create"
+USER_START_WITH = "@fixenix.com"
+USERNAME_START_WITH = "Fixenix"

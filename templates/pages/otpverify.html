@@ -1,0 +1,192 @@
+{% extends 'layouts/base_.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load widget_tweaks %}
+{% include 'pages/includes/messages.html' %}
+
+<!-- Add this loader div at the top of your content -->
+<div id="form-loader" class="loader-overlay" style="display: none;">
+  <div class="loader-content">
+    <div class="loader-spinner"></div>
+    <p class="loader-text">Verifying OTP...</p>
+  </div>
+</div>
+
+<!-- Registration Form -->
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-4">
+      <div class="card shadow-lg border-0">
+        <div class="card-body text-center">
+          <img src="{% static 'codefyn-5.0/images/logo.svg' %}" alt="Logo" class="mb-4" style="width: 100px;" />
+          <h4 class="card-title mb-3">Verify Your Email</h4>
+          <p class="text-muted mb-4">Enter the OTP sent to your email to proceed.</p>
+          <form id="OTPVerifyForm" method="POST" novalidate>
+            {% csrf_token %}
+            <div class="row gx-2 mb-3">
+              {% for field in form.visible_fields %}
+                {% if field.name|slice:":3" == "otp" %}
+                  <div class="col">
+                    {{ field|add_class:"form-control text-center otp-input" }}
+                    {% if field.errors %}
+                      <small class="text-danger d-block">{{ field.errors.0 }}</small>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+
+            {% if form.captcha %}
+            <div class="row justify-content-center">
+              <div class="col-12">
+                <div class="d-flex align-items-center mb-3">
+                  <div class="flex-grow-1">
+                    {{ form.captcha }}
+                    {% if form.captcha.errors %}
+                      <small class="text-danger d-block">{{ form.captcha.errors.0 }}</small>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+            
+            <p class="text-muted mb-2">
+              Time left: <span id="timer" class="text-danger fw-bold">02:00</span>
+            </p>
+            <a id="resend-otp" href="{% url 'otp_reset' %}" class="d-block mb-3" style="display:none;">Resend OTP</a>
+            <button type="submit" class="btn btn-success btn-lg w-100 py-2" id="submit-btn">
+              <i class="bi bi-check2-circle me-2"></i> 
+              <span class="btn-text">Verify OTP</span>
+              <span class="btn-loading" style="display:none;">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Processing...
+              </span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  $(document).ready(function() {
+    // Auto-focus and move between OTP inputs
+    $('.otp-input').keyup(function() {
+      if (this.value.length === this.maxLength) {
+        $(this).next('.otp-input').focus();
+      }
+    });
+
+    // Form submission handler
+    $('#OTPVerifyForm').on('submit', function(e) {
+      e.preventDefault();
+      
+      // Show full-page loader
+      $('#form-loader').show();
+      
+      // Also show button spinner
+      $('#submit-btn').prop('disabled', true);
+      $('.btn-text').hide();
+      $('.btn-loading').show();
+      
+      $.ajax({
+        type: 'POST',
+        url: window.location.href,
+        data: $(this).serialize(),
+        success: function(response) {
+          // Hide both loaders
+          $('#form-loader').hide();
+          $('#submit-btn').prop('disabled', false);
+          $('.btn-text').show();
+          $('.btn-loading').hide();
+          
+          if (response.status === 'success') {
+            Swal.fire({
+              title: 'Success!',
+              text: response.message,
+              icon: 'success',
+              confirmButtonText: 'OK'
+            }).then(() => {
+              window.location.href = response.redirect_url;
+            });
+          } else {
+            Swal.fire({
+              title: 'Error!',
+              text: response.message,
+              icon: 'error',
+              confirmButtonText: 'OK'
+            });
+          }
+        },
+        error: function(xhr) {
+          // Hide both loaders
+          $('#form-loader').hide();
+          $('#submit-btn').prop('disabled', false);
+          $('.btn-text').show();
+          $('.btn-loading').hide();
+          
+          let response = xhr.responseJSON;
+          
+          if (response && response.errors) {
+            // Highlight fields with errors
+            $.each(response.errors, function(field, error) {
+              let input = $('[name="' + field + '"]');
+              input.addClass('is-invalid');
+              input.siblings('.text-danger').text(error);
+            });
+            
+            Swal.fire({
+              title: 'Validation Error',
+              text: response.message || 'Please correct the errors below.',
+              icon: 'error',
+              confirmButtonText: 'OK'
+            });
+          } else {
+            Swal.fire({
+              title: 'Error!',
+              text: 'An unexpected error occurred. Please try again.',
+              icon: 'error',
+              confirmButtonText: 'OK'
+            });
+          }
+        }
+      });
+    });
+  });
+
+  // Timer functionality
+  function startTimer(duration, display) {
+    let timer = duration, minutes, seconds;
+    const interval = setInterval(function () {
+      minutes = parseInt(timer / 60, 10);
+      seconds = parseInt(timer % 60, 10);
+
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      seconds = seconds < 10 ? "0" + seconds : seconds;
+
+      display.textContent = minutes + ":" + seconds;
+
+      if (--timer < 0) {
+        clearInterval(interval);
+        $('#resend-otp').show();
+        Swal.fire({
+          title: 'OTP Expired',
+          text: 'The OTP has expired. Please request a new one.',
+          icon: 'warning',
+          confirmButtonText: 'OK'
+        });
+      }
+    }, 1000);
+  }
+
+  window.onload = function () {
+    const twoMinutes = 60 * 2; // 2 minutes in seconds
+    const display = document.querySelector('#timer');
+    startTimer(twoMinutes, display);
+  };
+</script>
+{% endblock %}

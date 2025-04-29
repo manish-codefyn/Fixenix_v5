@@ -1,0 +1,35 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="text-center mb-4">Track Your Booking</h1>
+
+    <!-- Display Messages -->
+    {% if messages %}
+    <div class="mt-4">
+        {% for message in messages %}
+        <div class="alert 
+                    {% if message.tags == 'error' %}alert-danger{% else %}alert-success{% endif %}" 
+             role="alert">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Tracking Form -->
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form method="post" action="{% url 'track-booking' %}" class="card p-4 shadow-sm">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary btn-lg">Track Booking</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+ 
+</div>
+{% endblock %}

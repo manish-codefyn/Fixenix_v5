@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Delivery Tracking</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqWK4wUDODyPrHq1A89oFToiGHu1Uvbvo&libraries=geometry"></script>
+    <style>
+        #map {
+            height: 100vh;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <script>
+        let map;
+        let agentMarker;
+        let destinationMarker;
+
+        function initMap() {
+            const agentLocation = { lat: {{ current_location_lat }}, lng: {{ current_location_lon }} };
+            const deliveryLocation = { lat: {{ delivery_location_lat }}, lng: {{ delivery_location_lon }} };
+
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: agentLocation,
+                zoom: 14,
+            });
+
+            agentMarker = new google.maps.Marker({
+                position: agentLocation,
+                map: map,
+                title: "Delivery Agent",
+                icon: "https://maps.google.com/mapfiles/kml/shapes/man.png",
+            });
+
+            destinationMarker = new google.maps.Marker({
+                position: deliveryLocation,
+                map: map,
+                title: "Delivery Destination",
+                icon: "https://maps.google.com/mapfiles/kml/shapes/flag.png",
+            });
+        }
+
+        function fetchRealTimeUpdates() {
+            fetch(`/api/get-agent-location/{{ delivery_id }}/`)
+                .then(response => response.json())
+                .then(data => {
+                    const newLocation = { lat: data.current_location_lat, lng: data.current_location_lon };
+                    agentMarker.setPosition(newLocation);
+                    map.setCenter(newLocation);
+                })
+                .catch(error => console.error("Error fetching agent location:", error));
+        }
+
+        window.onload = () => {
+            initMap();
+            setInterval(fetchRealTimeUpdates, 5000); // Update every 5 seconds
+        };
+    </script>
+</body>
+</html>

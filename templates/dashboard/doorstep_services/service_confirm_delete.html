@@ -1,0 +1,14 @@
+{% extends 'layouts/base_dash.html' %}
+
+{% block content %}
+<main class="main-content">
+  <div class="container">
+    <h2>Are you sure you want to delete "{{ object.service_name }}"?</h2>
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger">Delete</button>
+      <a href="{% url 'dashboard:doorstep_service_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+  </div>
+</main>
+{% endblock %}

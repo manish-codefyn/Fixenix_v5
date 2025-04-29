@@ -1,0 +1,57 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Your Services</h2>
+  
+  {% if services %}
+    <div class="row">
+      {% for service in services %}
+        <div class="col-md-4 mb-4">
+          <div class="card shadow-sm h-100">
+            <!-- Service Image or Default Icon -->
+            {% if service.image %}
+              <img src="{{ service.image.url }}" class="card-img-top" alt="{{ service.service_name }}" style="height: 200px; object-fit: cover;">
+            {% else %}
+              <div class="card-img-top d-flex align-items-center justify-content-center" style="height: 200px; background-color: #f8f9fa;">
+                <i class="bi bi-tools" style="font-size: 3rem; color: #6c757d;"></i> <!-- Bootstrap Icon -->
+              </div>
+            {% endif %}
+            
+            <!-- Service Details -->
+            <div class="card-body">
+              <h5 class="card-title">{{ service.service_name }}</h5>
+              <p class="card-text">
+                <strong>Status:</strong> 
+                <span class="badge {% if service.status == 'completed' %}bg-success{% elif service.status == 'in_progress' %}bg-warning text-dark{% elif service.status == 'cancelled' %}bg-danger{% else %}bg-secondary{% endif %}">
+                  {{ service.status|title }}
+                </span>
+              </p>
+              <p class="card-text">
+                <strong>Price:</strong> ₹{{ service.get_final_price }}{% if service.offer_price %} <del class="text-muted">₹{{ service.price }}</del>{% endif %}
+              </p>
+              <p class="card-text">
+                <strong>Rating:</strong> 
+                <span class="text-warning">
+                  {% for i in range %}
+                    {% if i < service.rating|floatformat:0 %}
+                      <i class="bi bi-star-fill"></i> <!-- Filled star -->
+                    {% else %}
+                      <i class="bi bi-star"></i> <!-- Empty star -->
+                    {% endif %}
+                  {% endfor %}
+                </span> ({{ service.review_count }} reviews)
+              </p>
+              <a href="{% url 'service-detail' service.id %}" class="btn btn-primary btn-sm w-100">View Details</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-info text-center">
+      You have no services available at the moment.
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

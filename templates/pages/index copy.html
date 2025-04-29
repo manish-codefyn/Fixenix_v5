@@ -1,0 +1,183 @@
+{% extends 'layouts/base.html'%} {% block content %}
+
+ <!-- slider-->
+<main class="">
+  <div
+    id="myCarousel"
+    class="carousel slide bgbanner bg-light"
+    data-bs-ride="carousel"
+  >
+    <div class="carousel-indicators">
+      <ol class="carousel-indicators">
+        <li
+          class="center-block active"
+          type="button"
+          data-bs-target="#myCarousel"
+          data-bs-slide-to="0"
+          class="active"
+          aria-current="true"
+          aria-label="Slide 1"
+        ></li>
+        <li
+          class="center-block"
+          type="button"
+          data-bs-target="#myCarousel"
+          data-bs-slide-to="1"
+          aria-label="Slide 2"
+        ></li>
+        <li
+          class="center-block"
+          type="button"
+          data-bs-target="#myCarousel"
+          data-bs-slide-to="2"
+          aria-label="Slide 3"
+        ></li>
+      </ol>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="carousel-caption text-dark text-start">
+          <h1>
+            <span class="text-wrap text-muted">Fast </span><span class="text-warning">Services</span>
+          </h1>
+          <p><span class="text-wrap">We have a group of innovative and friendly staffs.so we make repair easy and fast</span></p>
+          <p>
+            <a class="slider-btn danger" href="tel:+917992351609">
+              <i class="bi bi-telephone-outbound"></i> Call Us : +917992351609
+            </a>
+          </p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="carousel-caption text-dark text-start">
+          <h1>
+            <span class="text-wrap">Expert</span> <span class="text-warning"> Engineers</span>
+          </h1>
+          <p><span class="ext-wrap">We have Team of Trained Experienced Professionals of this Field</span></p>
+          <p>
+            <a
+              class="slider-btn success"
+              href="https://wa.me/7992351609?text=Hi, i wanna ask about something?"
+              target="_blank"
+            >
+              <i class="bi bi-whatsapp mr10"></i>Chat On WhatsApp:+917992351609</a
+            >
+          </p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="container">
+          <div class="carousel-caption text-start">
+            <h1>
+              <span class="text-dark text-wrap">Low </span><span class="text-danger">Price </span></span><span class="text-warning">Guarantee</span>
+            </h1>
+            <p><span class="text-wrap">Repairing price should not break the bank</span></p>
+            <p>
+              <a
+                class="slider-btn info"
+                href="https://www.facebook.com/Fixenix.mobile"
+              >
+                <i class="bi bi-messenger mr10"></i> Chat On Facebook</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- End slider-->
+<div class="bg-light pt-2 pb-5 px-1">
+  <div class="container text-center">
+    <div class="container main-form pt-2 pb-3 px-4">
+      <h2 class="text-white pb-3">Get Free Estimate</h2>
+      <li class="main-form-errors">{{ enquiryform.captcha.errors }}</li>
+      <form
+        method="post"
+        id="MainForm"
+        action="{%  url 'Home' %}"
+        enctype="multipart/form-data"
+      >
+        {% csrf_token %}
+        <div class="row g-2 mb-3">
+          <div class="col-md form-floating">
+            {{ enquiryform.name }}
+            <li class="main-form-errors">{{ enquiryform.name.errors }}</li>
+            <label for="floatingInput text-bold">
+              <i class="bi bi-people-fill mr5 form-i"></i>
+              <span class="text-color-black fw-bold"> Name</span></label
+            >
+          </div>
+          <div class="col-md form-floating">
+            {{ enquiryform.mobile }}
+            <li class="main-form-errors">{{ enquiryform.mobile.errors }}</li>
+            <label for="floatingInput text-info">
+              <i class="bi-phone-fill mr5 form-i"></i>
+              <span class="text-color-black fw-bold"> Mobile </span>
+            </label>
+          </div>
+          <div class="col-md form-floating">
+            {{ enquiryform.email }}
+            <li class="main-form-errors">{{ enquiryform.email.errors }}</li>
+            <label for="floatingInput">
+              <i class="bi-envelope-at-fill mr5 form-i"></i>
+              <span class="text-color-black fw-bold">Email</span>
+            </label>
+          </div>
+          <div class="col-md form-floating">
+            {{ enquiryform.device_name }}
+            <li class="main-form-errors">
+              {{ enquiryform.device_name.errors }}
+            </li>
+            <label for="floatingInput"
+              ><i class="bi bi-cpu-fill mr5 form-i"></i>
+              <span class="text-color-black fw-bold">Device Name</span></label
+            >
+          </div>
+        </div>
+        <div class="row g-2 mb-3">
+          <div class="col-md-8 form-floating">
+            {{ enquiryform.device_problem }}
+            <li class="main-form-errors">
+              {{ enquiryform.device_problem.errors }}
+            </li>
+            <label for="floatingInput"
+              ><i class="bi bi-motherboard-fill mr5 form-i"></i>
+              <span class="text-color-black fw-bold"
+                >Device Problem......</span
+              ></label
+            >
+          </div>
+          <div class="col-md-4 form-floating">
+            <div class="input-group">
+              {{ enquiryform.captcha }}
+
+              <input
+                class="form-control button-main-form"
+                type="submit"
+                id="btn1"
+                value="Submit"
+              />
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+    {% include 'home/includes/services.html' %}
+    {% include 'home/includes/features.html' %}
+    {% include 'home/includes/centers.html' %}
+    <script>
+      // FOrm Submit
+      $(document).ready(function () {
+        $(".preloader").hide();
+        $("#MainForm").on("submit", function () {
+          $(".preloader").fadeIn();
+        }); //submit
+      });
+      // end form submit
+    </script>
+    {% endblock %}
+

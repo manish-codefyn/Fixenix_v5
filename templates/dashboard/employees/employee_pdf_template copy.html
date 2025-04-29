@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ employee.name }} - Resume</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            padding: 20px;
+            border: 1px solid #ccc;
+            max-width: 800px;
+            margin: auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 5px;
+        }
+        .section p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            {% if employee.photo %}
+            <img src="{{ employee.photo.url }}" alt="{{ employee.name }}">
+            {% else %}
+            <img src="/static/default-avatar.png" alt="Default Avatar">
+            {% endif %}
+            <h1>{{ employee.name }}</h1>
+            <p><strong>Email:</strong> {{ employee.email }}</p>
+            <p><strong>Phone:</strong> {{ employee.phone }}</p>
+        </div>
+        <div class="section">
+            <h2>Address</h2>
+            <p>{{ employee.address }}</p>
+        </div>
+        <div class="section">
+            <h2>Identification</h2>
+            <p><strong>Employee ID:</strong> {{ employee.employee_id }}</p>
+            {% if employee.id_proof %}
+            <p><strong>ID Proof:</strong> Uploaded</p>
+            {% else %}
+            <p><strong>ID Proof:</strong> Not Uploaded</p>
+            {% endif %}
+        </div>
+
+        <div class="section">
+            <h2>Current Location</h2>
+            <p><strong>Latitude:</strong> {{ employee.current_location_lat }}</p>
+            <p><strong>Longitude:</strong> {{ employee.current_location_lon }}</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    {% load static compress %}
+    <meta charset="UTF-8">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="{{ og_title|default:'Fixenix - Best Mobile Repair in Siliguri' }}">
+    <meta property="og:type" content="{{ og_type|default:'website' }}">
+    <meta property="og:image" content="{{ og_image|default:request.build_absolute_uri|add:'/static/images/partner-og-image.jpg' }}">
+    <meta property="og:url" content="{{ og_url|default:request.build_absolute_uri }}">
+    <meta property="og:description" content="{{ og_description|default:'Fixenix offers expert mobile repairs, web development, and training.' }}">
+    <meta property="og:site_name" content="{{ site_name|default:'Fixenix' }}">
+
+    <!-- SEO Meta Tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="{{ keywords|default:'Best mobile repairing in Siliguri, Mobile repair services Siliguri, Laptop repair Siliguri' }}">
+    <meta name="description" content="{{ description|default:'Fixenix offers mobile repairs, accessories, web development, courses, and training in Siliguri.' }}">
+    
+    <!-- Favicon & Theme Colors -->
+    <meta name="theme-color" content="#ffffff">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="{% static 'codefyn-5.0/images/ms-icon-144x144.png' %}">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" type="image/png" href="{% static 'codefyn-5.0/images/favicon.ico' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'codefyn-5.0/images/favicon-32x32.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'codefyn-5.0/images/apple-icon-180x180.png' %}">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- CSS Files (Minified & Compressed) -->
+    {% compress css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'codefyn-5.0/css/style.css' %}">
+    {% endcompress %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'codefyn-5.0/vendor/bootstrap-5.0.2/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'codefyn-5.0/vendor/font/bootstrap-icons.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'codefyn-5.0/vendor/swiper/swiper-bundle.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'codefyn-5.0/vendor/aos/aos.css' %}">
+
+    <!-- Page Title -->
+    <title>{% block title %}{{ title|default:'Fixenix - Best Mobile Repairing in Siliguri' }}{% endblock %}</title>
+    {% endblock %}
+</head>
+
+<body>
+    <!-- JavaScript Files (Minified) -->
+    <script type="text/javascript" src="{% static 'codefyn-5.0/vendor/jquery-3.5/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'codefyn-5.0/vendor/bootstrap-5.0.2/js/bootstrap.bundle.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'codefyn-5.0/vendor/swiper/swiper-bundle.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'codefyn-5.0/vendor/aos/aos.js' %}"></script>
+    <script type="text/javascript" src="{% static 'codefyn-5.0/vendor/sweetalert/sweetalert2.all.min.js' %}"></script>
+
+    <!-- Initialize AOS (Now optimized inside DOMContentLoaded) -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            AOS.init();
+        });
+    </script>
+</body>
+</html>

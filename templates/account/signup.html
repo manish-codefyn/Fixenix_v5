@@ -1,0 +1,58 @@
+{% extends 'layouts/base_.html' %}
+{% load crispy_forms_tags %}
+{% load socialaccount %}
+{% block title %}Sign Up | Fixenix {% endblock title %}
+{% block content %}
+<section class="bg-gradient py-5 min-vh-100 d-flex align-items-center">
+  <div class="container">
+    <div class="row justify-content-center">
+      <!-- Illustration -->
+      <div class="col-md-6 d-none d-md-flex align-items-center justify-content-center">
+        <img src="/static/codefyn-5.0/images/bg/secure_login.svg" class="img-fluid" alt="Secure Sign Up" style="max-width: 85%; height: auto;" />
+      </div>
+      <!-- Sign Up Form -->
+      <div class="col-md-5">
+        <div class="p-5 bg-white rounded-4 shadow-lg border">
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="text-center mb-4">
+              <img src="/static/codefyn-5.0/images/logo.svg" class="logo-sm mb-3" alt="Fixenix Logo" style="width: 150px;" />
+              <h5 class="fw-bold text-primary">Sign Up</h5>
+              <p class="text-muted">Create your account to access exclusive features.</p>
+            </div>
+            <div class="mb-3">
+              {{ form.username|as_crispy_field }}
+            </div>
+            <div class="mb-3">
+              {{ form.email|as_crispy_field }}
+            </div>
+            <div class="mb-3">
+              {{ form.password1|as_crispy_field }}
+            </div>
+            <div class="mb-3">
+              <div class="d-flex justify-content-center">
+                {{ form.captcha }}
+              </div>
+              <li class="list-unstyled text-danger small">{{ form.captcha.errors }}</li>
+            </div>
+            <div class="d-grid mt-4">
+              <button class="custom-btn custom-btn-danger w-100 w-100 py-2" type="submit">
+                <i class="bi bi-person-plus-fill me-2"></i> Sign Up
+              </button>
+            </div>
+            <div class="text-center mt-3">
+              <p class="text-muted small">
+                <a class="btn btn-outline-secondary d-block mb-2" href="{% provider_login_url 'google' %}" style="border-color: #ff796e; box-shadow: 0 4px 10px rgba(255, 121, 110, 0.2); transition: box-shadow 0.3s ease;">
+                  <i class="bi bi-google me-2"></i> Sign up with Google
+                </a>
+                Already have an account? <a href="{% url 'account_login' %}" class="text-primary"><strong>Login here</strong></a>.
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

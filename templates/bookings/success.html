@@ -1,0 +1,109 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card shadow-lg border-0">
+        <div class="card-header bg-gradient-success text-white text-center py-4">
+          <h2 class="fw-bold">🎉 Booking Successful!</h2>
+        </div>
+        <div class="card-body p-5 text-center">
+          <!-- Animated Success Icon -->
+          <div class="success-icon">
+            <div class="checkmark-circle">
+              <div class="background"></div>
+              <div class="checkmark draw"></div>
+            </div>
+          </div>
+
+          <!-- Success Message -->
+          <p class="mb-4 fs-5">
+            <strong>Thank you for choosing us!</strong> Your repair booking has been successfully submitted.
+          </p>
+          <p class="text-muted">
+            Our team will contact you shortly to confirm your booking and provide further instructions. If you have any questions, feel free to <a href="/contact" class="text-decoration-underline">contact us</a>.
+          </p>
+          <a href="/" class="btn btn-success btn-lg mt-4">Go to Homepage</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* Success Icon Styling */
+.success-icon {
+  margin: 20px auto;
+  width: 100px;
+  height: 100px;
+}
+
+.checkmark-circle {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  display: inline-block;
+  background: #28a745;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.checkmark-circle .background {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  animation: circle-bg-animation 1s ease-in-out forwards;
+}
+
+.checkmark-circle .checkmark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 35px;
+  height: 70px;
+  transform: translate(-50%, -50%) rotate(45deg);
+  z-index: 2;
+}
+
+.checkmark-circle .checkmark.draw {
+  border: solid #28a745;
+  border-width: 0 6px 6px 0;
+  animation: checkmark-draw 1s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+@keyframes circle-bg-animation {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes checkmark-draw {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+  50% {
+    width: 35px;
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    width: 35px;
+    height: 70px;
+    opacity: 1;
+  }
+}
+</style>
+{% endblock %}

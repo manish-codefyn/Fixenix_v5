@@ -1,0 +1,119 @@
+{% extends 'layouts/base_.html' %}
+{% load crispy_forms_tags %}
+{% block title %} Login | Fixenix{% endblock title %}
+{% block content %}
+<section class="bg-gradient py-5 min-vh-100 d-flex align-items-center">
+  <div class="container">
+    <div class="row justify-content-center">
+      <!-- Vector Image Slider -->
+      <div class="col-md-6 text-center mb-4 mb-md-0">
+        <img src="/static/codefyn-5.0/images/bg/secure_login.svg" class="img-fluid" alt="Secure Login" style="max-width: 80%; height: auto;"/>
+      </div>
+      <!-- Login Form -->
+      <div class="col-md-6">
+        <div class="p-5 bg-white rounded-4 shadow-lg border border-primary" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+          <form method="post" enctype="multipart/form-data" id="LoginForm">
+            {% csrf_token %}
+            <div class="text-center mb-4">
+              <img src="/static/codefyn-5.0/images/logo.svg" class="logo-sm mb-3" alt="Codefyn Logo" style="width: 180px;"/>
+              <h3 class="text-primary mb-2">
+                <span class="text-muted">Login</span>
+              </h3>
+              <p class="text-muted">Please enter your credentials to access your account.</p>
+            </div>
+            <div class="mb-4">
+              <div class="form-group mb-3">
+                {{ form.login|as_crispy_field }}
+              </div>
+              <div class="form-group mb-3">
+                {{ form.password|as_crispy_field }}
+              </div>
+              <div class="row">
+              <div class="col-md-6">
+                  <div class="form-group">
+                    {{ form.captcha|as_crispy_field }}
+                  </div>
+                  </div>
+                <div class="col-md-6">
+              
+                  <button class="btn btn-danger w-100" type="submit">
+                    <i class="bi bi-lock"></i> Submit
+                  </button>
+              
+              </div>
+              </div>
+            </div>
+            <div class="text-center">
+              <a class="d-block mt-3 text-muted transition-colors hover:text-primary" href="{% url 'account_signup' %}">Don't have an account? Sign up here.</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <style>
+    /* Custom Styling for Modern Form Fields */
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-control {
+      border: 1px solid #ced4da;
+      border-radius: 0.5rem;
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
+      transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+      height: 50px; /* Set a specific height for consistency */
+    }
+
+    .form-control:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+    }
+
+    .form-control::placeholder {
+      color: #6c757d;
+    }
+
+    .btn {
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      height: 50px; /* Ensure button height matches form-control */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-danger {
+      background: linear-gradient(135deg, #ff416c, #ff4b2b);
+      border: none;
+      transition: background 0.3s ease-in-out;
+    }
+
+    .btn-danger:hover {
+      background: linear-gradient(135deg, #ff4b2b, #ff416c);
+    }
+
+    .text-muted {
+      color: #6c757d;
+    }
+
+    .text-primary {
+      color: #007bff;
+    }
+
+    .text-danger {
+      color: #dc3545;
+    }
+  </style>
+  <script>
+    // Form Submit
+    $(document).ready(function () {
+      $(".preloader").hide();
+      $("#LoginForm").on("submit", function () {
+        $(".preloader").fadeIn();
+      });
+    });
+    // End Form Submit
+  </script>
+</section>
+{% endblock content %}

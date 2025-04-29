@@ -1,0 +1,217 @@
+
+<div class="body">
+<div class="chat-container">
+    <div class="chat-header">
+        <h3>Repair Assistant Beta</h3>
+    </div>
+    <div class="chat-body" id="chat-body">
+        <div class="chat-message bot-message">
+            Hi! How can I help you with your mobile repair today?
+        </div>
+    </div>
+    <div class="chat-input-container">
+        <input type="text" id="user-input" placeholder="Type your message here..." onkeypress="handleUserInput(event)">
+        <button onclick="sendMessage()" class="chat-button">Send</button>
+    </div>
+</div>
+</div>
+<style>
+.body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 1rem;
+}
+
+.chat-container {
+    width: 100%;
+    max-width: 400px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 80vh; /* Adjust height to fit your needs */
+    max-height: 90vh;
+}
+
+.chat-header {
+    background: linear-gradient(45deg, #ff0000, #ff7f7f);
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+}
+
+.chat-body {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    max-width: 80%;
+}
+
+.bot-message {
+    background-color: #173257;
+    color: #fff;
+    align-self: flex-start;
+}
+
+.user-message {
+    background-color: #dcf8c6;
+    align-self: flex-end;
+}
+
+.chat-input-container {
+    display: flex;
+    padding: 15px;
+    background: linear-gradient(45deg, #ff0000, #ff7f7f);
+}
+
+#user-input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.chat-button {
+    background-color: #000305;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.chat-button:hover {
+    background-color: #0bbc5d;
+}
+
+</style>
+    </style>
+<script>
+
+    // Array of predefined bot responses
+// Updated botResponses with more questions and answers
+const botResponses = {
+    "hello": "Hello! How can I assist you with your mobile repair needs?",
+    "helo": "Hello! How can I assist you with your mobile repair needs?",
+    "which type mobile you repair": "We offer various repair services, including screen replacement, battery replacement, and water damage repair.",
+    "repair": "We offer various repair services, including screen replacement, battery replacement, and water damage repair.",
+    "mobile repair": "We offer various repair services, including screen replacement, battery replacement, and water damage repair.",
+    "phone repair": "We offer various repair services, including screen replacement, battery replacement, and water damage repair.",
+    "book appointment": "You can book an appointment by visiting our service page or providing your preferred date and time here.",
+    "location": "We are located at Ward No-43, Siliguri, West Bengal. You can visit us for quick repairs.",
+    "thank you": "You're welcome! If you have any more questions, feel free to ask.",
+    "mobile": "Please Enter mobile brand",
+    "crack": "Display issues can include cracked screens, unresponsive touchscreens, and dead pixels. We can repair or replace the screen for you.",
+    // "samsung a33 display": "Display issues can include cracked screens, unresponsive touchscreens, and dead pixels. We can repair or replace the screen for you.",
+    // "samsung a33": "Display issues can include cracked screens, unresponsive touchscreens, and dead pixels. We can repair or replace the screen for you.",
+ 
+    // Mobile company models
+    "iphone": "We service all iPhone models, from iPhone 6 to the latest iPhone 14. What issue are you facing?",
+    "iphone repaired": "We service all iPhone models, from iPhone 6 to the latest iPhone 14. What issue are you facing?",
+    "do you repair iphone ": "We service all iPhone models, from iPhone 6 to the latest iPhone 14. What issue are you facing?",
+    "repair iphone ": "We service all iPhone models, from iPhone 6 to the latest iPhone 14. What issue are you facing?",
+    "samsung": "We service all Samsung models, including Galaxy S series, A series, and Note series. Please enter Model No?",
+    "do you repair samsung": "We service all Samsung models, including Galaxy S series, A series, and Note series. How can I assist you?",
+    "repair samsung": "We service all Samsung models, including Galaxy S series, A series, and Note series. How can I assist you?",
+    "samsung repaired": "We service all Samsung models, including Galaxy S series, A series, and Note series. How can I assist you?",
+    "xiaomi": "We service all Xiaomi models, including Mi, Redmi, and Poco phones. Let me know the problem you're experiencing.",
+    "xiaomi repaired": "We service all Xiaomi models, including Mi, Redmi, and Poco phones. Let me know the problem you're experiencing.",
+    "do you repair xiaomi": "We service all Xiaomi models, including Mi, Redmi, and Poco phones. Let me know the problem you're experiencing.",
+    "oneplus": "We handle all OnePlus models. Please provide details about the issue you're facing.",
+    "oneplus repaired": "We handle all OnePlus models. Please provide details about the issue you're facing.",
+    "do you repaired oneplus": "We handle all OnePlus models. Please provide details about the issue you're facing.",
+    "realme": "We service Realme devices. Please let us know the model and the issue you're experiencing.",
+    "realme repaired": "We service Realme devices. Please let us know the model and the issue you're experiencing.",
+    "do you repaired realme": "We service Realme devices. Please let us know the model and the issue you're experiencing.",
+    
+    // Display issues
+    "display problem": "Display issues can include cracked screens, unresponsive touchscreens, and dead pixels. We can repair or replace the screen for you. call:7992351609",
+    "display": "Display issues can include cracked screens, unresponsive touchscreens, and dead pixels. We can repair or replace the screen for you. call:7992351609",
+    "display broken": "Display issues can include cracked screens, unresponsive touchscreens, and dead pixels. We can repair or replace the screen for you. call:7992351609",
+    "display price": "Display issues can include cracked screens, unresponsive touchscreens, and dead pixels. We can repair or replace the screen for you. call:7992351609",
+    "display replace price": "Display issues can include cracked screens, unresponsive touchscreens, and dead pixels. We can repair or replace the screen for you. call us:7992351609",
+    "screen replacement cost": "The cost for screen replacement varies depending on your phone model. Please provide your model for an accurate quote.call:7992351609",
+    "screen": "The cost for screen replacement varies depending on your phone model. Please provide your model for an accurate quote. call:7992351609",
+    "touch": "The cost for screen replacement varies depending on your phone model. Please provide your model for an accurate quote.call:7992351609",
+    "display not working": "If your display isn't working, it might be due to a hardware issue. We recommend bringing it in for diagnosis. call:7992351609",
+   
+    // Speaker issues
+    "speaker": "If your phone's speaker isn't working, it could be due to dust, water damage, or a hardware issue. We can fix it for you.",
+    "mic": "If your phone's speaker isn't working, it could be due to dust, water damage, or a hardware issue. We can fix it for you.",
+    "speaker not working": "If your phone's speaker isn't working, it could be due to dust, water damage, or a hardware issue. We can fix it for you.",
+    "speaker replacement cost": "Speaker replacement typically costs between 30 and 1000, depending on the model.",
+    
+    // Charging issues
+    "pin": "Charging issues might be due to a faulty charging port, cable, or battery. We can diagnose and fix the problem for you.",
+    "port": "Charging issues might be due to a faulty charging port, cable, or battery. We can diagnose and fix the problem for you.",
+    "charging pin": "Charging issues might be due to a faulty charging port, cable, or battery. We can diagnose and fix the problem for you.",
+    "charging port": "Charging issues might be due to a faulty charging port, cable, or battery. We can diagnose and fix the problem for you.",
+    "charging": "Charging issues might be due to a faulty charging port, cable, or battery. We can diagnose and fix the problem for you.",
+    "charging problem": "Charging issues might be due to a faulty charging port, cable, or battery. We can diagnose and fix the problem for you.",
+    "phone not charging": "If your phone isn't charging, it could be a battery or charging port issue. Please bring it in for an inspection.",
+    "charging port repair cost": "Repairing the charging port usually costs  depending on the model.",
+    
+    // Back panel issues
+    "back panel replacement cost": "Back panel replacement can range from 300 to 1000, depending on the material and model.",
+    "back panel cost": "Back panel replacement can range from 300 to 1000, depending on the material and model.",
+    "back panel": "A cracked back panel can be replaced quickly. Please let us know your phone model for a quote.",
+    "panel": "A cracked back panel can be replaced quickly. Please let us know your phone model for a quote.",
+    "back": "A cracked back panel can be replaced quickly. Please let us know your phone model for a quote.",
+    "back panel cracked": "A cracked back panel can be replaced quickly. Please let us know your phone model for a quote.",
+    
+    // Default response
+    "default": "Sorry, I didn't understand that. Can you please rephrase? or call us:7992351609"
+};
+
+
+// Function to handle sending a message
+function sendMessage() {
+    const userInput = document.getElementById("user-input").value.toLowerCase();
+    if (userInput.trim() === "") return;
+    
+    displayMessage(userInput, "user-message");
+    document.getElementById("user-input").value = "";
+
+    setTimeout(() => {
+        let botResponse = botResponses[userInput] || botResponses["default"];
+        displayMessage(botResponse, "bot-message");
+    }, 1000);
+}
+
+// Function to display a message
+function displayMessage(message, className) {
+    const chatBody = document.getElementById("chat-body");
+    const messageElement = document.createElement("div");
+    messageElement.classList.add("chat-message", className);
+    messageElement.innerText = message;
+    chatBody.appendChild(messageElement);
+    chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+// Function to handle user input through Enter key
+function handleUserInput(event) {
+    if (event.key === "Enter") {
+        sendMessage();
+    }
+}
+
+</script>
+</body>
+</html>

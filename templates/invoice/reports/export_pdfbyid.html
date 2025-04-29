@@ -1,0 +1,180 @@
+<div class="invoice-box">
+  <table cellpadding="0" cellspacing="0">
+    <tr class="top_rw">
+      <td colspan="2">
+        <h2 style="margin-bottom: 0px">
+          {% if logo %}
+            <img src="{{ logo }}" style="width: 190px; height: 50px" />
+          {% endif %}
+        </h2>
+        <table style="border: none">
+          <tr>
+            <td>
+              <b>Mobile:</b> {{ app.app_mobile }} |
+              <b>Email:</b> {{ email }} |
+              <b>Web:</b> {{ app.domain_name }} <br />
+              <b>Address:</b> {{ app.app_address }}
+            </td>
+          </tr>
+        </table>
+      </td>
+      <td style="width: 20%">
+        <div class="qr-img">
+          <img src="{{ qr_code }}" alt="QR Code" />
+        </div>
+      </td>
+    </tr>
+
+    <tr class="information">
+      <td colspan="3">
+        <h2 style="text-align: center; font-weight: 600; border-bottom: 1px solid #111;">
+          {{ doc_name }}
+        </h2>
+        <table style="border: none">
+          <tr>
+            <td style="width: 50%">
+              <table class="info">
+                <tr><td><strong>Invoice No:</strong> {{ invoice_no }}</td></tr>
+                <tr><td><strong>Customer Name:</strong> {{ customer_name }}</td></tr>
+                <tr><td><strong>Mobile:</strong> {{ mobile }}</td></tr>
+                <tr><td><strong>Address:</strong> {{ address }}</td></tr>
+              </table>
+            </td>
+            <td>
+              <table class="info">
+                <tr><td><strong>Email:</strong> {{ email }}</td></tr>
+                <tr><td><strong>Payment Status:</strong> {{ payment_status }}</td></tr>
+                <tr><td><strong>Invoice Date:</strong> {{ invoice_date }}</td></tr>
+                <tr><td><strong>Due Date:</strong> {{ due_date }}</td></tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="3">
+        <table cellspacing="0" cellpadding="5">
+          <thead>
+            <tr class="heading">
+              <td>Product</td>
+          
+              <td>Qty</td>
+              <td>Price</td>
+              <td>Total</td>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in product_details %}
+              <tr class="item">
+                <td>{{ item.name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>Rs.{{ item.price }}</td>
+                <td>Rs.{{ item.total_price|floatformat:2 }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <br />
+        <table>
+          <tr><td style="text-align:right; width: 80%;"><strong>Subtotal:</strong></td><td><strong>Rs.{{ subtotal }}</strong></td></tr>
+          <tr><td style="text-align:right;"><strong>Tax:</strong></td><td><strong>Rs.{{ tax_amount }}</strong></td></tr>
+          <tr><td style="text-align:right;"><strong>Discount:</strong></td><td><strong>- Rs.{{ discount_amount }}</strong></td></tr>
+          <tr><td style="text-align:right;"><strong>Total:</strong></td><td><strong>Rs.{{ total_amount }}</strong></td></tr>
+        </table>
+        <br />
+        <table style="border: none">
+          <tr>
+            <td>
+              <pdf:barcode
+                value="{{ invoice_no }}"
+                type="code128"
+                humanreadable="1"
+                align="bottom"
+              />
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="3">
+        <table cellspacing="0" cellpadding="2">
+          <tr>
+            <td width="60%">
+              <strong>Notes:</strong><br />
+              {{ notes }}
+              <br /><br />
+              <strong>Terms:</strong><br />
+              {{ terms }}
+            </td>
+            <td class="sign">
+              <div>
+                {% if stamp %}
+                  <img src="{{ stamp }}" class="stamp" />
+                {% endif %}
+              </div>
+              <b>Authorized Signature</b><br /><br /><br /><br /><br />
+              <small>* This is a computer generated invoice and does not require a physical signature</small>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<style>
+  .invoice-box {
+    max-width: 890px;
+    margin: auto;
+    padding: 5px;
+    border: 1px solid #111;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    font-size: 12px;
+    color: #555;
+  }
+
+  .invoice-box table {
+    width: 100%;
+    line-height: inherit;
+    text-align: left;
+    border: solid 1px #ccc;
+  }
+
+  .invoice-box table td {
+    padding: 5px;
+    vertical-align: middle;
+  }
+
+  .heading td {
+    background: #eee;
+    border-bottom: 1px solid #ddd;
+    font-weight: bold;
+  }
+
+  .item td {
+    border-bottom: 1px solid #eee;
+  }
+
+  .sign {
+    text-align: center;
+  }
+
+  .stamp {
+    height: 80px;
+    width: 80px;
+    margin-right: 5px;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .invoice-box table tr.top table td,
+    .invoice-box table tr.information table td {
+      width: 100%;
+      display: block;
+      text-align: center;
+    }
+  }
+</style>

@@ -1,0 +1,61 @@
+{% extends 'layouts/base.html' %}
+{% load thumbnail %}
+{% block content %}
+<div class="container mt-5">
+  <h2 class="text-center mb-5 text-primary fw-bold display-6">Our Premium Services</h2>
+  {% if services %}
+    <div class="row g-3">
+      {% for service in services %}
+        <div class="col-6 col-sm-6  col-md-3">
+          <div class="card shadow-lg h-100 border-0 rounded-3 overflow-hidden transition-transform transform-hover">
+            <!-- Service Image -->
+            {% if service.image %}
+            <div class="position-relative">
+              {% thumbnail service.image "300x150" crop="center" as thumb %}
+              <img src="{{ thumb.url }}" class="card-img-top" alt="{{ service.service_name }}" style="height: 150px; object-fit: cover;">
+              {% endthumbnail %}
+              {% if service.offer_price %}
+              <span class="position-absolute top-0 start-0 bg-danger text-white px-2 py-1 rounded-end shadow-lg small">Sale</span>
+              {% endif %}
+            </div>
+            {% else %}
+            <div class="d-flex align-items-center justify-content-center bg-light" style="height: 150px;">
+              <i class="bi bi-tools text-secondary" style="font-size: 2rem;"></i>
+            </div>
+            {% endif %}
+            
+            <!-- Service Details -->
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title text-dark fw-bold small">{{ service.service_name }}</h5>
+              <p class="mb-1 small">
+                <strong>Status:</strong> 
+                <span class="badge {% if service.status == 'completed' %}bg-secondary{% elif service.status == 'in_progress' %}bg-warning text-dark{% elif service.status == 'cancelled' %}bg-danger{% else %}bg-success{% endif %}">
+                  {{ service.status|title }}
+                </span>
+              </p>
+              <p class="mb-1 text-muted small">
+                <strong>Price:</strong> <span class="text-success">₹{{ service.get_final_price }}</span> 
+                {% if service.offer_price %}
+                  <del class="text-danger small">₹{{ service.price }}</del>
+                  <span class="badge bg-warning small">{{ service.discount_percentage }}% OFF</span>
+                {% endif %}
+              </p>
+              <p class="mb-2 d-flex align-items-center small">
+                <span class="badge bg-success me-2">{{ service.rating|floatformat:1 }} <i class="bi bi-star-fill"></i></span>
+                <small class="text-muted">({{ service.review_count }} reviews)</small>
+              </p>
+              <a href="{% url 'service-detail' service.id %}" class="btn btn-gradient text-white w-100 py-1 small">
+                <i class="bi bi-eye me-1"></i> View Details
+              </a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-info text-center small">
+      <i class="bi bi-info-circle"></i> No services available at the moment.
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

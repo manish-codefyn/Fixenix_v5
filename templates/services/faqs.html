@@ -1,0 +1,153 @@
+{% extends 'layouts/base.html'%} {% block content %}
+
+<!-- FAQ Section -->
+<section id="faq" class="container my-5">
+  <h2 class="text-center mb-4">Frequently Asked Questions</h2>
+  <div class="accordion" id="faqAccordion">
+      <!-- Mobile FAQ -->
+      <div class="accordion-item rounded-3 shadow-sm mb-3">
+          <h2 class="accordion-header" id="headingMobile">
+              <button class="accordion-button rounded-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMobile" aria-expanded="true" aria-controls="collapseMobile">
+                  <i class="bi bi-phone me-2"></i> Mobile Repair
+              </button>
+          </h2>
+          <div id="collapseMobile" class="accordion-collapse collapse show" aria-labelledby="headingMobile" data-bs-parent="#faqAccordion">
+              <div class="accordion-body bg-light border-top border-secondary">
+                  <ul class="list-unstyled">
+                      <li class="d-flex align-items-start mb-3">
+                          <i class="bi bi-info-circle me-2 fs-5 text-primary"></i>
+                          <div>
+                              <strong>What types of mobile repairs do you offer?</strong><br>We offer repairs for screen issues, battery replacement, charging port problems, and more.
+                          </div>
+                      </li>
+                      <li class="d-flex align-items-start mb-3">
+                          <i class="bi bi-clock me-2 fs-5 text-primary"></i>
+                          <div>
+                              <strong>How long does a mobile repair take?</strong><br>Most repairs are completed within 1-2 hours.
+                          </div>
+                      </li>
+                      <li class="d-flex align-items-start">
+                          <i class="bi bi-calendar me-2 fs-5 text-primary"></i>
+                          <div>
+                              <strong>Do I need to make an appointment?</strong><br>Appointments are recommended but not required. Walk-ins are welcome.
+                          </div>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+
+      <!-- Desktop FAQ -->
+      <div class="accordion-item rounded-3 shadow-sm mb-3">
+          <h2 class="accordion-header" id="headingDesktop">
+              <button class="accordion-button rounded-3 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDesktop" aria-expanded="false" aria-controls="collapseDesktop">
+                <i class="bi bi-pc-display-horizontal me-2"></i> Desktop Repair
+              </button>
+          </h2>
+          <div id="collapseDesktop" class="accordion-collapse collapse" aria-labelledby="headingDesktop" data-bs-parent="#faqAccordion">
+              <div class="accordion-body bg-light border-top border-secondary">
+                  <ul class="list-unstyled">
+                      <li class="d-flex align-items-start mb-3">
+                          <i class="bi bi-tools me-2 fs-5 text-primary"></i>
+                          <div>
+                              <strong>What desktop issues can you fix?</strong><br>We handle hardware malfunctions, software issues, and network problems.
+                          </div>
+                      </li>
+                      <li class="d-flex align-items-start">
+                          <i class="bi bi-database me-2 fs-5 text-primary"></i>
+                          <div>
+                              <strong>Is data recovery available?</strong><br>Yes, we offer data recovery services for damaged or corrupted hard drives.
+                          </div>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+
+      <!-- Laptop FAQ -->
+      <div class="accordion-item rounded-3 shadow-sm mb-3">
+          <h2 class="accordion-header" id="headingLaptop">
+              <button class="accordion-button rounded-3 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLaptop" aria-expanded="false" aria-controls="collapseLaptop">
+                  <i class="bi bi-laptop me-2"></i> Laptop Repair
+              </button>
+          </h2>
+          <div id="collapseLaptop" class="accordion-collapse collapse" aria-labelledby="headingLaptop" data-bs-parent="#faqAccordion">
+              <div class="accordion-body bg-light border-top border-secondary">
+                  <ul class="list-unstyled">
+                      <li class="d-flex align-items-start mb-3">
+                          <i class="bi bi-windows me-2 fs-5 text-primary"></i>
+                          <div>
+                              <strong>Do you repair both Windows and Mac laptops?</strong><br>Yes, we repair both Windows and Mac laptops.
+                          </div>
+                      </li>
+                      <li class="d-flex align-items-start">
+                          <i class="bi bi-cloud-upload me-2 fs-5 text-primary"></i>
+                          <div>
+                              <strong>What should I do before bringing my laptop in for repair?</strong><br>Please back up your data and remove any sensitive information.
+                          </div>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+
+      <!-- CCTV FAQ -->
+      <div class="accordion-item rounded-3 shadow-sm mb-3">
+          <h2 class="accordion-header" id="headingCCTV">
+              <button class="accordion-button rounded-3 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCCTV" aria-expanded="false" aria-controls="collapseCCTV">
+                  <i class="bi bi-camera-video me-2"></i> CCTV Repair
+              </button>
+          </h2>
+          <div id="collapseCCTV" class="accordion-collapse collapse" aria-labelledby="headingCCTV" data-bs-parent="#faqAccordion">
+              <div class="accordion-body bg-light border-top border-secondary">
+                  <ul class="list-unstyled">
+                      <li class="d-flex align-items-start mb-3">
+                        <i class="bi bi-camera-reels me-2 fs-5 text-primary"></i>
+                          <div>
+                              <strong>Can you repair any brand of CCTV camera?</strong><br>Yes, we can repair most major CCTV camera brands.
+                          </div>
+                      </li>
+                      <li class="d-flex align-items-start">
+                          <i class="bi bi-power me-2 fs-5 text-primary"></i>
+                          <div>
+                              <strong>What should I do if my CCTV system is not recording?</strong><br>Check the connections and power supply. If the issue persists, bring it in for a diagnostic.
+                          </div>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+
+      <!-- Electronics Repair FAQ -->
+      <div class="accordion-item rounded-3 shadow-sm mb-3">
+          <h2 class="accordion-header" id="headingElectronics">
+              <button class="accordion-button rounded-3 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseElectronics" aria-expanded="false" aria-controls="collapseElectronics">
+                  <i class="bi bi-lightning me-2"></i> Electronics Repair
+              </button>
+          </h2>
+          <div id="collapseElectronics" class="accordion-collapse collapse" aria-labelledby="headingElectronics" data-bs-parent="#faqAccordion">
+              <div class="accordion-body bg-light border-top border-secondary">
+                  <ul class="list-unstyled">
+                      <li class="d-flex align-items-start mb-3">
+                          <i class="bi bi-plug me-2 fs-5 text-primary"></i>
+                          <div>
+                              <strong>What other electronics do you repair?</strong><br>We repair a variety of electronics including tablets, gaming consoles, and more.
+                          </div>
+                      </li>
+                      <li class="d-flex align-items-start">
+                          <i class="bi bi-quote me-2 fs-5 text-primary"></i>
+                          <div>
+                              <strong>How can I get a quote for a repair?</strong><br>Contact us through our website or visit us in person for a detailed quote.
+                          </div>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+
+
+
+{% endblock %}
+      <!-- ****End Faq  -->

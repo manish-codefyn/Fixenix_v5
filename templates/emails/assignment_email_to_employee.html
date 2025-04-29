@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            padding-bottom: 20px;
+        }
+        .header h1 {
+            color: #3498db;
+            font-size: 24px;
+        }
+        .content {
+            margin: 20px 0;
+        }
+        .content p {
+            margin: 5px 0;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>New Booking Assigned</h1>
+        </div>
+        <div class="content">
+            <p>Hello {{ employee_name }},</p>
+            <p>You have been assigned a new booking. Here are the details:</p>
+            <p><strong>Booking ID:</strong> {{ booking_id }}</p>
+            <p><strong>Customer Name:</strong> {{ customer_name }}</p>
+            <p><strong>Customer Email:</strong> <a href="mailto:{{ customer_email }}">{{ customer_email }}</a></p>
+            <p><strong>Customer Phone:</strong> {{ customer_phone }}</p>
+            <p><strong>Address:</strong> {{ address }}</p>
+            <p><strong>Distance:</strong> {{ distance }} km</p>
+            <p><strong>Price:</strong> {{ price }} INR</p>
+        </div>
+        <p>Please review the booking and take the necessary actions.</p>
+        <div class="footer">
+            <p>Best regards,</p>
+            <p>Fixenix Service Team</p>
+        </div>
+    </div>
+</body>
+</html>
+
+

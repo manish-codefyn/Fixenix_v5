@@ -1,0 +1,204 @@
+{% extends 'layouts/base.html'%}
+{% block content %}
+<!-- MOBILE SERVICES START -->
+<div class="bg-light pt-2 ">
+  <div class="container px-4 text-center">
+    <div class="row mb-4">
+      <h2 class="fw-bold text-muted">
+        Mobile <span class="text-warning"> & </span><span class="text-danger">Tab</span>
+      </h2>
+      <h5>
+        We <em class="text-primary">Provide</em> The Best Service With
+        <span class="text-danger">Experience</span> &
+        <span class="text-warning">Well Trained <span class="text-muted">Staff</span></span>
+      </h5>
+    </div>
+    
+    <div class="row mb-3">
+      <div class="col-6 col-md-3 mb-3">
+        <div class="service-item">
+          <i class="bi bi-phone-flip"></i>
+          <p class="title">Display</p>
+          <p class="subtitle text-danger">Solutions</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-3 mb-3">
+        <div class="service-item">
+          <i class="bi bi-battery-half"></i>
+          <p class="title">Battery</p>
+          <p class="subtitle text-danger">Solutions</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-3 mb-3">
+        <div class="service-item">
+          <i class="bi bi-reception-1"></i>
+          <p class="title">Network</p>
+          <p class="subtitle text-danger">Solutions</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-3 mb-3">
+        <div class="service-item">
+          <i class="bi bi-sim"></i>
+          <p class="title">Sim Error</p>
+          <p class="subtitle text-danger">Solutions</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-6 col-md-3 mb-3">
+        <div class="service-item">
+          <i class="bi bi-android2"></i>
+          <p class="title">Software</p>
+          <p class="subtitle text-danger">Solutions</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-3 mb-3">
+        <div class="service-item">
+          <i class="bi bi-moisture"></i>
+          <p class="title">Water Damage</p>
+          <p class="subtitle text-danger">Damage</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-3 mb-3">
+        <div class="service-item">
+          <i class="bi bi-motherboard"></i>
+          <p class="title">Motherboard</p>
+          <p class="subtitle text-danger">Replacement</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-3 mb-3">
+        <div class="service-item">
+          <i class="bi bi-fingerprint"></i>
+          <p class="title">Fingerprint</p>
+          <p class="subtitle text-danger">Replacement</p>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-6 col-md-3 mb-3">
+        <div class="service-item">
+          <i class="bi bi-camera"></i>
+          <p class="title">Camera</p>
+          <p class="subtitle text-danger">Replacement</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-3 mb-3">
+        <div class="service-item">
+          <i class="bi bi-speaker"></i>
+          <p class="title">Speaker</p>
+          <p class="subtitle text-danger">Replacement</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-3 mb-3">
+        <div class="service-item">
+          <i class="bi bi-battery-charging"></i>
+          <p class="title">Charging</p>
+          <p class="subtitle text-danger">Solutions</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-3 mb-3">
+        <div class="service-item">
+          <i class="bi bi-mic"></i>
+          <p class="title">Mic</p>
+          <p class="subtitle text-danger">Replacement</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- MOBILE SERVICES END-->
+ <style>
+/* General styles for the section */
+.bg-light {
+  background-color: #f8f9fa;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-primary {
+  color: #007bff;
+}
+
+.text-warning {
+  color: #ffc107;
+}
+
+.text-danger {
+  color: #dc3545;
+}
+
+.text-muted {
+  color: #6c757d;
+}
+
+.line-bar {
+  display: inline-block;
+  height: 3px;
+  width: 60px;
+  background: linear-gradient(90deg, #007bff, #dc3545);
+  margin: 1rem 0;
+  border-radius: 5px;
+}
+
+/* Service Item styles */
+.service-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem;
+  border-radius: 15px;
+  background: linear-gradient(135deg, rgba(0,123,255,0.1), rgba(220,53,69,0.1));
+
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.service-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+}
+
+.service-item:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.service-item:hover::before {
+  opacity: 1;
+}
+
+.service-item i {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+  color: #007bff;
+}
+
+.service-item .title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.service-item .subtitle {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+
+ </style>
+{% endblock %}

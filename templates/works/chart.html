@@ -1,0 +1,78 @@
+<!-- Add this to your dashboard template -->
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-chart-pie me-1"></i>
+                Status Distribution
+            </div>
+            <div class="card-body">
+                <canvas id="statusChart" width="100%" height="50"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-chart-bar me-1"></i>
+                Monthly Worksheets
+            </div>
+            <div class="card-body">
+                <canvas id="monthlyChart" width="100%" height="50"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Status distribution chart
+const statusCtx = document.getElementById('statusChart').getContext('2d');
+const statusChart = new Chart(statusCtx, {
+    type: 'pie',
+    data: {
+        labels: {{ status_labels|safe }},
+        datasets: [{
+            data: {{ status_data|safe }},
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.7)',
+                'rgba(54, 162, 235, 0.7)',
+                'rgba(255, 206, 86, 0.7)',
+                'rgba(75, 192, 192, 0.7)',
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+            }
+        }
+    }
+});
+
+// Monthly worksheets chart
+const monthlyCtx = document.getElementById('monthlyChart').getContext('2d');
+const monthlyChart = new Chart(monthlyCtx, {
+    type: 'bar',
+    data: {
+        labels: {{ monthly_labels|safe }},
+        datasets: [{
+            label: 'Worksheets',
+            data: {{ monthly_data|safe }},
+            backgroundColor: 'rgba(54, 162, 235, 0.7)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>

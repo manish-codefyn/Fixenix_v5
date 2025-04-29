@@ -1,0 +1,34 @@
+{% extends 'layouts/base_dash.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<main class="main-content">
+  <div class="container py-5">
+    <!-- Card container for the form -->
+    <div class="card shadow-sm border-0">
+      <div class="card-header bg-primary text-white text-center">
+        <h2 class="mb-0">{{ object|default:"Add Service" }}</h2>
+      </div>
+      <div class="card-body p-4">
+        <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+          {% csrf_token %}
+          
+          <!-- Render the form with crispy-forms -->
+          <div class="row g-3">
+            {{ form|crispy }}
+          </div>
+
+          <!-- Buttons -->
+          <div class="d-flex justify-content-end mt-4">
+            <button type="submit" class="btn btn-success me-3 px-4 py-2">
+              <i class="bi bi-check-circle"></i> Save
+            </button>
+            <a href="{% url 'dashboard:doorstep_service_list' %}" class="btn btn-secondary px-4 py-2">
+              <i class="bi bi-x-circle"></i> Cancel
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

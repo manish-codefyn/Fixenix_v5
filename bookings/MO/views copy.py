@@ -1,0 +1,472 @@
+
+
+from django.shortcuts import render, get_object_or_404, redirect
+
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import Booking, Payment,Review
+from services.models import DoorstepService
+from pages.models import Sites
+import razorpay
+from django.shortcuts import render
+
+from .forms import BookingForm
+from datetime import datetime
+from django.utils import timezone
+from email.mime.image import MIMEImage
+from django.core.mail import EmailMultiAlternatives
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+from xhtml2pdf import pisa
+from io import BytesIO
+import os
+from django.core.mail import BadHeaderError
+import logging
+from django.core.mail import send_mail
+from django.http import HttpResponse
+
+from django.views.generic import DetailView, CreateView, ListView, UpdateView,View,FormView,TemplateView
+
+logger = logging.getLogger(__name__)
+logger = logging.getLogger('custom')
+
+from django.template.loader import get_template
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+import hmac
+import hashlib
+import random
+from django.http import HttpResponseForbidden
+from django.contrib import messages
+
+from django.urls import reverse_lazy
+from django.conf import settings
+
+from .models import DoorstepService, Booking, Payment,RepairService
+from .forms import BookingForm,ReviewForm,RepairServiceForm, OTPVerificationForm
+import razorpay
+from decimal import Decimal
+# Initialize Razorpay client
+razorpay_client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_SECRET_KEY))
+
+from datetime import datetime, timedelta
+from django.core.signing import Signer, BadSignature
+
+from django.utils.timezone import now
+
+from django.core.signing import Signer
+
+import random
+from datetime import timedelta
+from django.utils.timezone import now
+from django.core.mail import send_mail
+from django.shortcuts import redirect, render
+from django.views.generic.edit import FormView
+from django.contrib import messages
+from django.conf import settings
+from django.utils.dateparse import parse_datetime
+from .forms import RepairServiceForm, OTPVerificationForm
+from .models import RepairService,DeviceModel, DeviceProblem
+from django.http import JsonResponse
+
+
+
+class RepairServiceView(FormView):
+    template_name = 'bookings/repair_service_form.html'
+    form_class = RepairServiceForm
+
+    def form_valid(self, form):
+        # Save form data temporarily in session
+        repair_instance = form.save(commit=False)
+        otp = random.randint(100000, 999999)
+
+        # Save OTP and expiry in session
+        self.request.session['otp'] = otp
+        self.request.session['otp_expiry'] = (now() + timedelta(minutes=5)).isoformat()
+        self.request.session['form_data'] = form.cleaned_data
+
+        # Send OTP email
+        send_mail(
+            subject="Verify Your Email - Repair Service",
+            message=f"Your OTP is {otp}. It is valid for 5 minutes.",
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[form.cleaned_data['email']],
+        )
+        return redirect('verify_otp')
+    
+
+def load_device_models(request):
+    device_id = request.GET.get('device')  # Matches ?device=UUID
+    if not device_id:
+        return JsonResponse({"error": "Device ID is required."}, status=400)
+
+    # Ensure correct field usage
+    models = DeviceModel.objects.filter(device__id=device_id).values('id', 'name')
+    return JsonResponse(list(models), safe=False)
+
+def load_device_problems(request):
+    device_id = request.GET.get('device')  # This gets the UUID from the querystring
+
+    if not device_id:
+        return JsonResponse({"error": "Device ID is required."}, status=400)
+
+    # Use the correct field to filter DeviceProblem objects
+    problems = DeviceProblem.objects.filter(device_id=device_id).values('id', 'description')
+
+    return JsonResponse(list(problems), safe=False)
+
+
+
+class VerifyOTPView(FormView):
+    template_name = 'bookings/verify_otp.html'
+    form_class = OTPVerificationForm
+
+    def form_valid(self, form):
+        entered_otp = form.cleaned_data['otp']
+        session_otp = self.request.session.get('otp')
+        otp_expiry = parse_datetime(self.request.session.get('otp_expiry'))
+
+        if otp_expiry and now() > otp_expiry:
+            messages.error(self.request, "OTP has expired. Please request a new one.")
+            return redirect('resend_otp')
+
+        if str(entered_otp) == str(session_otp):
+            # Save the booking data
+            form_data = self.request.session.get('form_data')
+            RepairService.objects.create(**form_data, otp_verified=True)
+
+            # Clear session data
+            self.request.session.pop('otp', None)
+            self.request.session.pop('otp_expiry', None)
+            self.request.session.pop('form_data', None)
+
+            messages.success(self.request, "Booking successful!")
+            return redirect('repair_success')
+        else:
+            messages.error(self.request, "Invalid OTP. Please try again.")
+            return redirect('verify_otp')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['otp_expiry'] = self.request.session.get('otp_expiry', now().isoformat())
+        return context
+    
+
+class ResendOTPView(FormView):
+    def get(self, request, *args, **kwargs):
+        form_data = request.session.get('form_data')
+
+        if not form_data:
+            messages.error(request, "Session expired. Please start the process again.")
+            return redirect('book_repair')
+
+        # Generate a new OTP
+        otp = random.randint(100000, 999999)
+        request.session['otp'] = otp
+        request.session['otp_expiry'] = (now() + timedelta(minutes=5)).isoformat()
+
+        # Resend OTP email
+        send_mail(
+            subject="Your New OTP - Repair Service",
+            message=f"Your new OTP is {otp}. It is valid for 5 minutes.",
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[form_data['email']],
+        )
+
+        messages.success(request, "A new OTP has been sent to your email.")
+        return redirect('verify_otp')
+
+
+        
+
+
+class BookingSuccess(TemplateView):
+    template_name = 'bookings/success.html'
+
+
+
+class TrackBookingView(LoginRequiredMixin,View):
+    template_name = 'bookings/track_booking.html'
+
+    def get(self, request):
+        booking_id = request.GET.get('booking_id')  # Retrieve booking ID from GET parameters
+        context = {}
+
+        if booking_id:  # Check if a booking ID is provided
+            booking = get_object_or_404(Booking, booking_id=booking_id)
+            context['booking'] = booking
+
+        return render(request, self.template_name, context)
+    
+
+class BookingCreateView(LoginRequiredMixin, View):
+    login_url = reverse_lazy("account_login")  # Redirect if user is not logged in
+
+    def get(self, request, pk):  # Use `pk` to match the URL parameter
+        service = get_object_or_404(DoorstepService, id=pk)
+        form = BookingForm(initial={'service': service})
+        return render(request, 'bookings/booking_form.html', {'service': service, 'form': form})
+
+    def post(self, request, pk):  # Use `pk` to match the URL parameter
+        service = get_object_or_404(DoorstepService, id=pk)
+        form = BookingForm(request.POST)
+
+        if form.is_valid():
+            # Get form data
+            customer_name = form.cleaned_data.get('customer_name')
+            customer_email = form.cleaned_data.get('customer_email')
+            customer_phone = form.cleaned_data.get('customer_phone')
+            address = form.cleaned_data.get('address')
+            distance = form.cleaned_data.get('distance')
+
+            # Calculate price based on distance
+            if distance <= 2:
+                distance_price = Decimal('40.00')  # Rs. 40 for 2 km or less
+            else:
+                distance_price = Decimal('40.00') + (Decimal(distance) - Decimal('2.00')) * Decimal('20.00')  # Rs. 20 for each km beyond 2 km
+
+            # Calculate total price: Base service price + distance price
+            total_price = service.price + distance_price
+
+            # Create a new booking instance
+            booking = Booking.objects.create(
+                service=service,
+                user=request.user,
+                customer_name=customer_name,
+                customer_email=customer_email,
+                customer_phone=customer_phone,
+                address=address,
+                distance=distance,
+                price=total_price,  # Set the total price (service price + distance price)
+            )
+
+            # Create Razorpay order
+            order_data = {
+                "amount": int(total_price * 100),  # Convert to paise
+                "currency": "INR",
+                "receipt": str(booking.id),
+            }
+            razorpay_order = razorpay_client.order.create(order_data)
+
+            # Save payment history
+            Payment.objects.create(
+                booking=booking,
+                razorpay_order_id=razorpay_order["id"],
+                amount_paid=total_price,
+            )
+
+            # Prepare context for payment page
+            context = {
+                'booking': booking,
+                'order_id': razorpay_order['id'],
+                'razorpay_key': settings.RAZORPAY_KEY_ID,
+                'amount': total_price,  # Display price in INR
+                'service_price': service.price,  # Display price in INR
+                'distance_price': distance_price,  # Display price in INR
+            }
+            return render(request, 'bookings/payment.html', context)
+
+        # If form is invalid, re-render the form with errors
+        return render(request, 'bookings/booking_form.html', {'service': service, 'form': form})
+
+
+
+    
+def fetch_resources(uri, rel):
+    path = os.path.join(settings.MEDIA_ROOT, uri.replace(settings.MEDIA_URL, ""))
+    return path
+
+def RenderToPDF(template_src, context_dict={}, pdf_name={}):
+    template = get_template(template_src)
+    html = template.render(context_dict)
+    response = HttpResponse(content_type="application/pdf")
+    response["Content-Disposition"] = f'attachment; filename="{pdf_name}"'
+    with open(pdf_name, "wb+") as output:
+        pdf = pisa.pisaDocument(
+            BytesIO(html.encode("UTF-8")), output, link_callback=fetch_resources
+        )
+    return output.name
+
+@method_decorator(csrf_exempt, name='dispatch')
+class PaymentSuccessView(View):
+    def post(self, request):
+        razorpay_payment_id = request.POST.get('razorpay_payment_id')
+        razorpay_order_id = request.POST.get('razorpay_order_id')
+        razorpay_signature = request.POST.get('razorpay_signature')
+        
+        try:
+            # Fetch the Payment instance
+            payment = Payment.objects.get(razorpay_order_id=razorpay_order_id)
+
+            # Verify the signature
+            generated_signature = hmac.new(
+                settings.RAZORPAY_SECRET_KEY.encode(),
+                f"{razorpay_order_id}|{razorpay_payment_id}".encode(),
+                hashlib.sha256
+            ).hexdigest()
+
+            if generated_signature == razorpay_signature:
+                # Mark payment as completed and save
+                payment.razorpay_payment_id = razorpay_payment_id
+                payment.razorpay_signature = razorpay_signature
+                payment.paid = True
+                payment.save()
+                
+                # Mark booking as completed
+                payment.booking.payment_completed = True
+                payment.booking.save()
+
+                # Generate and email the invoice
+                self.generate_and_email_invoice(payment)
+
+                # Render the success page
+                context = {
+                'amount': payment.amount_paid
+                }
+               
+                return render(request, 'bookings/payment_success.html',context)
+            else:
+                # Signature mismatch; handle as needed
+                return redirect('service-list')
+        
+        except Payment.DoesNotExist:
+            # Payment not found; handle as needed
+            return redirect('service-list')
+
+    def generate_invoice(self, payment):
+        """Generate PDF invoice using xhtml2pdf."""
+        template_path = 'invoice/invoice.html'
+        context = {
+            'payment': payment,
+            'booking': payment.booking,
+            'data': Sites.objects.all(),
+       
+           
+        }
+        pdf_name = f"Invoice for your Booking #{payment.booking.id}.pdf"
+        template = get_template(template_path)
+        html = template.render(context)
+        response = HttpResponse(content_type="application/pdf")
+        response["Content-Disposition"] = f'attachment; filename="{pdf_name}"'
+        with open(pdf_name, "wb+") as output:
+            pdf = pisa.pisaDocument(
+               BytesIO(html.encode("UTF-8")), output, link_callback=fetch_resources
+        )
+        return output.name
+
+    def send_invoice_email(self, payment, invoice_pdf):
+        """Send the generated invoice via email."""
+        email_subject = f"Invoice for your Booking #{payment.booking.id}"
+        email_body = f"Dear {payment.booking.user.get_full_name()},\n\nPlease find your booking invoice attached."
+        recipient_email = payment.booking.user.email
+        copy_email = settings.ADMIN_EMAIL  # Replace with the email to send a copy to
+
+        email = EmailMultiAlternatives(
+        subject=email_subject,
+        body=email_body,
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        to=[recipient_email],
+        bcc=[copy_email],  # Add a copy recipient here
+    )
+        email.attach_alternative( email_body, "text/html")
+        email.attach_file(invoice_pdf)
+        # email.attach(f"invoice_{payment.booking.id}.pdf", invoice_pdf, 'application/pdf')
+
+        return email.send()
+
+
+    def generate_and_email_invoice(self, payment):
+        """Generate invoice and send it via email."""
+        invoice_pdf = self.generate_invoice(payment)
+        if invoice_pdf:
+            self.send_invoice_email(payment, invoice_pdf)
+
+    def get(self, request):
+        # Optionally handle GET requests
+        return render(request, 'booking/payment_success.html')
+    
+# class BookingCreateView(LoginRequiredMixin, CreateView):
+#     model = Booking
+#     fields = []  # Form fields can be omitted as we'll handle data in the `form_valid` method
+#     template_name = "bookings/booking_form.html"
+
+
+#     def form_valid(self, form):
+#         # Retrieve the service based on the primary key in the URL
+#         service = DoorstepService.objects.get(id=self.kwargs["pk"])
+#         user = self.request.user  # Get the currently logged-in user
+
+#         # Create a new Booking object
+#         booking = Booking.objects.create(service=service, user=user)
+
+#         # Create Razorpay Order
+#         order_data = {
+#             "amount": int(service.price * 100),  # Convert to paise
+#             "currency": "INR",
+#             "receipt": str(booking.id),
+#         }
+#         razorpay_order = razorpay_client.order.create(order_data)
+
+#         # Save Payment History
+#         PaymentHistory.objects.create(
+#             booking=booking,
+#             razorpay_order_id=razorpay_order["id"],
+#             amount_paid=service.price,
+#         )
+
+#         # Redirect to the payment page
+#         return redirect("payment_page", pk=booking.id)
+
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context["service"] = DoorstepService.objects.get(id=self.kwargs["pk"])
+#         return context
+
+
+
+
+
+class BookingListView(LoginRequiredMixin, ListView):
+    model = Booking
+    template_name = "bookings/booking_list.html"
+    context_object_name = "bookings"
+
+    def get_queryset(self):
+        return Booking.objects.filter(user=self.request.user)
+
+
+class BookingUpdateView(LoginRequiredMixin, UpdateView):
+    model = Booking
+    fields = ["completion_status", "assigned_employee"]
+    template_name = "services/booking_update.html"
+    success_url = reverse_lazy("booking_list")
+
+
+
+class ReviewCreateView(CreateView):
+    model = Review
+    form_class = ReviewForm
+    template_name = 'add_review.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        # Get the booking object
+        self.booking = get_object_or_404(Booking, id=self.kwargs['booking_id'])
+
+        # Check if the booking already has a review
+        if hasattr(self.booking, 'review'):
+            return HttpResponseForbidden("You have already reviewed this booking.")
+        
+        # Ensure the user is the owner of the booking
+        if self.booking.user != request.user:
+            return HttpResponseForbidden("You can only review your own bookings.")
+
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        # Assign the booking to the review before saving
+        form.instance.booking = self.booking
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        # Redirect to a success page (e.g., booking detail)
+        return reverse_lazy('booking_detail', kwargs={'pk': self.booking.id})

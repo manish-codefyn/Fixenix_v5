@@ -1,0 +1,102 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+{% include 'pages/includes/slider.html' %}
+<!-- End slider-->
+<div class="bg-light pt-2 pb-5 px-1">
+  <div class="container text-center">
+    <div class="container main-form pt-2 pb-3 px-4 form-gradient">
+      <h2 class="text-white pb-3">Get Free Estimate</h2>
+      <li class="main-form-errors">{{ form.captcha.errors }}</li>
+      <form
+        method="post"
+        id="MainForm"
+        action="{% url 'index' %}"
+        enctype="multipart/form-data"
+      >
+        {% csrf_token %}
+        <div class="row g-2 mb-3">
+          <div class="col-md form-floating">
+            {{ form.name }}
+            <li class="main-form-errors">{{ form.name.errors }}</li>
+            <label for="floatingInput text-bold">
+              <i class="bi bi-people-fill mr5 form-i"></i>
+              <span class="text-color-black fw-bold"> Name</span></label
+            >
+          </div>
+          <div class="col-md form-floating">
+            {{ form.mobile }}
+            <li class="main-form-errors">{{ form.mobile.errors }}</li>
+            <label for="floatingInput text-info">
+              <i class="bi-phone-fill mr5 form-i"></i>
+              <span class="text-color-black fw-bold"> Mobile </span>
+            </label>
+          </div>
+          <div class="col-md form-floating">
+            {{ form.email }}
+            <li class="main-form-errors">{{ form.email.errors }}</li>
+            <label for="floatingInput">
+              <i class="bi-envelope-at-fill mr5 form-i"></i>
+              <span class="text-color-black fw-bold">Email</span>
+            </label>
+          </div>
+          <div class="col-md form-floating">
+            {{ form.device_name }}
+            <li class="main-form-errors">
+              {{ form.device_name.errors }}
+            </li>
+            <label for="floatingInput"
+              ><i class="bi bi-cpu-fill mr5 form-i"></i>
+              <span class="text-color-black fw-bold">Device Name</span></label
+            >
+          </div>
+        </div>
+        <div class="row g-2 mb-3">
+          <div class="col-md-8 form-floating">
+            {{ form.device_problem }}
+            <li class="main-form-errors">
+              {{ form.device_problem.errors }}
+            </li>
+            <label for="floatingInput"
+              ><i class="bi bi-motherboard-fill mr5 form-i"></i>
+              <span class="text-color-black fw-bold"
+                >Device Problem......</span
+              ></label
+            >
+          </div>
+          <div class="col-md-4 form-floating">
+            <div class="input-group">
+              {{ form.captcha }}
+              
+              <input
+                class="form-control button-main-form"
+                type="submit"
+                id="btn1"
+                value="Submit Request 🚀"
+              />
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Supported Laptop Brands -->
+{% include "pages/includes/brand_list.html" %}
+{% include 'pages/includes/services.html' %}
+{% include 'pages/includes/features.html' %}
+{% include 'pages/includes/certify.html' %}
+{% include 'pages/includes/brand_list.html' %}
+{% include 'pages/includes/google_rating.html' %}
+{% include 'pages/includes/testimonial.html' %}
+{% include 'pages/includes/centers.html' %}
+<script>
+  // Form Submit
+  $(document).ready(function () {
+    $(".preloader").hide();
+    $("#MainForm").on("submit", function () {
+      $(".preloader").fadeIn();
+    }); //submit
+  });
+  // end form submit
+</script>
+{% endblock %}

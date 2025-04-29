@@ -1,0 +1,557 @@
+
+    
+    {% extends 'layouts/base.html' %}
+    {% block content %}
+    {% load crispy_forms_tags %}
+    {% load static %}
+    {% load widget_tweaks %}
+    
+    <!-- Hero Section -->
+    <section class="partnership-hero text-center">
+        <div class="container position-relative">
+            <h1 class="display-3 fw-bold mb-4 animate__animated animate__fadeInDown">Elevate Your Business Through Partnership</h1>
+            <p class="lead fs-3 mb-5 animate__animated animate__fadeInUp animate__delay-1s">Join our exclusive network of industry leaders and innovators</p>
+            <div class="animate__animated animate__fadeIn animate__delay-2s">
+                <a href="#partner-form" class="btn btn-light btn-lg rounded-pill px-4 py-2 fw-bold">Start Your Application <i class="bi bi-arrow-down ms-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Form Section -->
+    <div class="container mb-5" id="partner-form">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="form-container animate__animated animate__fadeIn">
+                    <div class="text-center mb-5">
+                        <h2 class="form-title">Strategic Partnership Application</h2>
+                        <p class="text-muted">Complete this form to begin your journey as a valued partner. Our team will personally review your submission within 48 hours.</p>
+                    </div>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="floating-label">
+                                    {{ form.name.label_tag }}
+                                    {{ form.name }}
+                                    {% if form.name.errors %}
+                                        <div class="text-danger">{{ form.name.errors }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="floating-label form-label" for="{{ form.email.id_for_label }}">
+                                    {{ form.email.label_tag }}
+                                    {{ form.email }}
+                                    <div id="emailVerificationStatus" class="mt-2 small"></div>
+                                    {% if form.email.errors %}
+                                        <div class="text-danger">{{ form.email.errors }}</div>
+                                    {% endif %}
+                                 
+                                </div>
+                              
+                            </div>
+                         
+                                 <!-- Email Address -->
+                             <div class="col-md-6">
+                                <div class="floating-label">
+                                    {{ form.phone.label_tag }}
+                                    {{ form.phone }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="floating-label">
+                                    {{ form.company_name.label_tag }}
+                                    {{ form.company_name }}
+                                    {% if form.company_name.errors %}
+                                        <div class="text-danger">{{ form.company_name.errors }}</div>
+                                    {% endif %}
+                                </div>
+                              
+                            </div>
+                          
+                            <div class="col-12">
+                                <div class="floating-label">
+                                    {{ form.interest_reason.label_tag }}
+                                    {{ form.interest_reason }}
+                                    {% if form.interest_reason.errors %}
+                                        <div class="text-danger">{{ form.interest_reason.errors }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                       
+                            <!--  -->
+                            <!-- OTP Verification Field (hidden by default) -->
+                            <div class="col-12 mb-4" id="otpVerificationSection" style="display: none;">
+                                <div class="floating-label">
+                                  
+                                    <div class="input-group">
+                                        <input type="text" class="form-control border-primary shadow-sm" id="otp" name="otp" placeholder="Enter 6-digit OTP">
+                                        <button class="btn btn-outline-primary" type="button" id="resendOtpBtn">
+                                            <i class="bi bi-arrow-clockwise"></i> Resend OTP
+                                        </button>
+                                    </div>
+                                    <small class="text-muted">Check your email for the OTP we just sent</small>
+                                    <div id="otpError" class="text-danger small mt-1"></div>
+                                </div>
+                            </div>
+                            <!--  -->
+
+                                 
+                            <div class="col-12">
+                                <div class="form-check">
+                                    {{ form.agree_terms }}
+                                    <label class="form-check-label" for="{{ form.agree_terms.id_for_label }}">
+                                        I agree to the <a href="#" class="animated-border" data-bs-toggle="modal" data-bs-target="#termsModal">partnership terms</a> and privacy policy
+                                    </label>
+                                    {% if form.agree_terms.errors %}
+                                        <div class="text-danger">{{ form.agree_terms.errors }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <!--  -->
+                            <div class="col-12 text-center mt-5">
+                                <button type="submit" class="btn btn-partner text-white">
+                                    <span class="position-relative">
+                                        Submit Application <i class="bi bi-paper-plane-fill ms-2"></i>
+
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                </div>
+           
+            
+            <div class="col-lg-4 mt-5 mt-lg-0">
+                <div class="benefits-card sticky-top" style="top: 30px;">
+                    <h3 class="h4 mb-4 fw-bold text-center">Why Partner With Us?</h3>
+                    <div class="benefit-item">
+                        <span class="bs-icon-circle">
+                          <i class="bi bi-check"></i>
+                        </span>
+                        Revenue-Sharing Opportunities
+                      </div>
+                      <div class="benefit-item">
+                        <span class="bs-icon-circle">
+                        <i class="bi bi-briefcase-fill "></i>
+                     </span>
+                        Expand Your Service Reach
+                      </div>
+                      <div class="benefit-item">
+                        <span class="bs-icon-circle">
+                        <i class="bi bi-cash-stack"></i>
+                        </span>
+                        Revenue-Sharing Opportunities
+                      </div>
+                      <div class="benefit-item">
+                        <span class="bs-icon-circle">
+                        <i class="bi bi-person-check-fill"></i>
+                        </span>
+                        Dedicated Partner Success Manager
+                      </div>
+                      <div class="benefit-item">
+                        <span class="bs-icon-circle">
+                        <i class="bi bi-megaphone-fill"></i>
+                        </span>
+                        Co-Branded Marketing Campaigns
+                      </div>
+                      <div class="benefit-item">
+                        <span class="bs-icon-circle">
+                        <i class="bi bi-lightbulb-fill"></i>
+                        </span>
+                        Early Access to New Services & Tools
+                      </div>
+                      <div class="benefit-item">
+                        <span class="bs-icon-circle">
+                        <i class="bi bi-calendar-event-fill"></i>
+                        </span>
+                        Invite to Annual Partner Meetups
+                      </div>
+                      <div class="benefit-item">
+                        <span class="bs-icon-circle">
+                        <i class="bi bi-headset"></i>
+                        </span>
+                        Priority Technical Support
+                      </div>
+                      <div class="benefit-item">
+                        <span class="bs-icon-circle">
+                        <i class="bi bi-newspaper"></i>
+                        </span>
+                        Joint PR & Case Study Opportunities
+                      </div>
+                      
+                    <div class="text-center mt-4 pt-3">
+                        <p class="small text-muted mb-2">Current partner satisfaction score</p>
+                        <div class="d-flex justify-content-center">
+                            <div class="pe-3">
+                                <div class="display-5 fw-bold text-primary">9.8/10</div>
+                                <div class="small">Partner Experience</div>
+                            </div>
+                            <div class="ps-3">
+                                <div class="display-5 fw-bold text-primary">94%</div>
+                                <div class="small">Would Recommend</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Partner Testimonials -->
+    <!-- <section class="partner-testimonials">
+        <div class="container">
+            <h2 class="text-center mb-5 display-5 fw-bold">Trusted By Industry Leaders</h2>
+            
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <img src="https://via.placeholder.com/150x50?text=Company+Logo" alt="Partner Logo" class="partner-logo">
+                        <blockquote class="mb-4">
+                            "This partnership transformed our service offerings and increased our ARR by 37% in the first year."
+                        </blockquote>
+                        <div class="d-flex align-items-center">
+                            <img src="https://via.placeholder.com/50" alt="Testimonial Author" class="rounded-circle me-3" width="50">
+                            <div>
+                                <div class="fw-bold">Sarah Johnson</div>
+                                <div class="small text-white-50">CEO, TechSolutions Inc.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <img src="https://via.placeholder.com/150x50?text=Company+Logo" alt="Partner Logo" class="partner-logo">
+                        <blockquote class="mb-4">
+                            "The joint marketing opportunities alone made this partnership invaluable to our growth strategy."
+                        </blockquote>
+                        <div class="d-flex align-items-center">
+                            <img src="https://via.placeholder.com/50" alt="Testimonial Author" class="rounded-circle me-3" width="50">
+                            <div>
+                                <div class="fw-bold">Michael Chen</div>
+                                <div class="small text-white-50">CMO, Digital Innovations</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <img src="https://via.placeholder.com/150x50?text=Company+Logo" alt="Partner Logo" class="partner-logo">
+                        <blockquote class="mb-4">
+                            "Our customers love the integrated solution, and the partner support has been exceptional."
+                        </blockquote>
+                        <div class="d-flex align-items-center">
+                            <img src="https://via.placeholder.com/50" alt="Testimonial Author" class="rounded-circle me-3" width="50">
+                            <div>
+                                <div class="fw-bold">David Martinez</div>
+                                <div class="small text-white-50">VP Partnerships, NexGen Tech</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5 pt-3">
+                <div class="row justify-content-center">
+                    <div class="col-6 col-md-2 mb-4">
+                        <img src="https://via.placeholder.com/130x60?text=Logo" alt="Partner Logo" class="img-fluid partner-logo">
+                    </div>
+                    <div class="col-6 col-md-2 mb-4">
+                        <img src="https://via.placeholder.com/130x60?text=Logo" alt="Partner Logo" class="img-fluid partner-logo">
+                    </div>
+                    <div class="col-6 col-md-2 mb-4">
+                        <img src="https://via.placeholder.com/130x60?text=Logo" alt="Partner Logo" class="img-fluid partner-logo">
+                    </div>
+                    <div class="col-6 col-md-2 mb-4">
+                        <img src="https://via.placeholder.com/130x60?text=Logo" alt="Partner Logo" class="img-fluid partner-logo">
+                    </div>
+                    <div class="col-6 col-md-2 mb-4">
+                        <img src="https://via.placeholder.com/130x60?text=Logo" alt="Partner Logo" class="img-fluid partner-logo">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- Terms Modal -->
+    <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title fw-bold" id="termsModalLabel">Service Partner Program Terms</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            
+            <div class="modal-body">
+              <div class="mb-4">
+                <h6 class="fw-bold">1. Program Overview</h6>
+                <p>This Service Partner Program ("Program") defines the collaboration framework between <strong>Your Repair Brand</strong> ("Company") and authorized repair technicians, shops, or service centers ("Partners") across India.</p>
+              </div>
+      
+              <div class="mb-4">
+                <h6 class="fw-bold">2. Eligibility Criteria</h6>
+                <ul>
+                    <li>Valid GST registration and/or local business license</li>
+                    <li>Strong customer service reputation and repair quality</li>
+                    <li>Willingness to adhere to our repair and service protocols</li>
+                    <li>Open to both experienced technicians and freshers (newcomers) in mobile/computer repair</li>
+                    <li>Women are encouraged to apply and become part of our growing network of partners</li>
+                    <li>Special opportunity for retired and disabled individuals to join our partner network</li>
+                </ul>
+              </div>
+      
+              <div class="mb-4">
+                <h6 class="fw-bold">3. Partner Benefits</h6>
+                <p>Verified Partners receive access to genuine spare parts, discounted pricing, marketing visibility through our website, dedicated support, and revenue-sharing on leads or job referrals.</p>
+              </div>
+      
+              <div class="mb-4">
+                <h6 class="fw-bold">4. Confidentiality & Code of Conduct</h6>
+                <p>Partners must maintain customer confidentiality, follow ethical service practices, and avoid unauthorized use of company branding. All shared data and tools must be handled securely and responsibly.</p>
+              </div>
+            </div>
+      
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <!-- <button type="button" class="btn btn-primary">Download Full Terms</button> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const emailField = document.getElementById('{{ form.email.id_for_label }}');
+        const emailVerificationStatus = document.getElementById('emailVerificationStatus');
+        const otpVerificationSection = document.getElementById('otpVerificationSection');
+        const resendOtpBtn = document.getElementById('resendOtpBtn');
+        const partnerForm = document.querySelector('form');
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    
+        // Function to validate email format
+        function isValidEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+    
+        // Function to send OTP
+        function sendOTP(email) {
+            emailVerificationStatus.innerHTML = '<span class="text-primary"><i class="bi bi-hourglass-split"></i> Sending OTP...</span>';
+            
+            fetch('{% url "send_otp" %}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': csrfToken
+                },
+                body: `email=${encodeURIComponent(email)}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    emailVerificationStatus.innerHTML = '<span class="text-success"><i class="bi bi-check-circle-fill"></i> OTP sent to your email</span>';
+                    otpVerificationSection.style.display = 'block';
+                    
+                    Swal.fire({
+                        title: 'OTP Sent!',
+                        text: 'We have sent a 6-digit OTP to your email address. Please check your inbox.',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    });
+                } else {
+                    emailVerificationStatus.innerHTML = `<span class="text-danger"><i class="bi bi-exclamation-triangle-fill"></i> ${data.error || 'Failed to send OTP'}</span>`;
+                    Swal.fire({
+                        title: 'Error',
+                        text: data.error || 'Failed to send OTP',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                emailVerificationStatus.innerHTML = '<span class="text-danger"><i class="bi bi-exclamation-triangle-fill"></i> Error sending OTP</span>';
+                Swal.fire({
+                    title: 'Error',
+                    text: 'An error occurred while sending OTP',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            });
+        }
+    
+        // Email field input event with debounce
+        let emailTimeout;
+        emailField.addEventListener('input', function() {
+            clearTimeout(emailTimeout);
+            const email = this.value.trim();
+            
+            if (email && isValidEmail(email)) {
+                emailTimeout = setTimeout(() => {
+                    sendOTP(email);
+                }, 1000); // 1 second delay after typing stops
+            } else {
+                emailVerificationStatus.innerHTML = '';
+                otpVerificationSection.style.display = 'none';
+            }
+        });
+    
+        // Resend OTP button click event
+        resendOtpBtn.addEventListener('click', function() {
+            const email = emailField.value.trim();
+            
+            if (email && isValidEmail(email)) {
+                Swal.fire({
+                    title: 'Sending OTP',
+                    html: 'Please wait while we send a new OTP to your email...',
+                    timerProgressBar: true,
+                    didOpen: () => {
+                        Swal.showLoading();
+                        sendOTP(email);
+                    }
+                });
+            } else {
+                Swal.fire({
+                    title: 'Invalid Email',
+                    text: 'Please enter a valid email address first',
+                    icon: 'warning',
+                    confirmButtonText: 'OK'
+                });
+            }
+        });
+    
+        // Form submission handler
+        partnerForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const otp = document.getElementById('otp')?.value;
+            
+            // If OTP section is visible but OTP is not entered
+            if (otpVerificationSection.style.display !== 'none' && !otp) {
+                Swal.fire({
+                    title: 'OTP Required',
+                    text: 'Please enter the OTP sent to your email.',
+                    icon: 'warning',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+            
+            // Show loading state
+            Swal.fire({
+                title: 'Processing',
+                html: 'Please wait while we verify your details...',
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading();
+                    
+                    // Add AJAX header
+                    formData.append('X-Requested-With', 'XMLHttpRequest');
+                    
+                    fetch(this.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-CSRFToken': csrfToken
+                        }
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            return response.json().then(err => Promise.reject(err));
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.status === 'success') {
+                            Swal.fire({
+                                title: 'Success!',
+                                text: data.message,
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            }).then(() => {
+                                if (data.redirect) {
+                                    window.location.href = data.redirect;
+                                }
+                            });
+                        } else {
+                            // Handle form errors
+                            let errorMessage = data.message || 'Please correct the errors below.';
+                            
+                            if (data.errors) {
+                                // Update form error displays
+                                for (const [field, errors] of Object.entries(data.errors)) {
+                                    const fieldElement = document.getElementById(`id_${field}`);
+                                    if (fieldElement) {
+                                        const errorElement = document.createElement('div');
+                                        errorElement.className = 'text-danger small mt-1';
+                                        errorElement.innerHTML = errors.join('<br>');
+                                        
+                                        // Remove existing error
+                                        const existingError = fieldElement.nextElementSibling;
+                                        if (existingError && existingError.classList.contains('text-danger')) {
+                                            existingError.remove();
+                                        }
+                                        
+                                        // Insert new error
+                                        fieldElement.parentNode.insertBefore(errorElement, fieldElement.nextSibling);
+                                    }
+                                }
+                            }
+                            
+                            Swal.fire({
+                                title: 'Error',
+                                text: errorMessage,
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        let errorMessage = 'An error occurred while processing your request.';
+                        
+                        if (error.message) {
+                            errorMessage = error.message;
+                        } else if (error.errors) {
+                            errorMessage = Object.values(error.errors).flat().join('\n');
+                        }
+                        
+                        Swal.fire({
+                            title: 'Error',
+                            text: errorMessage,
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    });
+                }
+            });
+        });
+    
+        // Animation for form elements
+        const formElements = document.querySelectorAll('.form-container .floating-label');
+        formElements.forEach((element, index) => {
+            setTimeout(() => {
+                element.classList.add('animate__animated', 'animate__fadeInUp');
+                element.style.setProperty('--animate-duration', '0.5s');
+                element.style.setProperty('--animate-delay', `${index * 0.1}s`);
+            }, 100);
+        });
+        
+        // Smooth scroll for apply button
+        document.querySelector('a[href="#partner-form"]')?.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href'))?.scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+    </script>
+ 
+    {% endblock %}

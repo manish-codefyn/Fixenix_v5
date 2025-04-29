@@ -1,0 +1,5 @@
+TEMPLATE_EXTENSION = "html"
+PAGE_TITLE = "Staff Dashboard"
+SITE_NAME = "Fixenix"
+USER_START_WITH = ""
+USERNAME_START_WITH = ""

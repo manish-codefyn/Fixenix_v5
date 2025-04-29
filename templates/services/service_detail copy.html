@@ -1,0 +1,18 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+  <h2>Service Details</h2>
+  {% if service.image %}
+  <img src="{{ service.image.url }}" alt="{{ service.service_name }}" style="max-width: 300px;">
+{% else %}
+  <i class="fa fa-cogs" style="font-size: 50px;"></i> <!-- Default icon -->
+{% endif %}
+<h3>{{ service.service_name }}</h3>
+<p><strong>Available:</strong> {{ service.is_available }}</p>
+<p><strong>Premium:</strong> {{ service.is_premium }}</p>
+<p><strong>Discountable:</strong> {{ service.is_discountable }}</p>
+<p><strong>Featured:</strong> {{ service.is_featured }}</p>
+<p><strong>Price:</strong> {{ service.get_final_price }}</p>
+<p><strong>Rating:</strong> {{ service.rating }} ({{ service.review_count }} reviews)</p>
+
+{% endblock %}

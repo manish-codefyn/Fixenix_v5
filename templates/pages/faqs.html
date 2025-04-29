@@ -1,0 +1,403 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+{% load static %}
+
+<!-- FAQ Section -->
+<section class="bg-light pt-5 pb-5">
+  <div class="container">
+    <div class="faqs bg-red-gradient">
+      <div class="faq-image"></div>
+      <h2 class="text-center text-muted"><strong>Frequently Asked Questions</strong></h2>
+      <h2 class="text-center mb-4">
+        <strong>How Can </strong> <span class="text-primary">We Help You?</span>
+      </h2>
+      
+      <!-- If dynamic FAQs exist from backend -->
+      {% if faq %}
+        {% for faq in faq %}
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+          <!-- Dynamic FAQ items would go here -->
+        </div>
+        {% endfor %}
+      {% else %}
+        <!-- Static FAQ content -->
+        <div class="accordion accordion-flush" id="serviceFaqs">
+          <!-- Mobile Services -->
+          <div class="accordion-item mb-3 border rounded-3">
+            <h2 class="accordion-header" id="mobileHeading">
+              <button class="accordion-button collapsed fs-5 fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#mobileServices" aria-expanded="false">
+                <i class="bi bi-phone me-3"></i> Mobile Device Services
+              </button>
+            </h2>
+            <div id="mobileServices" class="accordion-collapse collapse" aria-labelledby="mobileHeading" data-bs-parent="#serviceFaqs">
+              <div class="accordion-body">
+                <div class="accordion" id="mobileSubFaqs">
+                  
+                  <div class="accordion-item border-0">
+                    <h3 class="accordion-header" id="mobileScreenHeading">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#mobileScreen">
+                        Screen Replacement
+                      </button>
+                    </h3>
+                    <div id="mobileScreen" class="accordion-collapse collapse" aria-labelledby="mobileScreenHeading" data-bs-parent="#mobileSubFaqs">
+                      <div class="accordion-body">
+                        We replace cracked or damaged screens for all major smartphone brands. 
+                        Typical turnaround time is 1-2 hours using OEM or high-quality aftermarket parts.
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="accordion-item border-0">
+                    <h3 class="accordion-header" id="mobileBatteryHeading">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#mobileBattery">
+                        Battery Replacement
+                      </button>
+                    </h3>
+                    <div id="mobileBattery" class="accordion-collapse collapse" aria-labelledby="mobileBatteryHeading" data-bs-parent="#mobileSubFaqs">
+                      <div class="accordion-body">
+                        Signs you need a new battery: fast draining, unexpected shutdowns, or swelling. 
+                        We use high-capacity batteries with 6-month warranty.
+                      </div>
+                    </div>
+                  </div>
+                  <!--  -->
+                  <div class="accordion-item border-0">
+                    <h3 class="accordion-header" id="waterDamageHeading">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#waterDamage">
+                        Water Damage Repair
+                      </button>
+                    </h3>
+                    <div id="waterDamage" class="accordion-collapse collapse" aria-labelledby="waterDamageHeading" data-bs-parent="#mobileSubFaqs">
+                      <div class="accordion-body">
+                        We clean and repair phones affected by liquid damage. While success is not guaranteed, our ultrasonic cleaning process improves chances significantly.
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="accordion-item border-0">
+                    <h3 class="accordion-header" id="chargingPortHeading">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#chargingPort">
+                        Charging Port Issues
+                      </button>
+                    </h3>
+                    <div id="chargingPort" class="accordion-collapse collapse" aria-labelledby="chargingPortHeading" data-bs-parent="#mobileSubFaqs">
+                      <div class="accordion-body">
+                        If your device isn't charging properly, we offer fast charging port replacements or deep cleaning services depending on the issue.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item border-0">
+                    <h3 class="accordion-header" id="screenReplacementHeading">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#screenReplacement">
+                        How long does screen replacement take?
+                      </button>
+                    </h3>
+                    <div id="screenReplacement" class="accordion-collapse collapse" aria-labelledby="screenReplacementHeading" data-bs-parent="#mobileSubFaqs">
+                      <div class="accordion-body">
+                        Most screen replacements are completed within 2 hours if parts are available.
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="accordion-item border-0">
+                    <h3 class="accordion-header" id="batteryReplacementHeading">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#batteryReplacement">
+                        Do you provide warranty for battery replacement?
+                      </button>
+                    </h3>
+                    <div id="batteryReplacement" class="accordion-collapse collapse" aria-labelledby="batteryReplacementHeading" data-bs-parent="#mobileSubFaqs">
+                      <div class="accordion-body">
+                        Yes, battery replacements come with 6 to 12 months warranty depending on brand.
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="accordion-item border-0">
+                    <h3 class="accordion-header" id="dataLossHeading">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#dataLoss">
+                        Will I lose my data during repairs?
+                      </button>
+                    </h3>
+                    <div id="dataLoss" class="accordion-collapse collapse" aria-labelledby="dataLossHeading" data-bs-parent="#mobileSubFaqs">
+                      <div class="accordion-body">
+                        In most cases, no. However, we recommend taking a backup before repairs for safety.
+                      </div>
+                    </div>
+                  </div>
+                  <!-- More mobile FAQs... -->
+
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Computer & Laptop Services -->
+          <div class="accordion-item mb-3 border rounded-3">
+            <h2 class="accordion-header" id="computerHeading">
+              <button class="accordion-button collapsed fs-5 fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#computerServices" aria-expanded="false">
+                <i class="bi bi-pc me-3"></i> Computer & Laptop Services
+              </button>
+            </h2>
+            <div id="computerServices" class="accordion-collapse collapse" aria-labelledby="computerHeading" data-bs-parent="#serviceFaqs">
+              <div class="accordion-body">
+                <div class="accordion" id="computerSubFaqs">
+                  
+                  <div class="accordion-item border-0">
+                    <h3 class="accordion-header" id="diagnosticHeading">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#diagnostic">
+                        Diagnostic Services
+                      </button>
+                    </h3>
+                    <div id="diagnostic" class="accordion-collapse collapse" aria-labelledby="diagnosticHeading" data-bs-parent="#computerSubFaqs">
+                      <div class="accordion-body">
+                        We perform comprehensive diagnostics to identify hardware and software issues.
+                        Includes free basic diagnosis with paid repair.
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="accordion-item border-0">
+                    <h3 class="accordion-header" id="hardwareHeading">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#hardwareRepair">
+                        Hardware Repair
+                      </button>
+                    </h3>
+                    <div id="hardwareRepair" class="accordion-collapse collapse" aria-labelledby="hardwareHeading" data-bs-parent="#computerSubFaqs">
+                      <div class="accordion-body">
+                        Services include motherboard repair, power issues, keyboard replacement, 
+                        fan cleaning, and component upgrades. Most repairs completed within 24-48 hours.
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="accordion-item border-0">
+                    <h3 class="accordion-header" id="softwareOptimizationHeading">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#softwareOptimization">
+                        Software Optimization
+                      </button>
+                    </h3>
+                    <div id="softwareOptimization" class="accordion-collapse collapse" aria-labelledby="softwareOptimizationHeading" data-bs-parent="#computerSubFaqs">
+                      <div class="accordion-body">
+                        Speed up your PC with professional optimization: startup program control, malware removal, and registry cleaning.
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="accordion-item border-0">
+                    <h3 class="accordion-header" id="dataMigrationHeading">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#dataMigration">
+                        Data Migration Services
+                      </button>
+                    </h3>
+                    <div id="dataMigration" class="accordion-collapse collapse" aria-labelledby="dataMigrationHeading" data-bs-parent="#computerSubFaqs">
+                      <div class="accordion-body">
+                        Need to move your data to a new PC or hard drive? We ensure zero data loss and verify everything works post-migration.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item border-0">
+                    <h3 class="accordion-header" id="slowLaptopHeading">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#slowLaptop">
+                        Why is my laptop running slow?
+                      </button>
+                    </h3>
+                    <div id="slowLaptop" class="accordion-collapse collapse" aria-labelledby="slowLaptopHeading" data-bs-parent="#computerSubFaqs">
+                      <div class="accordion-body">
+                        It could be due to aging hardware, viruses, lack of storage, or outdated drivers. We diagnose and optimize performance.
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="accordion-item border-0">
+                    <h3 class="accordion-header" id="ssdUpgradeHeading">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ssdUpgrade">
+                        Can upgrading to an SSD make my laptop faster?
+                      </button>
+                    </h3>
+                    <div id="ssdUpgrade" class="accordion-collapse collapse" aria-labelledby="ssdUpgradeHeading" data-bs-parent="#computerSubFaqs">
+                      <div class="accordion-body">
+                        Absolutely! Replacing an HDD with an SSD can improve speed by up to 10x.
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- More computer FAQs... -->
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- CCTV Installation -->
+          <div class="accordion-item mb-3 border rounded-3">
+            <h2 class="accordion-header" id="cctvHeading">
+              <button class="accordion-button collapsed fs-5 fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#cctvServices" aria-expanded="false">
+                <i class="bi bi-camera-video me-3"></i> CCTV Installation
+              </button>
+            </h2>
+            <div id="cctvServices" class="accordion-collapse collapse" aria-labelledby="cctvHeading" data-bs-parent="#serviceFaqs">
+              <div class="accordion-body">
+                <div class="accordion" id="cctvSubFaqs">
+                  
+                  <div class="accordion-item border-0">
+                    <h3 class="accordion-header" id="residentialHeading">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#residentialCCTV">
+                        Residential Installation
+                      </button>
+                    </h3>
+                    <div id="residentialCCTV" class="accordion-collapse collapse" aria-labelledby="residentialHeading" data-bs-parent="#cctvSubFaqs">
+                      <div class="accordion-body">
+                        We install 2-8 camera systems for homes with options for local storage 
+                        or cloud backup. Includes smartphone viewing setup.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item border-0">
+                    <h3 class="accordion-header" id="businessInstallationHeading">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#businessInstallation">
+                        Business Premises Installation
+                      </button>
+                    </h3>
+                    <div id="businessInstallation" class="accordion-collapse collapse" aria-labelledby="businessInstallationHeading" data-bs-parent="#cctvSubFaqs">
+                      <div class="accordion-body">
+                        Secure your business with high-definition surveillance systems, remote monitoring apps, and centralized storage options.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item border-0">
+                    <h3 class="accordion-header" id="remoteAccessHeading">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#remoteAccess">
+                        Can I view my CCTV footage remotely?
+                      </button>
+                    </h3>
+                    <div id="remoteAccess" class="accordion-collapse collapse" aria-labelledby="remoteAccessHeading" data-bs-parent="#cctvSubFaqs">
+                      <div class="accordion-body">
+                        Yes, we configure mobile apps and PC software for live remote viewing anywhere in the world.
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="accordion-item border-0">
+                    <h3 class="accordion-header" id="powerBackupHeading">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#powerBackup">
+                        Do CCTV systems work during power cuts?
+                      </button>
+                    </h3>
+                    <div id="powerBackup" class="accordion-collapse collapse" aria-labelledby="powerBackupHeading" data-bs-parent="#cctvSubFaqs">
+                      <div class="accordion-body">
+                        We offer UPS and solar power backup solutions for uninterrupted CCTV recording.
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- More CCTV FAQs... -->
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Data Backup & Recovery -->
+          <div class="accordion-item mb-3 border rounded-3">
+            <h2 class="accordion-header" id="dataHeading">
+              <button class="accordion-button collapsed fs-5 fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#dataServices" aria-expanded="false">
+                <i class="bi bi-hdd me-3"></i> Data Backup & Recovery
+              </button>
+            </h2>
+            <div id="dataServices" class="accordion-collapse collapse" aria-labelledby="dataHeading" data-bs-parent="#serviceFaqs">
+              <div class="accordion-body">
+                <div class="accordion" id="dataSubFaqs">
+                  
+                  <div class="accordion-item border-0">
+                    <h3 class="accordion-header" id="backupHeading">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#backupSolutions">
+                        Backup Solutions
+                      </button>
+                    </h3>
+                    <div id="backupSolutions" class="accordion-collapse collapse" aria-labelledby="backupHeading" data-bs-parent="#dataSubFaqs">
+                      <div class="accordion-body">
+                        We offer automated backup solutions with encryption for both local 
+                        and cloud storage. Set it and forget it with our monitoring services.
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- More data FAQs... -->
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Windows Installation -->
+          <div class="accordion-item mb-3 border rounded-3">
+            <h2 class="accordion-header" id="windowsHeading">
+              <button class="accordion-button collapsed fs-5 fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#windowsServices" aria-expanded="false">
+                <i class="bi bi-windows me-3"></i> Windows Installation
+              </button>
+            </h2>
+            <div id="windowsServices" class="accordion-collapse collapse" aria-labelledby="windowsHeading" data-bs-parent="#serviceFaqs">
+              <div class="accordion-body">
+                <div class="accordion" id="windowsSubFaqs">
+                  
+                  <div class="accordion-item border-0">
+                    <h3 class="accordion-header" id="cleanInstallHeading">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#cleanInstall">
+                        Clean Installation
+                      </button>
+                    </h3>
+                    <div id="cleanInstall" class="accordion-collapse collapse" aria-labelledby="cleanInstallHeading" data-bs-parent="#windowsSubFaqs">
+                      <div class="accordion-body">
+                        Complete wipe and fresh install of Windows with all necessary drivers. 
+                        Includes data migration assistance (additional charges may apply).
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- More Windows FAQs... -->
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- PC Cleaning & Maintenance -->
+          <div class="accordion-item mb-3 border rounded-3">
+            <h2 class="accordion-header" id="cleaningHeading">
+              <button class="accordion-button collapsed fs-5 fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#cleaningServices" aria-expanded="false">
+                <i class="bi bi-fan me-3"></i> PC Cleaning & Maintenance
+              </button>
+            </h2>
+            <div id="cleaningServices" class="accordion-collapse collapse" aria-labelledby="cleaningHeading" data-bs-parent="#serviceFaqs">
+              <div class="accordion-body">
+                <div class="accordion" id="cleaningSubFaqs">
+                  
+                  <div class="accordion-item border-0">
+                    <h3 class="accordion-header" id="deepCleanHeading">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#deepClean">
+                        Deep Cleaning Service
+                      </button>
+                    </h3>
+                    <div id="deepClean" class="accordion-collapse collapse" aria-labelledby="deepCleanHeading" data-bs-parent="#cleaningSubFaqs">
+                      <div class="accordion-body">
+                        Complete physical cleaning including dust removal, thermal paste replacement, 
+                        and fan maintenance. Reduces overheating and extends component life.
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- More cleaning FAQs... -->
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}

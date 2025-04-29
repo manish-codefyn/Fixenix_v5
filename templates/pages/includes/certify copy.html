@@ -1,0 +1,148 @@
+<style>
+    /* Main Section Styles */
+    .cert-rating-section {
+        padding: 4rem 0;
+        background: linear-gradient(135deg, #f0f4ff, #ffffff);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cert-rating-section h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 2.5rem;
+        position: relative;
+    }
+
+    .cert-rating-section h2::before {
+        content: '';
+        position: absolute;
+        width: 50px;
+        height: 5px;
+        background-color: #f36169;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: -10px;
+        border-radius: 10px;
+    }
+
+    /* Box Styling */
+    .cert-rating-box {
+        background: linear-gradient(145deg, #ffffff, #e6e8f0);
+        padding: 2rem;
+        border-radius: 20px;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.4s ease-in-out;
+        position: relative;
+        z-index: 1;
+    }
+
+    .cert-rating-box:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .cert-rating-box::before {
+        content: '';
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        width: 50px;
+        height: 50px;
+        background-color: rgba(243, 97, 105, 0.2);
+        border-radius: 50%;
+        z-index: -1;
+    }
+
+    .cert-rating-box::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        right: -10px;
+        width: 70px;
+        height: 70px;
+        background-color: rgba(243, 97, 105, 0.2);
+        border-radius: 50%;
+        z-index: -1;
+    }
+
+    .cert-rating-box img {
+        max-width: 100px;
+        margin-bottom: 1.5rem;
+        border-radius: 50%;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .cert-rating-box:hover img {
+        transform: scale(1.1);
+    }
+
+    /* Typography */
+    .cert-rating-box h3 {
+        font-size: 1.75rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: #f36169;
+    }
+
+    .cert-rating-box p {
+        color: #666;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.7;
+    }
+
+    /* Hover Button Effect */
+    .cert-rating-box a {
+        display: inline-block;
+        margin-top: 1.5rem;
+        padding: 0.75rem 1.5rem;
+        background-color: #f36169;
+        color: #fff;
+        font-weight: 600;
+        border-radius: 25px;
+        transition: background-color 0.3s ease-in-out;
+        text-decoration: none;
+    }
+
+    .cert-rating-box a:hover {
+        background-color: #333;
+        color: #fff;
+    }
+</style>
+</head>
+<body>
+
+<section class="cert-rating-section">
+<div class="container">
+    <h2 class="mb-5">Our Certifications & Google Ratings</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-4" data-aos="fade-up">
+            <div class="cert-rating-box">
+                <img src="/static/codefyn-5.0/images/certify/msme.png" alt="Certification 1">
+                <h3>Certification 1</h3>
+                <p>Details about the certification, verifying our expertise and commitment to quality.</p>
+                <a href="#">Learn More</a>
+            </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="cert-rating-box">
+                <img src="/static/codefyn-5.0/images/certify/smc.jpg" alt="Google Rating">
+                <h3>Google Rating</h3>
+                <p>We are rated 4.8/5 based on 200+ customer reviews, showcasing our excellent service.</p>
+                <a href="#">Check Reviews</a>
+            </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
+            <div class="cert-rating-box">
+                <img src="/static/codefyn-5.0/images/certify/smc.jpg" alt="Certification 2">
+                <h3>Certification 2</h3>
+                <p>This certification highlights our exceptional work quality in the industry.</p>
+                <a href="#">View Certification</a>
+            </div>
+        </div>
+    </div>
+</div>
+</section>

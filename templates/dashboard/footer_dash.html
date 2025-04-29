@@ -1,0 +1,12 @@
+<footer class="footer mt-auto py-3 bg-light">
+  <div class="container">
+    <!-- Copyright -->
+    <hr />
+    <div class="text-center text-dark p-3">
+      © 2022 Copyright: {% if app_data %} {% for app in app_data %}
+      <a class="text-primary" href="{{app.domain_name}}"
+        >{{ app.domain_name }} {% endfor %} {% endif %}</a
+      >
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,90 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+{% load static %}
+
+<!-- Hero Section -->
+<section class="hero text-white text-center py-5 position-relative" style="background: url('{% static 'codefyn-5.0/images/hero.jpg' %}') no-repeat center center; background-size: cover;" data-aos="fade-up">
+  <div class="overlay position-absolute w-100 h-100" style="background: rgba(0, 0, 0, 0.6); top: 0; left: 0;"></div>
+  <div class="container position-relative">
+    <h1 class="display-3 fw-bold">About Us</h1>
+    <p class="lead text-light">Discover our story, mission, and the amazing team behind Fixenix.</p>
+  </div>
+</section>
+
+<!-- Our Story Section -->
+<section id="our-story" class="py-5" style="background: linear-gradient(to right, #ffffff, #f9f9f9);" data-aos="fade-up">
+  <div class="container">
+    <h2 class="text-danger text-center mb-5 fw-bold">Our Story</h2>
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+        <div class="bg-white p-5 rounded shadow-lg">
+          <p class="lead mb-4 text-muted">Fixenix began with a simple goal: to provide top-notch repair services for mobile phones, laptops, computers, and CCTV systems. Based in Siliguri, West Bengal, our dedicated team works tirelessly to ensure the highest standards of service and customer satisfaction.</p>
+          <p class="text-muted">From our early days, we’ve been committed to excellence and continuous improvement, striving to be the trusted choice for all your repair needs.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Our Mission Section -->
+<section class="py-5 text-white" style="background: linear-gradient(to right, #ff5c5c, #ff4040);" data-aos="fade-up" data-aos-delay="200">
+  <div class="container">
+    <h2 class="text-center mb-5 fw-bold">Our Mission</h2>
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+        <div class="p-5 rounded shadow-lg" style="background-color: rgba(255, 255, 255, 0.1);">
+          <p class="mb-4">Our mission is to deliver fast, reliable, and affordable repair services. We aim to be the go-to solution for all your technology repair needs, ensuring that your devices are restored to peak performance quickly and efficiently.</p>
+
+          <!-- Performance Metrics -->
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <div class="progress mb-3" style="height: 30px;">
+                <div class="progress-bar bg-warning" role="progressbar" style="width: 85%;" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">Quality Service (85%)</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="progress mb-3" style="height: 30px;">
+                <div class="progress-bar bg-success" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">Customer Satisfaction (90%)</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ratings Section -->
+          <h4 class="text-center my-4">Our Google Rating</h4>
+          <div class="d-flex justify-content-center align-items-center">
+            <div class="d-inline-flex align-items-center">
+              <i class="bi bi-star-fill text-warning" style="font-size: 2rem;"></i>
+              <i class="bi bi-star-fill text-warning" style="font-size: 2rem;"></i>
+              <i class="bi bi-star-fill text-warning" style="font-size: 2rem;"></i>
+              <i class="bi bi-star-fill text-warning" style="font-size: 2rem;"></i>
+              <i class="bi bi-star-half text-warning" style="font-size: 2rem;"></i>
+              <p class="ms-3 mb-0 fs-5">4.9 / 5</p>
+            </div>
+          </div>
+
+          <!-- Values Section -->
+          <h4 class="text-center mt-5">Our Values</h4>
+          <div class="row text-center mt-4">
+            <div class="col-md-4 mb-4">
+              <i class="bi bi-star-fill text-light" style="font-size: 4rem;"></i>
+              <p class="mt-2">Excellence</p>
+            </div>
+            <div class="col-md-4 mb-4">
+              <i class="bi bi-shield-check text-light" style="font-size: 4rem;"></i>
+              <p class="mt-2">Trust</p>
+            </div>
+            <div class="col-md-4 mb-4">
+              <i class="bi bi-clock-fill text-light" style="font-size: 4rem;"></i>
+              <p class="mt-2">Reliability</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+{% endblock %}

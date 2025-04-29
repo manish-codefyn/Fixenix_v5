@@ -1,0 +1,28 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+
+
+
+<h2>Booking Detail</h2>
+<div class="card">
+    <div class="card-header">
+        Booking #{{ booking.id }}
+    </div>
+    <div class="card-body">
+        <p><strong>Booking Date:</strong> {{ booking.created_at|date:"d M Y, H:i" }} </p>
+        <p><strong>Status:</strong> {{ booking.completion_status|title }} </p>
+        <p><strong>Details:</strong></p>
+        <p>{{ booking.booking_id }}</p>
+        <p>{{ booking.customer_name }}</p>
+        <p>{{ booking.customer_phone }}</p>
+        <p>{{ booking.customer_email }}</p>
+        <p>{{ booking.distance }}</p>
+        <p>{{ booking.price }}</p>
+        <p>{{ booking.address }}</p>
+    </div>
+</div>
+<a href="{% url 'my_booking_list' %}" class="btn btn-secondary mt-3">Back to List</a>
+{% endblock %}
+
+
+

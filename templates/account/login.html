@@ -1,0 +1,64 @@
+{% extends 'layouts/base_.html' %}
+{% load crispy_forms_tags %}
+{% load socialaccount %}
+{% block title %}Login | Fixenix {% endblock title %}
+{% block content %}
+<section class="bg-gradient py-5 min-vh-100 d-flex align-items-center">
+  <div class="container">
+    <div class="row justify-content-center">
+      <!-- Vector Image Slider -->
+      <div class="col-md-6 d-none d-md-flex align-items-center justify-content-center">
+        <img src="/static/codefyn-5.0/images/bg/secure_login.svg" class="img-fluid" alt="Secure Login" style="max-width: 80%; height: auto;" />
+      </div>
+      <!-- Login Form -->
+      <div class="col-md-5">
+        <div class="p-5 bg-white rounded-4 shadow-lg border border-primary">
+          <form method="post" enctype="multipart/form-data" id="LoginForm">
+            {% csrf_token %}
+            <div class="text-center mb-4">
+              <img src="/static/codefyn-5.0/images/logo.svg" class="logo-sm mb-3" alt="Codefyn Logo" style="width: 150px;" />
+              <h3 class="fw-bold text-primary">Welcome Back!</h3>
+              <p class="text-muted">Sign in to access your account.</p>
+            </div>
+            <div class="mb-3">
+              {{ form.login|as_crispy_field }}
+              <li class="list-unstyled text-danger small">{{ form.login.errors }}</li>
+            </div>
+            <div class="mb-3">
+              {{ form.password|as_crispy_field }}
+              <li class="list-unstyled text-danger small">{{ form.password.errors }}</li>
+            </div>
+            <div class="mb-3">
+              <div class="d-flex justify-content-center">
+                {{ form.captcha }}
+              </div>
+              <li class="list-unstyled text-danger small">{{ form.captcha.errors }}</li>
+            </div>
+            <div class="mb-3">
+              <button class="custom-btn custom-btn-danger w-100 w-100 py-2" type="submit">
+                <i class="bi bi-box-arrow-in-right me-2"></i> Secure Login
+              </button>
+            </div>
+            <div class="text-center">
+              <a class="btn btn-outline-secondary d-block mb-2" href="{% provider_login_url 'google' %}" style="box-shadow: 0 4px 10px rgba(255, 196, 0, 0.4);">
+                <i class="bi bi-google text-white me-2"></i> Sign in with Google
+              </a>
+              <a href="{% url 'account_reset_password' %}" class="d-block text-muted small">Forgot your password?</a>
+              <a href="{% url 'account_signup' %}" class="d-block mt-2 text-primary">Don't have an account? <strong>Sign up here</strong>.</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function () {
+      $(".preloader").hide();
+      $("#LoginForm").on("submit", function () {
+        $(".preloader").fadeIn();
+      });
+    });
+  </script>
+</section>
+{% endblock content %}

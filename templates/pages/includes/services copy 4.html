@@ -1,0 +1,192 @@
+<!-- Services Section -->
+<div class="bg-light pt-5 mt-5">
+  <div class="container text-center">
+    <div class="row mb-4">
+      <div class="col" data-aos="fade-up">
+        <h2 class="fw-bold text-muted">
+          Our <span class="text-danger">Service</span> <span class="text-warning">Areas</span>
+        </h2>
+        <h5>
+          We <em class="text-primary">Provide</em> The Best Service With
+          <span class="text-danger">Experience</span> &
+          <span class="text-warning">Well Trained <span class="text-muted">Staff</span></span>
+        </h5>
+        <span class="line-bar fw-bold">...</span>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <!-- Service Item 1 -->
+      <div class="col-6 col-sm-6 col-md-4 col-lg-3 mb-4" data-aos="fade-up" data-aos-delay="100">
+        <div class="card service-box neumorphism bg-gradient h-100">
+          <img src="/static/codefyn-5.0/images/services/mobiler.jpg" class="card-img-top rounded-top" alt="Mobile Services" />
+          <div class="card-body text-dark d-flex flex-column">
+            <h5 class="card-title  fw-semibold pb-2">Mobile Services</h5>
+            <ul class="text-start small text-muted flex-grow-1">
+              <li><i class="bi bi-check-circle text-danger me-2"></i>Screen Repairs</li>
+              <li><i class="bi bi-check-circle text-danger me-2"></i>Battery Replacement</li>
+              <li><i class="bi bi-check-circle text-danger me-2"></i>Software Updates</li>
+              <li><i class="bi bi-check-circle text-danger me-2"></i>Water Damage Repair</li>
+            </ul>
+            <a href="{% url 'mobile_tab_services' %}" class="btn service-box-button mx-auto">
+              <i class="bi bi-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- Service Item 2 -->
+      <div class="col-6 col-sm-6 col-md-4 col-lg-3 mb-4" data-aos="fade-up" data-aos-delay="200">
+        <div class="card service-box neumorphism bg-gradient h-100">
+          <img src="/static/codefyn-5.0/images/services/tbl.jpg" class="card-img-top rounded-top" alt="Tablet Services" />
+          <div class="card-body text-dark d-flex flex-column">
+            <h5 class="card-title  fw-semibold pb-2">Tablet Services</h5>
+            <ul class="text-start small text-muted flex-grow-1">
+              <li><i class="bi bi-check-circle text-warning me-2"></i>Screen Replacement</li>
+              <li><i class="bi bi-check-circle text-warning me-2"></i>Charging Port Repair</li>
+              <li><i class="bi bi-check-circle text-warning me-2"></i>Battery Optimization</li>
+              <li><i class="bi bi-check-circle text-warning me-2"></i>Software Troubleshooting</li>
+            </ul>
+            <a href="{% url 'mobile_tab_services' %}" class="btn service-box-button mx-auto">
+              <i class="bi bi-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- Service Item 3 -->
+      <div class="col-6 col-sm-6 col-md-4 col-lg-3 mb-4" data-aos="fade-up" data-aos-delay="300">
+        <div class="card service-box neumorphism bg-gradient h-100">
+          <img src="/static/codefyn-5.0/images/services/des.jpg" class="card-img-top rounded-top" alt="Computer Services" />
+          <div class="card-body text-dark d-flex flex-column">
+            <h5 class="card-title  fw-semibold pb-2">Computer Services</h5>
+            <ul class="text-start small text-muted flex-grow-1">
+              <li><i class="bi bi-check-circle text-primary me-2"></i>Virus Removal</li>
+              <li><i class="bi bi-check-circle text-primary me-2"></i>System Optimization</li>
+              <li><i class="bi bi-check-circle text-primary me-2"></i>Hardware Upgrades</li>
+              <li><i class="bi bi-check-circle text-primary me-2"></i>Data Recovery</li>
+            </ul>
+            <a href="{% url 'computer_laptop_services' %}" class="btn service-box-button mx-auto">
+              <i class="bi bi-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- Service Item 4 -->
+      <div class="col-6 col-sm-6 col-md-4 col-lg-3 mb-4" data-aos="fade-up" data-aos-delay="400">
+        <div class="card service-box neumorphism bg-gradient h-100">
+          <img src="/static/codefyn-5.0/images/services/lap.jpg" class="card-img-top rounded-top" alt="Laptop Services" />
+          <div class="card-body text-dark d-flex flex-column">
+            <h5 class="card-title fw-semibold pb-2">Laptop Services</h5>
+            <ul class="text-start small text-muted flex-grow-1">
+              <li><i class="bi bi-check-circle text-success me-2"></i>Screen Replacement</li>
+              <li><i class="bi bi-check-circle text-success me-2"></i>Keyboard Repair</li>
+              <li><i class="bi bi-check-circle text-success me-2"></i>Battery Replacement</li>
+              <li><i class="bi bi-check-circle text-success me-2"></i>Software Installation</li>
+            </ul>
+            <a href="{% url 'computer_laptop_services' %}" class="btn service-box-button mx-auto">
+              <i class="bi bi-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Services Section -->
+
+<style>
+  .service-box {
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    background-color: #f0f0f3;
+    border-radius: 15px;
+    padding: 1rem;
+  }
+
+  .neumorphism {
+    box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.1), -8px -8px 15px rgba(255, 255, 255, 0.7);
+  }
+
+  .service-box:hover {
+    transform: scale(1.05);
+    box-shadow: 12px 12px 25px rgba(0, 0, 0, 0.15), -12px -12px 25px rgba(255, 255, 255, 0.8);
+  }
+
+  .bg-gradient {
+    background: linear-gradient(to bottom right, #ffffff, #f0f0f3);
+  }
+
+  .line-bar {
+    display: inline-block;
+    width: 80px;
+    height: 3px;
+    background-color: #e9ecef;
+    margin: 20px 0;
+    border-radius: 5px;
+  }
+
+  .service-box-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    line-height: 1;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    background-color: #ffffff;
+    color: #dc3545;
+    border: 2px solid #dc3545;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.6s ease;
+  }
+
+  .service-box-button i {
+    font-size: 1.25rem;
+  }
+
+  .service-box-button:hover {
+    background-color: #dc3545;
+    color: #ffffff;
+    transform: rotate(360deg);
+  }
+
+  .card-img-top {
+    object-fit: cover;
+    height: 150px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  ul li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+
+  ul li i {
+    flex-shrink: 0;
+  }
+
+  /* Media query for mobile screens */
+  @media (max-width: 576px) {
+    .card-title {
+      font-size: 0.8rem; /* Decrease font size for small screens */
+    }
+
+    ul li i {
+      font-size: 0.8em; /* Adjust icon size for small screens */
+    }
+
+    ul li {
+      font-size: 0.8em; /* Adjust list item text size for small screens */
+    }
+
+    .service-box-button {
+      width: 40px;
+      height: 40px;
+      font-size: 1rem;
+    }
+  }
+</style>

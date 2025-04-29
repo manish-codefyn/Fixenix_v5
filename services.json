@@ -1,0 +1,139 @@
+[
+    {
+        "model": "services.doorstepservice",
+        "fields": {
+            "service_name": "Data Recovery",
+            "price": 800.00,
+            "offer_price": 750.00,
+            "is_available": true,
+            "is_premium": true,
+            "is_discountable": false,
+            "is_featured": false,
+            "features": "Recovery of lost or corrupted data from hard drives and SSDs.",
+            "status": "active",
+            "requested_at": "2025-01-16T12:00:00Z",
+            "updated_at": "2025-01-16T12:00:00Z",
+            "created_at": "2025-01-16T12:00:00Z"
+        }
+    },
+    {
+        "model": "services.doorstepservice",
+        "fields": {
+            "service_name": "Virus Removal",
+            "price": 400.00,
+            "offer_price": 350.00,
+            "is_available": true,
+            "is_premium": false,
+            "is_discountable": true,
+            "is_featured": false,
+            "features": "Comprehensive scanning and removal of viruses and malware.",
+            "status": "active",
+            "requested_at": "2025-01-16T12:00:00Z",
+            "updated_at": "2025-01-16T12:00:00Z",
+            "created_at": "2025-01-16T12:00:00Z"
+        }
+    },
+    {
+        "model": "services.doorstepservice",
+        "fields": {
+            "service_name": "Printer Setup",
+            "price": 600.00,
+            "offer_price": 550.00,
+            "is_available": true,
+            "is_premium": false,
+            "is_discountable": true,
+            "is_featured": false,
+            "features": "Installation and configuration of printers for home or office use.",
+            "status": "active",
+            "requested_at": "2025-01-16T12:00:00Z",
+            "updated_at": "2025-01-16T12:00:00Z",
+            "created_at": "2025-01-16T12:00:00Z"
+        }
+    },
+    {
+        "model": "services.doorstepservice",
+        "fields": {
+            "service_name": "Network Configuration",
+            "price": 1200.00,
+            "offer_price": 1100.00,
+            "is_available": true,
+            "is_premium": true,
+            "is_discountable": false,
+            "is_featured": true,
+            "features": "Setup and troubleshooting of Wi-Fi and LAN networks.",
+            "status": "active",
+            "requested_at": "2025-01-16T12:00:00Z",
+            "updated_at": "2025-01-16T12:00:00Z",
+            "created_at": "2025-01-16T12:00:00Z"
+        }
+    },
+    {
+        "model": "services.doorstepservice",
+        "fields": {
+            "service_name": "Home Theater Setup",
+            "price": 2000.00,
+            "offer_price": 1900.00,
+            "is_available": true,
+            "is_premium": true,
+            "is_discountable": false,
+            "is_featured": true,
+            "features": "Complete installation and calibration of home theater systems.",
+            "status": "active",
+            "requested_at": "2025-01-16T12:00:00Z",
+            "updated_at": "2025-01-16T12:00:00Z",
+            "created_at": "2025-01-16T12:00:00Z"
+        }
+    },
+    {
+        "model": "services.doorstepservice",
+        "fields": {
+            "service_name": "Battery Replacement",
+            "price": 1000.00,
+            "offer_price": 950.00,
+            "is_available": true,
+            "is_premium": false,
+            "is_discountable": true,
+            "is_featured": false,
+            "features": "Replacement of laptop and mobile batteries.",
+            "status": "active",
+            "requested_at": "2025-01-16T12:00:00Z",
+            "updated_at": "2025-01-16T12:00:00Z",
+            "created_at": "2025-01-16T12:00:00Z"
+        }
+    },
+    {
+        "model": "services.doorstepservice",
+        "fields": {
+            "service_name": "Hardware Upgrade",
+            "price": 1500.00,
+            "offer_price": 1400.00,
+            "is_available": true,
+            "is_premium": true,
+            "is_discountable": false,
+            "is_featured": false,
+            "features": "Upgrade RAM, SSDs, and other hardware components.",
+            "status": "active",
+            "requested_at": "2025-01-16T12:00:00Z",
+            "updated_at": "2025-01-16T12:00:00Z",
+            "created_at": "2025-01-16T12:00:00Z"
+        }
+    },
+    {
+        "model": "services.doorstepservice",
+        "fields": {
+            "service_name": "Software Installation",
+            "price": 500.00,
+            "offer_price": 450.00,
+            "is_available": true,
+            "is_premium": false,
+            "is_discountable": true,
+            "is_featured": false,
+            "features": "Installation of essential software, including office suites, antivirus, and utilities.",
+            "status": "active",
+            "requested_at": "2025-01-16T12:00:00Z",
+            "updated_at": "2025-01-16T12:00:00Z",
+            "created_at": "2025-01-16T12:00:00Z"
+        }
+    }
+
+]

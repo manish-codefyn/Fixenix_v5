@@ -1,0 +1,237 @@
+{% extends 'layouts/base_dash.html' %}
+{% block content %}
+<main class="main-content">
+  <div class="bg-light">
+    <!-- Header and Breadcrumbs -->
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-1">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'dashboard:index' %}">Dashboard</a></li>
+          <li class="breadcrumb-item active">Worksheets</li>
+        </ol>
+      </nav>
+      
+      <div class="d-flex align-items-center gap-3">
+        <!-- Date Filter Form -->
+        <form method="GET" id="date-filter-form" class="mb-3 flex-grow-1 me-3">
+          {% csrf_token %}
+          <div class="row g-2">
+            <div class="col-md">{{ form.startdate }}</div>
+            <div class="col-md">{{ form.enddate }}</div>
+            <div class="col-md">
+              <button type="submit" class="btn btn-primary w-100">
+                <i class="bi bi-funnel"></i> Filter
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <!-- Create + Export Button Group -->
+        <div class="btn-group">
+          <a href="{% url 'work_sheet_create' %}" class="btn btn-success me-2">
+            <i class="bi bi-plus-circle"></i> Create New
+          </a>
+          <button
+            type="button"
+            class="btn btn-orange dropdown-toggle"
+            data-bs-toggle="dropdown"
+            data-bs-display="static"
+            aria-expanded="false"
+          >
+            <i class="bi bi-card-text me-2"></i> Export
+          </button>
+          <ul class="dropdown-menu dropdown-menu-lg-end">
+            <li>
+              <a
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                title="Export PDF All"
+                href=""
+                class="dropdown-item"
+              >
+                Export PDF All
+              </a>
+            </li>
+            <li>
+              <button
+                data-bs-toggle="modal"
+                data-bs-target="#ExportModal"
+                class="dropdown-item"
+              >
+                Export by Date Range
+              </button>
+            </li>
+            <li>
+              <a
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                title="Export CSV"
+                href=""
+                class="dropdown-item"
+              >
+                Export CSV
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Status Tabs -->
+    <ul class="nav nav-tabs mb-3">
+      <li class="nav-item">
+        <a class="nav-link {% if not request.GET.status %}active{% endif %}" 
+           href="{% url 'work_sheet_list' %}">All</a>
+      </li>
+      {% for value, label in status_choices %}
+        <li class="nav-item">
+          <a class="nav-link {% if request.GET.status == value %}active{% endif %}"
+             href="{% url 'work_sheet_list' %}?status={{ value }}">
+            {{ label }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+
+    <!-- DataTable -->
+    <div class="card">
+      <div class="card-body">
+        <table id="worksheets-table" class="table table-striped" style="width:100%">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Contact</th>
+              <th>Device</th>
+              <th>Problem</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Data loaded via AJAX -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Export Modal -->
+  <div class="modal fade" id="ExportModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Export Worksheets</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form method="get" action="">
+            {% csrf_token %}
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Start Date</label>
+                {{ form.startdate }}
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">End Date</label>
+                {{ form.enddate }}
+              </div>
+            </div>
+            <div class="modal-footer mt-3">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">
+                <i class="bi bi-download"></i> Export
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- JavaScript -->
+<script>
+$(document).ready(function() {
+    // Initialize DataTable with customized search box
+    var table = $('#worksheets-table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: "{% url 'worksheet_ajax_list' %}",
+            type: "GET",
+            data: function(d) {
+                d.status = "{{ request.GET.status }}";
+                d.startdate = $('#id_startdate').val();
+                d.enddate = $('#id_enddate').val();
+            }
+        },
+        dom: '<"top"<"row"<"col-md-6"l><"col-md-6"f>>>rt<"bottom"<"row"<"col-md-6"i><"col-md-6"p>>>',
+        lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        language: {
+            search: "_INPUT_",
+            searchPlaceholder: "Search worksheets...",
+            lengthMenu: "Show _MENU_ entries",
+        },
+        initComplete: function() {
+            // Style the native search box
+            $('.dataTables_filter input').addClass('form-control form-control-lg');
+            $('.dataTables_filter label').contents().filter(function() {
+                return this.nodeType === 3; // Text nodes
+            }).remove();
+        },
+        columns: [
+            { data: "work_id" },
+            { data: "name" },
+            { 
+                data: null,
+                render: function(data) {
+                    return data.mobile + '<br><small class="text-muted">' + data.email + '</small>';
+                }
+            },
+            { data: "device_name" },
+            { 
+                data: "device_problem",
+                render: function(data) {
+                    return data.length > 30 ? data.substring(0, 30) + '...' : data;
+                }
+            },
+            { 
+                data: "status",
+                render: function(data, type, row) {
+                    const statusClass = {
+                        'Pending': 'bg-warning',
+                        'In Progress': 'bg-primary',
+                        'Completed': 'bg-success',
+                        'Delivered': 'bg-info'
+                    }[data] || 'bg-secondary';
+                    return `<span class="badge ${statusClass}">${row.status_display}</span>`;
+                }
+            },
+            {
+                data: null,
+                render: function(data) {
+                    return `
+                        <div class="btn-group">
+                            <a href="/works/${data.slug}/" class="btn btn-sm btn-warning">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                            <a href="/works/${data.slug}/update/" class="btn btn-sm btn-success">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                        </div>
+                    `;
+                },
+                orderable: false
+            }
+        ]
+    });
+
+    // Date filter form
+    $('#date-filter-form').on('submit', function(e) {
+        e.preventDefault();
+        table.ajax.reload();
+    });
+});
+</script>
+{% endblock %}

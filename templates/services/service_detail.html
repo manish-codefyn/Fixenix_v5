@@ -1,0 +1,135 @@
+{% extends 'layouts/base.html' %}
+
+{% load custom_filters %}
+{% load thumbnail %}
+{% block content %}
+<div class="container mt-5">
+    <!-- Breadcrumb Navigation -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb bg-light p-3 rounded shadow-sm">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Service Details</li>
+        </ol>
+    </nav>
+
+    <!-- Service Card -->
+    <div class="card shadow-lg border-0 rounded-3 overflow-hidden mb-5">
+        <div class="row g-0">
+            <!-- Homestay Image -->
+            <div class="col-md-6 position-relative">
+                {% if service.is_available > 0 %}
+                    <span class="badge bg-success position-absolute top-3 start-3 p-2 fs-6 m-3">Available</span>
+                {% else %}
+                    <span class="badge bg-danger position-absolute top-3 start-3 p-2 fs-6 m-3">Unavailable</span>
+                {% endif %}
+
+                {% if service.image %}
+                <a href="{{ service.image.url }}" target="_blank">
+                  
+                    <img src="{{ service.image.url }}" alt="{{ service.service_name }}" class="img-fluid w-100" style="object-fit: cover;">
+            
+                </a>
+            {% else %}
+                <div class="bg-secondary text-white text-center p-5 d-flex align-items-center justify-content-center" style="height: 400px;">
+                    <i class="bi bi-image-alt" style="font-size: 3rem;"></i>
+                    <p class="ms-2">No Image Available</p>
+                </div>
+            {% endif %}
+            </div>
+
+      <!-- Service Details -->
+<div class="col-md-6 d-flex flex-column p-4">
+    <h2 class="fw-bold text-dark mb-3">{{ service.service_name }}</h2>
+    <p class="text-muted">{{ service.description|linebreaksbr }}</p>
+
+    <!-- Ratings and Reviews -->
+    <div class="d-flex align-items-center justify-content-between mb-3">
+        {% if user.is_authenticated %}
+            <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#ratingModal">
+                <i class="bi bi-star"></i> Add Rating
+            </button>
+        {% endif %}
+    </div>
+
+    <!-- Price -->
+    <div class="mb-3">
+        <h4 class="fw-bold text-success d-inline">₹{{ service.get_final_price }}</h4>
+        {% if service.offer_price %}
+            <span class="text-muted ms-2"><del>₹{{ service.price }}</del></span>
+            <small class="text-muted">/ Per Service</small>
+              <span class="badge bg-warning small">{{ discount_percentage }}% OFF</span>
+        {% endif %}
+       
+    </div>
+
+    <!-- Features Section -->
+    <div class="mb-4">
+        <h5 class="fw-bold mb-3">Features</h5>
+        <ul class="list-unstyled">
+            {% for feature in features %}
+            {% if feature.strip %}
+                <li class="mb-2">
+                    <i class="bi bi-check-circle text-success me-2"></i>{{ feature.strip }}
+                </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Push "Book Now" button to the bottom -->
+    <div class="mt-auto">
+        <form method="get" action="{% url 'book_service' service.id %}">
+            {% csrf_token %}
+            {% if service.is_available > 0 %}
+                <button type="submit" class="btn btn-gradient text-white w-100 py-2 fs-5 fw-bold">
+                    <i class="bi bi-check-circle me-2"></i> Book Now
+                </button>
+            {% else %}
+                <button type="button" class="btn btn-secondary w-100 py-2 fs-5 fw-bold" disabled>
+                    <i class="bi bi-x-circle me-2"></i> Unavailable
+                </button>
+            {% endif %}
+        </form>
+    </div>
+</div>
+</div>
+</div>
+</div>
+
+   
+<!-- Rating Modal -->
+<div class="modal fade" id="ratingModal" tabindex="-1" aria-labelledby="ratingModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ratingModalLabel">Add Your Rating</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" action="">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="rating" class="form-label">Your Rating</label>
+                        <select id="rating" name="rating" class="form-select">
+                            <option value="5">5 - Excellent</option>
+                            <option value="4">4 - Very Good</option>
+                            <option value="3">3 - Good</option>
+                            <option value="2">2 - Fair</option>
+                            <option value="1">1 - Poor</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="review" class="form-label">Your Review</label>
+                        <textarea id="review" name="comment" class="form-control" rows="4" placeholder="Share your experience..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

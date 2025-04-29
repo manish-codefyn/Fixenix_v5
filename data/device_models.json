@@ -1,0 +1,276 @@
+{
+    "Mobile": {
+      "Samsung": [
+        "Galaxy S23", "Galaxy S23+", "Galaxy S23 Ultra", "Galaxy S22", "Galaxy S22+", "Galaxy S22 Ultra",
+        "Galaxy A54", "Galaxy A34", "Galaxy A14", "Galaxy A52", "Galaxy A52s", "Galaxy A72", "Galaxy A73",
+        "Galaxy M33", "Galaxy M53", "Galaxy M14", "Galaxy M54",
+        "Galaxy Z Flip 5", "Galaxy Z Flip 4", "Galaxy Z Fold 5", "Galaxy Z Fold 4"
+      ],
+      "Apple": [
+        "iPhone 15", "iPhone 15 Plus", "iPhone 15 Pro", "iPhone 15 Pro Max",
+        "iPhone 14", "iPhone 14 Plus", "iPhone 14 Pro", "iPhone 14 Pro Max",
+        "iPhone 13", "iPhone 13 mini", "iPhone 13 Pro", "iPhone 13 Pro Max",
+        "iPhone SE (2022)", "iPhone 12", "iPhone 11"
+      ],
+      "Xiaomi": [
+        "Xiaomi 13 Pro", "Xiaomi 13", "Xiaomi 12 Pro", "Xiaomi 12",
+        "Redmi Note 12 Pro", "Redmi Note 12", "Redmi Note 11", "Redmi Note 11 Pro", "Redmi Note 11 Pro+",
+        "Redmi 12", "Redmi 11", "Redmi 10", "Redmi 10 Prime",
+        "Poco X5 Pro", "Poco X5", "Poco F5", "Poco M5"
+      ],
+      "OnePlus": [
+        "OnePlus 11", "OnePlus 11R", "OnePlus 10 Pro", "OnePlus 10T",
+        "OnePlus 9 Pro", "OnePlus 9", "OnePlus 9RT", "OnePlus 8T",
+        "OnePlus Nord 3", "OnePlus Nord CE 3", "OnePlus Nord 2T"
+      ],
+      "Nokia": [
+  "Nokia XR21",
+  "Nokia G60 5G",
+  "Nokia G42 5G",
+  "Nokia X30 5G",
+  "Nokia C32",
+  "Nokia C22",
+  "Nokia G20",
+  "Nokia G21",
+  "Nokia G10",
+  "Nokia 5.4",
+  "Nokia 3.4",
+  "Nokia 2.4",
+  "Nokia 1.4",
+  "Nokia C20 Plus",
+  "Nokia C01 Plus",
+  "Nokia 7.2",
+  "Nokia 6.2",
+  "Nokia 8.3 5G",
+  "Nokia 5.3",
+  "Nokia 3.2",
+  "Nokia 2.3",
+  "Nokia 7 Plus",
+  "Nokia 6.1 Plus",
+  "Nokia 8.1",
+  "Nokia 2.2"
+]
+,"Sony": [
+  "Sony Xperia 1 V",
+  "Sony Xperia 5 V",
+  "Sony Xperia 10 V",
+  "Sony Xperia PRO-I",
+  "Sony Xperia 1 IV",
+  "Sony Xperia 5 IV",
+  "Sony Xperia 10 IV",
+  "Sony Xperia 1 III",
+  "Sony Xperia 5 III",
+  "Sony Xperia 10 III",
+  "Sony Xperia L4",
+  "Sony Xperia XA2 Ultra"
+],
+
+"Huawei": [
+  "Huawei P60 Pro",
+  "Huawei Mate 50 Pro",
+  "Huawei nova 11 Pro",
+  "Huawei nova 10",
+  "Huawei nova 9 SE",
+  "Huawei P50 Pocket",
+  "Huawei Mate 40 Pro",
+  "Huawei Y9a",
+  "Huawei Y7a",
+  "Huawei Y6p",
+  "Huawei P40 Pro",
+  "Huawei nova 7i"
+],
+
+"LG": [
+  "LG Velvet 5G",
+  "LG Wing 5G",
+  "LG G8X ThinQ",
+  "LG V60 ThinQ",
+  "LG K92 5G",
+  "LG Stylo 6",
+  "LG K31",
+  "LG G7 ThinQ",
+  "LG V40 ThinQ",
+  "LG Q60"
+],
+
+"Micromax": [
+  "Micromax IN Note 2",
+  "Micromax IN 2b",
+  "Micromax IN 1",
+  "Micromax IN Note 1",
+  "Micromax Bharat 2 Plus",
+  "Micromax Canvas Infinity",
+  "Micromax Canvas 6",
+  "Micromax Bolt Q381"
+],
+
+"Infinix": [
+  "Infinix Zero 30 5G",
+  "Infinix Zero 5G 2023",
+  "Infinix GT 10 Pro",
+  "Infinix Note 30 5G",
+  "Infinix Note 12 Pro",
+  "Infinix Hot 30 5G",
+  "Infinix Smart 7",
+  "Infinix Zero X Pro",
+  "Infinix Note 11",
+  "Infinix Smart 6 Plus"
+],
+
+"Tecno": [
+  "Tecno Phantom V Fold",
+  "Tecno Phantom X2 Pro",
+  "Tecno Camon 20 Pro 5G",
+  "Tecno POVA 5",
+  "Tecno Spark 10 Pro",
+  "Tecno POVA Neo 2",
+  "Tecno Camon 19 Pro",
+  "Tecno Spark 9",
+  "Tecno Spark 8T",
+  "Tecno Pop 7 Pro"
+],
+
+"Lava": [
+  "Lava Blaze 5G",
+  "Lava Blaze NXT",
+  "Lava Agni 2",
+  "Lava Yuva 3 Pro",
+  "Lava Z3",
+  "Lava Z61 Pro",
+  "Lava BeU",
+  "Lava Z66",
+  "Lava Z2 Max",
+  "Lava A5"
+],
+
+"Asus": [
+  "Asus ROG Phone 8 Pro",
+  "Asus ROG Phone 7 Ultimate",
+  "Asus ROG Phone 6",
+  "Asus Zenfone 10",
+  "Asus Zenfone 9",
+  "Asus Zenfone 8 Flip",
+  "Asus Zenfone 7 Pro",
+  "Asus Zenfone Max Pro M2",
+  "Asus Zenfone Max M2",
+  "Asus Zenfone Lite L1"
+]
+,
+      "Google": [
+        "Pixel 8 Pro", "Pixel 8", "Pixel 7 Pro", "Pixel 7", "Pixel 7a",
+        "Pixel 6 Pro", "Pixel 6", "Pixel 6a", "Pixel 5", "Pixel 4a"
+      ],
+      "Oppo": [
+        "Find X6 Pro", "Find X5 Pro", "Find N2 Flip",
+        "Reno 10 Pro+", "Reno 10 Pro", "Reno 10",
+        "A98", "A78", "A58", "A38"
+      ],
+      "Vivo": [
+        "X90 Pro", "X80 Pro", "X70 Pro",
+        "V29", "V27", "V25",
+        "T2", "Y56", "Y36"
+      ],
+      "Realme": [
+        "GT 3", "GT 2 Pro", "GT Neo 5",
+        "11 Pro+", "11 Pro", "11",
+        "10 Pro+", "10 Pro", "10",
+        "Narzo 60", "Narzo 50"
+      ],
+      "Motorola": [
+        "Edge 40 Pro", "Edge 40", "Edge 30 Ultra",
+        "Moto G84", "Moto G73", "Moto G53",
+        "Moto E13", "Moto E22"
+      ]
+    
+    },
+    "Laptop": {
+      "Dell": [
+        "XPS 13", "XPS 13 Plus", "XPS 15", "XPS 17",
+        "Inspiron 14", "Inspiron 15", "Inspiron 16",
+        "Alienware m18", "Alienware m16", "Alienware x16",
+        "Latitude 9440", "Latitude 7440", "Precision 7670"
+      ],
+      "HP": [
+        "Spectre x360 13.5", "Spectre x360 16",
+        "Envy x360 15", "Envy 16",
+        "Pavilion Plus 14", "Pavilion 15",
+        "Omen 16", "Omen 17", "Victus 16",
+        "EliteBook 840", "ProBook 440"
+      ],
+      "Lenovo": [
+        "ThinkPad X1 Carbon Gen 11", "ThinkPad X1 Yoga Gen 8",
+        "ThinkPad T14 Gen 3", "ThinkPad P16",
+        "Yoga 9i", "Yoga 7i", "Yoga Slim 7 Pro",
+        "Legion Pro 7i", "Legion Slim 7i", "Legion 5 Pro",
+        "IdeaPad Slim 5", "IdeaPad Gaming 3"
+      ],
+      "Apple": [
+        "MacBook Air 15-inch (M2)", "MacBook Air 13-inch (M2)",
+        "MacBook Pro 14-inch (M3)", "MacBook Pro 16-inch (M3)",
+        "MacBook Pro 13-inch (M2)"
+      ],
+      "Asus": [
+        "ROG Zephyrus G14", "ROG Zephyrus G16",
+        "ROG Strix Scar 18", "ROG Flow X13",
+        "ZenBook 14 OLED", "ZenBook Pro 16X",
+        "VivoBook 15", "TUF Gaming F15"
+      ],
+      "Acer": [
+        "Swift 3", "Swift X", "Swift Go",
+        "Predator Helios 16", "Predator Helios 18",
+        "Nitro 5", "Nitro 17",
+        "Aspire 3", "Aspire 5"
+      ],
+      "Microsoft": [
+        "Surface Laptop Studio 2", "Surface Laptop 5",
+        "Surface Pro 9", "Surface Laptop Go 2"
+      ]
+      },
+      "Others": {
+       "Others":[
+        "Others",
+        "CCTV Camera",
+        "Smart TV",
+        "LED TV",
+        "Speakers",
+        "Home Theatre System",
+        "Headphones",
+        "Earphones",
+        "Bluetooth Speakers",
+        "Soundbar",
+        "Smartwatch",
+        "Fitness Band",
+        "Gaming Console",
+        "Wireless Router",
+        "Set-top Box",
+        "Streaming Devices (Firestick, Chromecast, etc.)",
+        "Intercom System",
+        "Power Bank",
+        "Memory Card",
+        "Pen Drive",
+        "Laptop Accessories",
+        "Mobile Accessories",
+        "Tablet Accessories",
+        "Charging Adapter",
+        "Wireless Charger",
+        "USB Hub",
+        "HDMI Cable",
+        "Projector",
+        "UPS / Inverter",
+        "Voltage Stabilizer",
+        "Smart Light",
+        "Smart Plug",
+        "Smart Doorbell",
+        "Action Camera (e.g., GoPro)",
+        "Dash Camera (Car DVR)",
+        "VR Headset",
+        "Drone",
+        "Digital Photo Frame",
+        "Remote Control Devices",
+        "Media Player Box",
+        "Laptop Stand",
+        "TV Wall Mount",
+        "Cables & Connectors"
+      ]
+    }
+  }

@@ -1,0 +1,183 @@
+{% extends 'layouts/base_dash.html' %}
+{% block content %}
+<main class="main-content">
+  <div class="bg-light">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-1">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'dashboard:index' %}">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            {% if pagename %}{{ pagename }}{% endif %}
+          </li>
+        </ol>
+      </nav>
+      <div class="btn-toolbar mb-2 me-1 mb-md-1">
+        <form method="POST" action="{% url 'dashboard:bookings_list' %}">
+          {% csrf_token %}
+          {% load crispy_forms_tags %}
+          <div class="row g-2">
+            <div class="col-md">{{ form.startdate }}</div>
+            <div class="col-md">{{ form.enddate }}</div>
+            <div class="col-md">
+              <button type="submit" value="filter" class="btn btn-primary">
+                <i class="bi bi-search"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="btn-group">
+        <button
+          type="button"
+          class="btn btn-orange dropdown-toggle"
+          data-bs-toggle="dropdown"
+          data-bs-display="static"
+          aria-expanded="false"
+        >
+          <i class="bi bi-card-text me-2"></i> Export
+        </button>
+        <ul class="dropdown-menu dropdown-menu-lg-end">
+          <li>
+            <a
+              data-bs-toggle="tooltip"
+              data-bs-placement="bottom"
+              title="Export PDF All"
+              href="{% url 'dashboard:bookings_export_pdf_all' %}"
+              class="dropdown-item"
+            >
+            Export PDF All
+            </a>
+          </li>
+          <li>
+            <button
+              data-bs-toggle="modal"
+              data-bs-target="#OnlineRequestsModal"
+              class="dropdown-item"
+            >
+              Export PDF Selected
+            </button>
+          </li>
+          <li>
+            <a
+              data-bs-toggle="tooltip"
+              data-bs-placement="bottom"
+              title="Export CSV"
+              href="{% url 'dashboard:bookings_export_csv' %}"
+              class="dropdown-item"
+            >
+              Export CSV
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Dashboard Counts Section -->
+    <div class="card box-lg">
+      <div class="row">
+        <div class="w-100">
+          <table id="table" class="table table-bordered border-secondary table-hover">
+            <thead class="alert-success">
+              <tr>
+                <th width="1%" scope="col">S.No:</th>
+                <th width="20%" scope="col">Service Name</th>
+                <th width="20%" scope="col">Customer Name</th>
+                <th width="40%" scope="col">Customer Mobile</th>
+                <th width="10%" scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% if bookings %}
+                {% for obj in bookings %}
+                  <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ obj.service }}</td>
+                    <td>{{ obj.customer_name }}</td>
+                    <td>{{ obj.customer_phone }}</td>
+                    <td>
+                      <a
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="bottom"
+                        title="View"
+                        class="btn btn-warning btn-sm rounded-circle"
+                        href="{{ obj.get_absolute_url }}"
+                      >
+                      <i class="bi bi-eye text-white"></i>
+                      </a>
+                      <a
+                      data-bs-toggle="tooltip"
+                      data-bs-placement="bottom"
+                      title="Update Status"
+                      class="btn btn-success btn-sm rounded-circle"
+                      href="{{ obj.get_absolute_url }}update-status"
+                    >
+                    <i class="bi bi-pencil-square text-white"></i>
+                    </a>
+                      <a
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="bottom"
+                        title="PDF Export"
+                        class="btn btn-primary btn-sm rounded-circle"
+                        href="{{ obj.get_absolute_url }}pdf"
+                      >
+                        <i class="bi bi-filetype-pdf text-white"></i>
+                      </a>
+                    </td>
+                  </tr>
+                {% endfor %}
+              {% endif %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="OnlineRequestsModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Select The Date Range</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form method="get" action="{% url 'dashboard:bookings_export_pdf_bydate' %}">
+            {% csrf_token %}
+            {% load crispy_forms_tags %}
+            <div class="row g-2">
+              <div class="col-md">{{ form.startdate }}</div>
+              <div class="col-md">{{ form.enddate }}</div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="submit" value="filter" class="btn btn-primary">
+                <i class="bi bi-files"></i> Export PDF
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

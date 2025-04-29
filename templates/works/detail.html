@@ -1,0 +1,109 @@
+{% extends 'layouts/base_dash.html' %}
+{% block content %}
+<main class="main-content">
+  <div class="bg-light">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'dashboard:index' %}">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="{% url 'work_sheet_list' %}">Worksheets</a></li>
+          <li class="breadcrumb-item active" aria-current="page">{{ worksheet.work_id }}</li>
+        </ol>
+      </nav>
+      <div class="btn-toolbar mb-2 mb-md-0">
+        <a href="{% url 'work_sheet_update' worksheet.slug %}" class="btn btn-success me-2">
+          <i class="bi bi-pencil-square"></i> Edit
+        </a>
+        <a href="{% url 'work_sheet_pdf' worksheet.id %}" class="btn btn-primary">
+          <i class="bi bi-filetype-pdf"></i> Export PDF
+        </a>
+      </div>
+    </div>
+
+    <div class="card box-lg">
+      <div class="card-header">
+        <h5>Work Sheet #{{ worksheet.work_id }}</h5>
+        <span class="badge 
+          {% if worksheet.status == 'Pending' %}bg-warning text-dark
+          {% elif worksheet.status == 'In Progress' %}bg-primary
+          {% elif worksheet.status == 'Completed' %}bg-success
+          {% elif worksheet.status == 'Delivered' %}bg-info text-dark
+          {% else %}bg-secondary{% endif %}">
+          {{ worksheet.get_status_display }}
+        </span>
+      </div>
+      <div class="card-body">
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <h6><i class="bi bi-person me-2"></i>Customer Details</h6>
+            <hr>
+            <div class="row mb-2">
+              <div class="col-sm-4 fw-bold">Name:</div>
+              <div class="col-sm-8">{{ worksheet.name }}</div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-sm-4 fw-bold">Mobile:</div>
+              <div class="col-sm-8">{{ worksheet.mobile }}</div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-sm-4 fw-bold">Email:</div>
+              <div class="col-sm-8">{{ worksheet.email }}</div>
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <h6><i class="bi bi-tools me-2"></i>Device Details</h6>
+            <hr>
+            <div class="row mb-2">
+              <div class="col-sm-4 fw-bold">Device Name:</div>
+              <div class="col-sm-8">{{ worksheet.device_name }}</div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-sm-4 fw-bold">Problem:</div>
+              <div class="col-sm-8">{{ worksheet.device_problem }}</div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-sm-4 fw-bold">Received On:</div>
+              <div class="col-sm-8">{{ worksheet.created_at|date:"M d, Y H:i" }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <h6><i class="bi bi-file-text me-2"></i>Problem Details</h6>
+            <hr>
+            <p>{{ worksheet.problem_details|default:"No additional details provided." }}</p>
+          </div>
+          
+          <div class="col-md-6">
+            <h6><i class="bi bi-cash-coin me-2"></i>Financial Details</h6>
+            <hr>
+            <div class="row mb-2">
+              <div class="col-sm-6 fw-bold">Estimated Cost:</div>
+              <div class="col-sm-6">{{ worksheet.estimated_cost|default:"Not estimated"|floatformat:2 }}</div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-sm-6 fw-bold">Actual Cost:</div>
+              <div class="col-sm-6">{{ worksheet.actual_cost|default:"Not set"|floatformat:2 }}</div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-sm-6 fw-bold">Last Updated:</div>
+              <div class="col-sm-6">{{ worksheet.updated_at|date:"M d, Y H:i" }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-end">
+          <button class="btn btn-outline-secondary me-2" onclick="window.print()">
+            <i class="bi bi-printer"></i> Print
+          </button>
+          <a href="{% url 'work_sheet_list' %}" class="btn btn-primary">
+            <i class="bi bi-list-ul"></i> Back to List
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

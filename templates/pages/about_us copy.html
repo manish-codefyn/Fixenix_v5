@@ -1,0 +1,176 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+{% load static %}
+<!-- Hero Section -->
+<section class="hero bg-danger text-white text-center py-5" style="background: url('{% static 'images/hero-bg.jpg' %}') no-repeat center center; background-size: cover;" data-aos="fade-up">
+  <div class="container">
+    <h1 class="display-3">About Us</h1>
+    <p class="lead">Discover our story, mission, and the amazing team behind Fixenix.</p>
+  </div>
+</section>
+
+<!-- Our Story Section -->
+<section id="our-story" class="py-5" style="background: #f5f5f5;" data-aos="fade-up">
+  <div class="container">
+    <h2 class="text-danger text-center mb-4">Our Story</h2>
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="bg-white p-5 rounded shadow-lg">
+          <p class="lead mb-4">Fixenix began with a simple goal: to provide top-notch repair services for mobile phones, laptops, computers, and CCTV systems. Based in Siliguri, West Bengal, our dedicated team works tirelessly to ensure the highest standards of service and customer satisfaction.</p>
+          <p>From our early days, we’ve been committed to excellence and continuous improvement, striving to be the trusted choice for all your repair needs.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Our Mission Section -->
+<section class="py-5" style="background: linear-gradient(to right, #f8d7da, #f5c6cb);" data-aos="fade-up" data-aos-delay="200">
+  <div class="container">
+    <h2 class="text-danger text-center mb-4">Our Mission</h2>
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="bg-danger text-white p-5 rounded shadow-lg">
+          <p class="lead mb-4">Our mission is to deliver fast, reliable, and affordable repair services. We aim to be the go-to solution for all your technology repair needs, ensuring that your devices are restored to peak performance quickly and efficiently.</p>
+
+          <h4 class="text-light text-center">Our Performance</h4>
+          <div class="row">
+            <!-- Progress Bars Column -->
+            <div class="col-md-6 mb-4">
+              <div class="progress mb-3" style="height: 30px;">
+                <div class="progress-bar bg-warning" role="progressbar" style="width: 85%;" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">Quality Service</div>
+              </div>
+            </div>
+            <div class="col-md-6 mb-4">
+              <div class="progress mb-3" style="height: 30px;">
+                <div class="progress-bar bg-success" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">Customer Satisfaction</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ratings Section -->
+          <h4 class="text-light text-center my-3">Our Google Rating</h4>
+          <div class="row mb-4">
+            <div class="col-md-12 text-center">
+              <!-- Display rating as 4.9 stars -->
+              <div class="d-flex justify-content-center align-items-center">
+                <div class="d-inline-flex align-items-center">
+                  <i class="bi bi-star-fill text-warning" style="font-size: 2rem;"></i>
+                  <i class="bi bi-star-fill text-warning" style="font-size: 2rem;"></i>
+                  <i class="bi bi-star-fill text-warning" style="font-size: 2rem;"></i>
+                  <i class="bi bi-star-fill text-warning" style="font-size: 2rem;"></i>
+                  <i class="bi bi-star-half text-warning" style="font-size: 2rem;"></i>
+                  <p class="ml-3 mb-0">4.9 / 5</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Icons Column -->
+          <h4 class="text-light text-center my-3">Our Values</h4>
+          <div class="row">
+            <div class="col-6 text-center mb-4">
+              <i class="bi bi-star-fill text-light" style="font-size: 5rem;"></i>
+              <p class="mt-2">Excellence</p>
+            </div>
+            <div class="col-6 text-center mb-4">
+              <i class="bi bi-shield-check text-light" style="font-size: 5rem;"></i>
+              <p class="mt-2">Trustworthiness</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Meet the Team Section -->
+<section class="py-5" data-aos="fade-up" data-aos-delay="400">
+  <div class="container">
+    <h2 class="text-danger text-center mb-4">Meet the Team</h2>
+    <div class="row">
+      <!-- Team Member 1 -->
+      <div class="col-md-4 mb-4">
+        <div class="card border-0 rounded shadow-lg overflow-hidden position-relative">
+          <img src="{% static 'codefyn-5.0/images/faces/lead-tech.jpeg' %}" alt="S. Kumar" class="card-img-top" style="height: 250px; object-fit: cover;">
+          <div class="card-body d-flex flex-column justify-content-end p-4 text-center bg-light position-absolute bottom-0 start-0 end-0">
+            <h5 class="card-title mb-2">S. Kumar</h5>
+            <p class="card-text">Lead Technician</p>
+          </div>
+        </div>
+      </div>
+      <!-- Team Member 2 -->
+      <div class="col-md-4 mb-4">
+        <div class="card border-0 rounded shadow-lg overflow-hidden position-relative">
+          <img src="{% static 'codefyn-5.0/images/faces/cs.jpeg' %}" alt="D.kumar" class="card-img-top" style="height: 250px; object-fit: cover;">
+          <div class="card-body d-flex flex-column justify-content-end p-4 text-center bg-light position-absolute bottom-0 start-0 end-0">
+            <h5 class="card-title mb-2">D. Kumar</h5>
+            <p class="card-text">Customer Support Specialist</p>
+          </div>
+        </div>
+      </div>
+      <!-- Team Member 3 -->
+      <div class="col-md-4 mb-4">
+        <div class="card border-0 rounded shadow-lg overflow-hidden position-relative">
+          <img src="{% static 'codefyn-5.0/images/faces/manager.jpeg' %}" alt="M. Sharma" class="card-img-top" style="height: 250px; object-fit: cover;">
+          <div class="card-body d-flex flex-column justify-content-end p-4 text-center bg-light position-absolute bottom-0 start-0 end-0">
+            <h5 class="card-title mb-2">M. Sharma</h5>
+            <p class="card-text">Service Manager</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Contact Us Section -->
+<section class="py-5" style="background: #f5f5f5;" data-aos="fade-up" data-aos-delay="600">
+  <div class="container text-center">
+    <h2 class="text-danger mb-4">Contact Us</h2>
+    <div class="bg-white p-5 rounded shadow-lg">
+      <p class="lead mb-4">For any inquiries or additional information, feel free to reach out to us:</p>
+      <ul class="list-unstyled mb-4">
+        <li class="mb-3">
+          <i class="bi bi-envelope text-danger" style="font-size: 1.5rem;"></i>
+          <p class="mt-2">Email: <a href="mailto:info@fixenix.com" class="text-danger">info@fixenix.com</a></p>
+        </li>
+        <li class="mb-3">
+          <i class="bi bi-phone text-danger" style="font-size: 1.5rem;"></i>
+          <p class="mt-2">Phone: +91-123-456-7890</p>
+        </li>
+        <li class="mb-3">
+          <i class="bi bi-geo-alt text-danger" style="font-size: 1.5rem;"></i>
+          <p class="mt-2">Address: Siliguri, West Bengal, India</p>
+        </li>
+      </ul>
+      <!-- Google Map Embed -->
+      <div class="map-responsive mb-4" style="border-radius: 10px; overflow: hidden;">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14599.954979931952!2d88.42912111950645!3d26.72747328324226!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e489a1cfd0b529%3A0x3b9cbd30fa1a0631!2sSiliguri%2C%20West%20Bengal%2C%20India!5e0!3m2!1sen!2sus!4v1639541593457!5m2!1sen!2sus" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+      <!-- Contact Form -->
+      <h4 class="text-danger mb-4">Send Us a Message</h4>
+      <form>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <input type="text" class="form-control" placeholder="Your Name" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <input type="email" class="form-control" placeholder="Your Email" required>
+          </div>
+          <div class="col-12 mb-3">
+            <textarea class="form-control" rows="4" placeholder="Your Message" required></textarea>
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-danger btn-lg">Send Message</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+
+{% endblock %}

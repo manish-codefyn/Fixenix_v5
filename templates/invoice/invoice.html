@@ -1,0 +1,256 @@
+<div class="invoice-box">
+
+
+  <table cellpadding="0" cellspacing="0">
+    <tr class="top_rw">
+      <td colspan="2">
+        <h2 style="margin-bottom: 0px; text-success">
+          <img src="{{ logo_url }}" alt="Logo" style="width:150px; height:auto;">
+        </h2>
+        <table style="border: none">
+          <tr>
+            <td>
+              <b> Mobile: {{ company_mobile }} </b> | <b>Email: {{ company_email }} </b> |
+              <b> Web: {{ company_website }} </b><br />
+              <b> Address: {{ company_address }}</b>
+            </td>
+          </tr>
+        </table>
+      </td>
+      <td style="width: 20%">
+        <div class="qr-code">
+          <img src="{{ qr_code }}" alt="QR Code" style="max-width: 200px;" />
+        </div>
+      </td>
+    </tr>
+    <tr class="information">
+      <td colspan="3">
+        <table style="border: none">
+          <h2
+            style="
+              text-align: center;
+              align-items: center;
+              font-weight: 600;
+              border-bottom: #111;
+            "
+          >
+            Invoice
+          </h2>
+          <tr>
+            <td>
+              <table style="width: 100%; table-layout: fixed; border-collapse: collapse;">
+                <tr>
+                  <td style="word-wrap: break-word;">Invoice No:#{{ booking_id }}</td>
+                </tr>
+                <tr>
+                  <td style="word-wrap: break-word;">Customer Name: {{ customer_name }}</td>
+                </tr>
+                <tr>
+                  <td style="word-wrap: break-word;">Mobile: {{ customer_phone }}</td>
+                </tr>
+              </table>
+            </td>
+            <td>
+              <table style="border: none" class="info">
+                <tr>
+                  <td style="word-wrap: break-word;">Email: {{ customer_email }}</td>
+                </tr>
+                <tr>
+                  <td style="word-wrap: break-word;">Amount Paid: Rs.{{ amount_paid }}</td>
+                </tr>
+                <tr>
+                  <td style="word-wrap: break-word;">Booking Date: {{ date }}</td>
+                </tr>
+              </table>
+            </td>
+            <table style="width: 100%; table-layout: fixed; border-collapse: collapse;">
+              <tr>
+                <td style="word-wrap: break-word;">Service Name: {{ service_name }}</td>
+              </tr>
+              <tr>
+                <td style="word-wrap: break-word;">Payment Status: {{ payment_status }}</td>
+              </tr>
+              <tr>
+                <td style="word-wrap: break-word;">Transaction Id: {{ payment_id }}</td>
+              </tr>
+            </table>
+            <table>
+              <tr>
+                <td style="text-align: right; width: 80%;"><strong>TOTAL PRICE:</strong></td>
+                <td><strong>Rs.{{ amount_paid }}</strong></td>
+              </tr>
+            </table>
+            <table style="border: none">
+              <tr>
+                <td>
+                  <pdf:barcode
+                    value="{{ booking_id }}"
+                    type="code128"
+                    humanreadable="1"
+                    align="bottom"
+                  />
+                </td>
+              </tr>
+            </table>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3">
+        <table cellspacing="0px" cellpadding="2px">
+          <tr>
+            <td width="50%">
+              <div class="footer">
+                <p><strong>Thank you for Booking Fixenix Services!</strong></p>
+                <p>We appreciate your business and look forward to serving you again soon.</p>
+              </div>
+              <b>Declaration:</b><br />
+              All sales are final. Please review our Return and Refund Policy for details.
+            </td>
+            <td>
+              * This is a computer-generated invoice and does not require a physical signature.
+            </td>
+          <tr>
+            <td width="50%"></td>
+            <td class="sign">
+              <div>
+                <img src="{{ stamp_url }}" class="stamp" />
+              </div>
+              <b> Authorized Signature </b>
+              <br />
+              <br />
+              ...................................
+              <br />
+              <br />
+              <br />
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  {% if payment_status|lower == "paid" %}
+  <div class="paid-watermark">
+    PAID
+  </div>
+  {% endif %}
+</div>
+
+<style>
+  .paid-watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 48px;
+    font-weight: bold;
+    color: greenyellow;
+    opacity: 0.3; /* Makes it translucent */
+    z-index: 9999;
+    pointer-events: none; /* Ensures it doesn't interfere with other elements */
+    text-align: center;
+  }
+
+  .invoice-box {
+    position: relative; /* Ensures the watermark is positioned relative to the invoice container */
+  }
+
+  .sign {
+    text-align: center;
+    align-items: center;
+    align-content: center;
+  }
+
+  .stamp {
+    height: 80px;
+    width: 80px;
+    margin-right: 5px;
+  }
+
+  .top_rw {
+    background-color: #f4f4f4;
+  }
+
+  table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+  }
+
+  th,
+  td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  th {
+    width: 50%;
+  }
+
+  .container {
+    width: 100%;
+    margin: auto;
+    padding: 10mm;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  button {
+    padding: 5px 10px;
+    font-size: 14px;
+  }
+
+  .invoice-box {
+    max-width: 890px;
+    margin: auto;
+    padding: 5px;
+    border: 1px solid #111;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    font-size: 12px;
+    color: #555;
+  }
+
+  .invoice-box table {
+    width: 100%;
+    line-height: inherit;
+    text-align: left;
+    border: solid 1px #ccc;
+  }
+
+  .invoice-box table td {
+    padding: 5px;
+    vertical-align: middle;
+  }
+
+  .invoice-box table tr td:nth-child(2) {
+    text-align: right;
+  }
+
+  .invoice-box table tr.top table td {
+    padding-bottom: 10px;
+  }
+
+  .invoice-box table tr.information table td {
+    padding-bottom: 5px;
+  }
+
+  .invoice-box table tr.heading td {
+    background: #eee;
+    border-bottom: 10px solid #ddd;
+    font-weight: bold;
+    font-size: 12px;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .invoice-box table tr.top table td,
+    .invoice-box table tr.information table td {
+      width: 100%;
+      display: block;
+      text-align: center;
+    }
+  }
+</style>

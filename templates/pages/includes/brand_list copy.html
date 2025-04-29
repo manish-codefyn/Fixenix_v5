@@ -1,0 +1,130 @@
+<div class="container py-5">
+    <section class="popular text-center">
+        <h2 class="fw-bold text-primary text-gradient mb-4">We Repair Most Popular Brands </h2>
+        <hr class="mb-4 mx-auto" style="width: 150px; height: 3px; background-color: #0d6efd; border: none;" />
+        <div class="slider-container">
+            <div class="slider">
+                <div>
+                    <a href="#"><img src="/static/codefyn-5.0/images/brands/apple.png" alt="Apple" /></a>
+                </div>
+                <div>
+                    <a href="#"><img src="/static/codefyn-5.0/images/brands/samsung.png" alt="Samsung" /></a>
+                </div>
+                <div>
+                    <a href="#"><img src="/static/codefyn-5.0/images/brands/oppo.png" alt="Oppo" /></a>
+                </div>
+                <div>
+                    <a href="#"><img src="/static/codefyn-5.0/images/brands/vivo.png" alt="Vivo" /></a>
+                </div>
+                <div>
+                    <a href="#"><img src="/static/codefyn-5.0/images/brands/mi.png" alt="Mi" /></a>
+                </div>
+                <div>
+                    <a href="#"><img src="/static/codefyn-5.0/images/brands/nokia.png" alt="Nokia" /></a>
+                </div>
+                <div>
+                    <a href="#"><img src="/static/codefyn-5.0/images/brands/microsoft.png" alt="Microsoft" /></a>
+                </div>
+                <div>
+                    <a href="#"><img src="/static/codefyn-5.0/images/brands/micromax.png" alt="Micromax" /></a>
+                </div>
+                <div>
+                    <a href="#"><img src="/static/codefyn-5.0/images/brands/lava.png" alt="Lava" /></a>
+                </div>
+                <div>
+                    <a href="#"><img src="/static/codefyn-5.0/images/brands/jio.png" alt="Jio" /></a>
+                </div>
+                <div>
+                    <a href="#"><img src="/static/codefyn-5.0/images/brands/lenovo.png" alt="Lenovo" /></a>
+                </div>
+                <div>
+                    <a href="#"><img src="/static/codefyn-5.0/images/brands/asus.png" alt="Asus" /></a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+.slider-container {
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.slider img {
+    width: 150px;
+    height: 80px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+    margin: 0 auto;
+}
+
+.slider img:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.slick-prev, .slick-next {
+    background-color: #0d6efd;
+    color: white;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}
+
+.slick-prev:hover, .slick-next:hover {
+    background-color: #0b5ed7;
+}
+
+.slick-prev:before, .slick-next:before {
+    font-size: 16px;
+    color: white;
+}
+
+.slick-dots li button:before {
+    font-size: 12px;
+    color: #0d6efd;
+}
+
+.slick-dots li.slick-active button:before {
+    color: #0b5ed7;
+}
+</style>
+
+
+
+<script>
+    $(document).ready(function () {
+        $('.slider').slick({
+            slidesToShow: 6,
+            slidesToScroll: 1,
+            arrows: true,
+            dots: true,
+            autoplay: true,
+            autoplaySpeed: 2000,
+            responsive: [
+                {
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 4,
+                    },
+                },
+                {
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 3,
+                    },
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 2,
+                    },
+                },
+            ],
+        });
+    });
+</script>

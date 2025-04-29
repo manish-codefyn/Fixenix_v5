@@ -1,0 +1,384 @@
+
+  <style>
+    .loading-body {
+      margin: 0;
+      padding: 0;
+      background-color: hsl(223, 10%, 90%);
+      color: #111;
+      display: grid;
+      place-items: center;
+      height: 100vh;
+      font: 1em/1.5 sans-serif;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .device {
+      position: relative;
+      width: 4em;
+      height: 4em;
+    }
+
+    .device__a,
+    .device__a-1,
+    .device__a-2,
+    .device__b,
+    .device__c,
+    .device__d,
+    .device__e,
+    .device__f,
+    .device__g {
+      animation: device-a 3s cubic-bezier(0.65,0,0.35,1) infinite;
+      position: absolute;
+      transition: background-color 0.3s, box-shadow 0.3s;
+    }
+
+    .device__a,
+    .device__d,
+    .device__e {
+      background: linear-gradient(135deg, #ff416c, #ff4b2b);
+      box-shadow: 0 0 0 0.25em inset;
+    }
+
+    .device__a {
+      border-radius: 0.375em;
+      top: 0;
+      width: 4em;
+      height: 2.5em;
+      z-index: 1;
+    }
+
+    .device__a-1,
+    .device__a-2,
+    .device__b,
+    .device__c,
+    .device__f,
+    .device__g {
+      background-color: hsl(0, 11%, 9%);
+      border-radius: 0.125em;
+    }
+
+    .device__a-1 {
+      animation-name: device-a-1;
+      top: 2.25em;
+      left: 1.5em;
+      width: 1em;
+      height: 0.25em;
+    }
+
+    .device__a-2 {
+      animation-name: device-a-2;
+      top: 0.625em;
+      right: 0;
+      width: 0.25em;
+      height: 0.75em;
+    }
+
+    .device__b {
+      animation-name: device-b;
+      top: 2.25em;
+      left: 1.875em;
+      width: 0.25em;
+      height: 1em;
+    }
+
+    .device__c {
+      animation-name: device-c;
+      top: 3em;
+      left: 1em;
+      width: 2em;
+      height: 0.25em;
+    }
+
+    .device__d,
+    .device__e {
+      left: 1.25em;
+      width: 1.5em;
+      height: 0.875em;
+      visibility: hidden;
+    }
+
+    .device__d {
+      animation-name: device-d;
+      border-radius: 0.375em 0.375em 0 0;
+      top: 0.75em;
+    }
+
+    .device__e {
+      animation-name: device-e;
+      border-radius: 0 0 0.375em 0.375em;
+      top: 1.625em;
+    }
+
+    .device__f,
+    .device__g {
+      filter: blur(0.375em);
+      bottom: 0;
+      height: 0.25em;
+    }
+
+    .device__f {
+      animation-name: device-f;
+      opacity: 0.5;
+      left: 1em;
+      width: 2em;
+    }
+
+    .device__g {
+      animation-name: device-g;
+      opacity: 0;
+      left: 0;
+      width: 4em;
+    }
+
+    /* Animations */
+    @keyframes device-a {
+      from,
+      to {
+        animation-timing-function: cubic-bezier(0.33,0,0.67,0);
+        left: 0;
+        width: 4em;
+        height: 2.5em;
+        transform: translateY(0);
+      }
+      12.5% {
+        animation-timing-function: cubic-bezier(0.33,1,0.67,1);
+        left: 0;
+        width: 4em;
+        height: 2.5em;
+        transform: translateY(1.5em);
+      }
+      25% {
+        animation-timing-function: cubic-bezier(0.33,0,0.67,0);
+        left: 0;
+        width: 4em;
+        height: 2.5em;
+        transform: translateY(0.375em);
+      }
+      37.5% {
+        animation-timing-function: cubic-bezier(0.33,1,0.67,1);
+        left: 0;
+        width: 4em;
+        height: 2.5em;
+        transform: translateY(1.5em);
+      }
+      50% {
+        animation-timing-function: cubic-bezier(0.33,0,0.67,0);
+        left: 1em;
+        width: 2em;
+        height: 3em;
+        transform: translateY(0.125em);
+      }
+      62.5% {
+        animation-timing-function: cubic-bezier(0.33,1,0.67,1);
+        left: 1em;
+        width: 2em;
+        height: 3em;
+        transform: translateY(1em);
+      }
+      75% {
+        animation-timing-function: cubic-bezier(0.33,0,0.67,0);
+        left: 1em;
+        width: 2em;
+        height: 2em;
+        transform: translateY(0.625em);
+      }
+      87.5% {
+        animation-timing-function: cubic-bezier(0.33,1,0.67,1);
+        left: 1em;
+        width: 2em;
+        height: 2em;
+        transform: translateY(1.375em);
+      }
+    }
+
+    @keyframes device-a-1 {
+      from {
+        animation-timing-function: steps(1,end);
+        left: 1.5em;
+        width: 1em;
+        transform: translateY(0);
+        visibility: hidden;
+      }
+      12.5% {
+        animation-timing-function: cubic-bezier(0.33,1,0.67,1);
+        left: 1.5em;
+        width: 1em;
+        transform: translateY(0);
+        visibility: visible;
+      }
+      25%,
+      37.5% {
+        animation-timing-function: cubic-bezier(0.33,1,0.67,1);
+        left: 1.5em;
+        width: 1em;
+        transform: translateY(-0.5em);
+        visibility: visible;
+      }
+      50%,
+      62.5% {
+        animation-timing-function: cubic-bezier(0.33,1,0.67,1);
+        left: 0.875em;
+        width: 0.25em;
+        transform: translateY(0);
+        visibility: visible;
+      }
+      75%,
+      to {
+        animation-timing-function: cubic-bezier(0.33,1,0.67,1);
+        left: 0.875em;
+        width: 0.25em;
+        transform: translateY(-0.5em);
+        visibility: hidden;
+      }
+    }
+
+    @keyframes device-a-2 {
+      from {
+        animation-timing-function: steps(1,end);
+        transform: translate(0,0.375em);
+        visibility: hidden;
+      }
+      62.5% {
+        animation-timing-function: cubic-bezier(0.33,1,0.67,1);
+        transform: translate(0,0.375em);
+        visibility: visible;
+      }
+      75%,
+      87.5% {
+        animation-timing-function: cubic-bezier(0.33,1,0.67,1);
+        transform: translate(0.375em,0);
+        visibility: visible;
+      }
+      to {
+        transform: translate(0,0.25em);
+        visibility: visible;
+      }
+    }
+
+    @keyframes device-b {
+      from,
+      to {
+        animation-timing-function: cubic-bezier(0.33,0,0.67,0);
+        transform: translateY(0);
+        visibility: visible;
+      }
+      10%,
+      12.5% {
+        animation-timing-function: steps(1,start);
+        transform: translateY(0.75em);
+        visibility: visible;
+      }
+      25% {
+        animation-timing-function: steps(1,start);
+        transform: translateY(-0.5em);
+        visibility: hidden;
+      }
+      50% {
+        animation-timing-function: steps(1,start);
+        transform: translateY(0);
+        visibility: visible;
+      }
+      75% {
+        animation-timing-function: steps(1,start);
+        transform: translateY(0.75em);
+        visibility: hidden;
+      }
+    }
+
+    @keyframes device-c {
+      from,
+      to {
+        transform: scaleX(0);
+        opacity: 0;
+      }
+      25% {
+        transform: scaleX(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scaleX(1);
+        opacity: 0;
+      }
+      75% {
+        transform: scaleX(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes device-d {
+      from,
+      to {
+        transform: translateY(0);
+        opacity: 0;
+      }
+      50% {
+        transform: translateY(-0.5em);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 0;
+      }
+    }
+
+    @keyframes device-e {
+      from,
+      to {
+        transform: translateY(0);
+        opacity: 0;
+      }
+      50% {
+        transform: translateY(0.5em);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 0;
+      }
+    }
+
+    @keyframes device-f {
+      from {
+        transform: scaleY(0);
+        opacity: 0.5;
+      }
+      50% {
+        transform: scaleY(1);
+        opacity: 1;
+      }
+      100% {
+        transform: scaleY(0);
+        opacity: 0.5;
+      }
+    }
+
+    @keyframes device-g {
+      from {
+        transform: scaleY(0);
+        opacity: 0;
+      }
+      50% {
+        transform: scaleY(1);
+        opacity: 0.5;
+      }
+      100% {
+        transform: scaleY(0);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<section class="loading-body">
+  <div class="device">
+    <div class="device__a">
+      <div class="device__a-1"></div>
+      <div class="device__a-2"></div>
+    </div>
+    <div class="device__b"></div>
+    <div class="device__c"></div>
+    <div class="device__d"></div>
+    <div class="device__e"></div>
+    <div class="device__f"></div>
+    <div class="device__g"></div>
+  </div>
+</section>
