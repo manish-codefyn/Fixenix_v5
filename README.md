@@ -2,12 +2,12 @@
 docker compose up -d --build
 
 docker-compose exec db psql -U postgres
-CREATE DATABASE fixenix_edutech;
-CREATE USER codefyn WITH PASSWORD 'Illuminati@007;
-GRANT ALL PRIVILEGES ON DATABASE fixenix TO codefyn;
+CREATE DATABASE fi';
+CREATE USER codefyn WITH PASSWORD '';
+GRANT ALL PRIVILEGES ON DATABASE USERNAME TO 'NAME;
 
 
-CREATE ROLE codefyn WITH LOGIN PASSWORD 'Illuminati@007';
+CREATE ROLE codefyn WITH LOGIN PASSWORD '';
 ALTER ROLE codefyn CREATEDB;
 ALTER ROLE codefyn WITH SUPERUSER;
 docker compse eexec web pyatrhon manage.py migrate
